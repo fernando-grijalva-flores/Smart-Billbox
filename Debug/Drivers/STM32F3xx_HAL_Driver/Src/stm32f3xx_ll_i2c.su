@@ -1,0 +1,14 @@
+stm32f3xx_ll_i2c.h:430:22:LL_I2C_Enable	16	static
+stm32f3xx_ll_i2c.h:444:22:LL_I2C_Disable	16	static
+stm32f3xx_ll_i2c.h:476:22:LL_I2C_ConfigFilters	24	static
+stm32f3xx_ll_i2c.h:820:22:LL_I2C_SetOwnAddress1	24	static
+stm32f3xx_ll_i2c.h:831:22:LL_I2C_EnableOwnAddress1	16	static
+stm32f3xx_ll_i2c.h:842:22:LL_I2C_DisableOwnAddress1	16	static
+stm32f3xx_ll_i2c.h:923:22:LL_I2C_SetTiming	16	static
+stm32f3xx_ll_i2c.h:997:22:LL_I2C_SetMode	16	static
+stm32f3xx_ll_i2c.h:1978:22:LL_I2C_AcknowledgeNextData	16	static
+stm32f3xx_ll_bus.h:734:22:LL_APB1_GRP1_ForceReset	16	static
+stm32f3xx_ll_bus.h:799:22:LL_APB1_GRP1_ReleaseReset	16	static
+stm32f3xx_ll_i2c.c:87:13:LL_I2C_DeInit	24	static
+stm32f3xx_ll_i2c.c:139:13:LL_I2C_Init	16	static
+stm32f3xx_ll_i2c.c:207:6:LL_I2C_StructInit	16	static

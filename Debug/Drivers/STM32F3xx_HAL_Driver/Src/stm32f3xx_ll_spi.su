@@ -1,0 +1,8 @@
+stm32f3xx_ll_spi.h:382:26:LL_SPI_IsEnabled	16	static
+stm32f3xx_ll_spi.h:666:22:LL_SPI_SetRxFIFOThreshold	16	static
+stm32f3xx_ll_spi.h:775:22:LL_SPI_SetCRCPolynomial	16	static
+stm32f3xx_ll_bus.h:988:22:LL_APB2_GRP1_ForceReset	16	static
+stm32f3xx_ll_bus.h:1033:22:LL_APB2_GRP1_ReleaseReset	16	static
+stm32f3xx_ll_spi.c:134:13:LL_SPI_DeInit	24	static
+stm32f3xx_ll_spi.c:201:13:LL_SPI_Init	24	static
+stm32f3xx_ll_spi.c:279:6:LL_SPI_StructInit	16	static

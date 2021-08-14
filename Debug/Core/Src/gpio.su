@@ -1,0 +1,13 @@
+stm32f3xx_ll_bus.h:287:22:LL_AHB1_GRP1_EnableClock	24	static
+stm32f3xx_ll_gpio.h:798:26:LL_GPIO_IsInputPinSet	16	static
+stm32f3xx_ll_gpio.h:879:22:LL_GPIO_SetOutputPin	16	static
+stm32f3xx_ll_gpio.h:908:22:LL_GPIO_ResetOutputPin	16	static
+gpio.c:36:6:MX_GPIO_Init	32	static
+gpio.c:114:7:MX_Joystick_Up	16	static
+gpio.c:119:7:MX_Joystick_Down	16	static
+gpio.c:124:7:MX_Joystick_Right	16	static
+gpio.c:129:7:MX_Joystick_Left	16	static
+gpio.c:134:7:MX_Joystick_Center	16	static
+gpio.c:139:6:MX_RGB_Red	16	static
+gpio.c:146:6:MX_RGB_Green	16	static
+gpio.c:153:6:MX_RGB_Blue	16	static
