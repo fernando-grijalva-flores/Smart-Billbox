@@ -29,6 +29,7 @@
 #include "HAL_TEMPSen.h"
 #include "HAL_RTC.h"
 #include "HAL_LCD.h"
+#include "HAL_BUZZER.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -138,6 +139,10 @@ int main(void)
 //	  LL_mDelay(150);
 //	  /*-------------------------------------------------------------------------*/
 //    /* USER CODE BEGIN 3 */
+
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
 
     /* USER CODE END WHILE */
 

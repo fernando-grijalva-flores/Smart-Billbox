@@ -23,21 +23,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
   9 .ARM.attributes 00000030  00000000  00000000  00020538  2**0
                   CONTENTS, READONLY
- 10 .debug_info   00007f5a  00000000  00000000  00020568  2**0
+ 10 .debug_info   000083f9  00000000  00000000  00020568  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_abbrev 00001e76  00000000  00000000  000284c2  2**0
+ 11 .debug_abbrev 00001e5e  00000000  00000000  00028961  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_aranges 00000bb8  00000000  00000000  0002a338  2**3
+ 12 .debug_aranges 00000bb8  00000000  00000000  0002a7c0  2**3
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_ranges 00000a88  00000000  00000000  0002aef0  2**3
+ 13 .debug_ranges 00000a88  00000000  00000000  0002b378  2**3
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_line   00004636  00000000  00000000  0002b978  2**0
+ 14 .debug_line   00004891  00000000  00000000  0002be00  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_str    00002904  00000000  00000000  0002ffae  2**0
+ 15 .debug_str    00002917  00000000  00000000  00030691  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .comment      0000007c  00000000  00000000  000328b2  2**0
+ 16 .comment      0000007c  00000000  00000000  00032fa8  2**0
                   CONTENTS, READONLY
- 17 .debug_frame  00002ea4  00000000  00000000  00032930  2**2
+ 17 .debug_frame  00002ea4  00000000  00000000  00033024  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -7754,8 +7754,8 @@ uint16_t HAL_POT_GetBinaryValue (uint32_t Channel)
 	uint16_t POT_value = 0;
  8002d90:	2300      	movs	r3, #0
  8002d92:	81fb      	strh	r3, [r7, #14]
-	MX_ADC1_SetChannel(ADC_Channel_1);
- 8002d94:	2000      	movs	r0, #0
+	MX_ADC1_SetChannel(Channel);
+ 8002d94:	6878      	ldr	r0, [r7, #4]
  8002d96:	f7fd fc45 	bl	8000624 <MX_ADC1_SetChannel>
 	MX_ADC1_StartConversion();
  8002d9a:	f7fd fc67 	bl	800066c <MX_ADC1_StartConversion>
