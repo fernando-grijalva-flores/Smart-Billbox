@@ -1,6 +1,7 @@
 #include <Diplays.h>
 #include "HAL_POT.h"
-
+#include "HAL_RGB.h"
+#include "HAL_LCD.h"
 // Estados de la FSM
 typedef enum{
 	E0,
@@ -18,10 +19,10 @@ Estados EAnt = E0;
 
 
 // Puntero seleccion
-short Puntero = 0, first = 1;
+short Puntero = 0, first = 0, inicio = 0;
 
 // Variables almacenamiento tiempo
-uint8_t Horas, Minutos, Intervalo1, Intervalo2, Intervalo3;
+uint8_t Horas, Minutos, IntervaloH1, IntervaloH2, IntervaloH3, IntervaloM1, IntervaloM2, IntervaloM3;
 
 // Estado anterior
 void estado_Anterior(short btnU, short btnD, short btnL, short btnR, short btnC){
@@ -34,22 +35,28 @@ void estado_Anterior(short btnU, short btnD, short btnL, short btnR, short btnC)
 
 // Funciones por estado
 void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
-	//Configuracion de reloj
+	// Configuracion de reloj
 	// Codigo de estado inicio
+	if(first == 0){
+		// Mostrado de valores fijos
+		HAL_LCD_Write_AsciiString("Configuracion",24,0);
+		HAL_LCD_Write_AsciiString("Reloj",48,1);
+		HAL_LCD_Write_ascii(':',60,2);
+		HAL_LCD_Write_AsciiString(">Aceptar<",36,3);
+		first = 1;
+	}
 	Horas = HAL_POT_Percentage(POT1_Channel)*23/100;
 	Minutos = HAL_POT_Percentage(POT2_Channel)*59/100;
-	if(first == 0){
-	HAL_LCD_Write_AsciiString("Configuracion",24,0);
-	HAL_LCD_Write_AsciiString("Reloj",48,1);
-	HAL_LCD_Write_ascii(':',60,2);
-	HAL_LCD_Write_AsciiString(">Aceptar<",36,3);
-	first = 1;
-	}
 	HAL_LCD_Write_Number(&Horas,48,2);
 	HAL_LCD_Write_Number(&Minutos,67,2);
-	// Codigo de estado fin
-	// Cambio de estado
-	if(btnC == 1 && btnC != btnCa){
+	if(btnC == 1 && btnC != btnCa && inicio == 0){
+		// Cambio de estado
+		EA = E1;
+		HAL_LCD_Clear();
+		first = 0;
+	}
+	else if(btnC == 1 && btnC != btnCa){
+		// Cambio de estado
 		first = 0;
 		EA = E1;
 		HAL_LCD_Clear();
@@ -58,18 +65,76 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
 }
 
 void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
+	// Configuracion pastillas
 	// Codigo de estado inicio
-	rgb_verde();
-	// Codigo de estado fin
-	// Cambio de estado
-	if(btnU == 1 && btnU != btnUa && btnD == 0)
+	if(first == 0){
+		// Mostrado de valores fijos
+		HAL_LCD_Write_AsciiString("Pastilla  A B C",18,0);
+		HAL_LCD_Write_AsciiString("Intervalo",36,1);
+		HAL_LCD_Write_AsciiString(":",60,2);
+		HAL_LCD_Write_AsciiString(">Aceptar<",36,3);
+	}
+	// Obtencion horas y minutos
+	Horas = HAL_POT_Percentage(POT1_Channel)*23/100;
+	Minutos = HAL_POT_Percentage(POT2_Channel)*59/100;
+	// Mostrado valor seleccionado
+	HAL_LCD_Write_Number(&Horas,48,2);
+	HAL_LCD_Write_Number(&Minutos,67,2);
+
+	if(Puntero == 0){
+		// Si el puntero esta en A carga los valores a A
+		IntervaloH1 = Horas;
+		IntervaloM1 = Minutos;
+		HAL_LCD_Write_ascii(">",72,0);
+		HAL_LCD_Write_ascii(" ",84,0);
+		HAL_LCD_Write_ascii(" ",96,0);
+	}
+	else if(Puntero == 1){
+		// Si el puntero esta en B carga los valores a B
+		IntervaloH2 = Horas;
+		IntervaloM2 = Minutos;
+		HAL_LCD_Write_ascii(" ",72,0);
+		HAL_LCD_Write_ascii(">",84,0);
+		HAL_LCD_Write_ascii(" ",96,0);
+	}
+	else if(Puntero == 2){
+		// Si el puntero esta en C carga los valores a C
+		IntervaloH3 = Horas;
+		IntervaloM3 = Minutos;
+		HAL_LCD_Write_ascii("",72,0);
+		HAL_LCD_Write_ascii(" ",84,0);
+		HAL_LCD_Write_ascii(">",96,0);
+	}
+	// Puntero
+	if(btnL == 1 && btnL != btnLa && btnR == 0){
+		Puntero -= 1;
+		if (Puntero < 0)
+			Puntero = 2;
+	}
+	else if(btnR == 1 && btnR != btnRa && btnL == 0){
+		Puntero += 1;
+		if (Puntero > 2)
+			Puntero = 0;
+	}
+	// Aceptar
+	if(btnC == 1 && btnC != btnCa && inicio == 0){
+		// Cambio de estado
 		EA = E2;
-	else if(btnD == 1 && btnD != btnDa && btnU == 0)
-		EA = E0;
+		HAL_LCD_Clear();
+		first = 0;
+		inicio = 1;
+	}
+	else if(btnC == 1 && btnC != btnCa){
+		// Cambio de estado
+		first = 0;
+		EA = E3;
+		HAL_LCD_Clear();
+	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
+	// Pantalla principal
 	// Codigo de estado inicio
 	rgb_azul();
 	// Codigo de estado fin
@@ -82,6 +147,7 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
 }
 
 void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
+	// Menu
 	// Codigo de estado inicio
 	rgb_amarillo();
 	// Codigo de estado fin
@@ -94,6 +160,7 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
 }
 
 void EDO_4(short btnU, short btnD, short btnL, short btnR, short btnC){
+	// Alarma Temperatura
 	// Codigo de estado inicio
 	rgb_celeste();
 	// Codigo de estado fin
@@ -106,6 +173,7 @@ void EDO_4(short btnU, short btnD, short btnL, short btnR, short btnC){
 }
 
 void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
+	// Alarma Pastilla
 	// Codigo de estado inicio
 	rgb_morado();
 	// Codigo de estado fin
