@@ -38,7 +38,9 @@ extern "C" {
 void MX_SPI1_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+void MX_SPI1_Send(uint8_t tx);
+void MX_SPI1_CS_Enable(void);
+void MX_SPI1_CS_Disable(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

@@ -28,6 +28,7 @@
 #include "HAL_POT.h"
 #include "HAL_TEMPSen.h"
 #include "HAL_RTC.h"
+#include "HAL_LCD.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,13 +102,14 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TEMPSen_Init();
   HAL_RTC_Init();
+  HAL_LCD_Init();
   //TEST fer
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   HAL_POT_Init();
-
+  HAL_LCD_MENU(0,0,0,0);
 
   while (1)
   {
