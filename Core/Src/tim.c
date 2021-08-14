@@ -77,6 +77,7 @@ void MX_TIM2_Init(void)
 }
 
 /* USER CODE BEGIN 1 */
+
 //ThisFunction enable the counter used to create the PWM signal
 void MX_PWM_TurnOn(void)
 {
