@@ -19,7 +19,7 @@ void HAL_POT_Init(void)
 uint16_t HAL_POT_GetBinaryValue (uint32_t Channel)
 {
 	uint16_t POT_value = 0;
-	MX_ADC1_SetChannel(ADC_Channel_1);
+	MX_ADC1_SetChannel(Channel);
 	MX_ADC1_StartConversion();
 	POT_value = MX_ADC1_GetValue();
 	LL_mDelay(10);

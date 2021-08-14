@@ -14,12 +14,23 @@ typedef enum{
 
 // Estado inicial
 Estados EA = E0;
+Estados EAnt = E0;
+
 
 // Puntero seleccion
-short Puntero = 0;
+short Puntero = 0, first = 1;
 
 // Variables almacenamiento tiempo
-int Horas, Minutos, Intervalo1, Intervalo2, Intervalo3;
+uint8_t Horas, Minutos, Intervalo1, Intervalo2, Intervalo3;
+
+// Estado anterior
+void estado_Anterior(short btnU, short btnD, short btnL, short btnR, short btnC){
+	btnUa = btnU;
+	btnDa = btnD;
+	btnLa = btnL;
+	btnRa = btnR;
+	btnCa = btnC;
+}
 
 // Funciones por estado
 void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
@@ -27,23 +38,23 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Codigo de estado inicio
 	Horas = HAL_POT_Percentage(POT1_Channel)*23/100;
 	Minutos = HAL_POT_Percentage(POT2_Channel)*59/100;
+	if(first == 0){
 	HAL_LCD_Write_AsciiString("Configuracion",24,0);
 	HAL_LCD_Write_AsciiString("Reloj",48,1);
-	HAL_LCD_Write_Number(Horas,48,2);
 	HAL_LCD_Write_ascii(':',60,2);
-	HAL_LCD_Write_Number(Minutos,67,2);
-	HAL_LCD_Write_AsciiString(">Aceptar<",36);
+	HAL_LCD_Write_AsciiString(">Aceptar<",36,3);
+	first = 1;
+	}
+	HAL_LCD_Write_Number(&Horas,48,2);
+	HAL_LCD_Write_Number(&Minutos,67,2);
 	// Codigo de estado fin
 	// Cambio de estado
 	if(btnC == 1 && btnC != btnCa){
+		first = 0;
 		EA = E1;
 		HAL_LCD_Clear();
 	}
-	btnUa = btnU;
-	btnDa = btnD;
-	btnLa = btnL;
-	btnRa = btnR;
-	btnCa = btnC;
+	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
@@ -55,11 +66,7 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 		EA = E2;
 	else if(btnD == 1 && btnD != btnDa && btnU == 0)
 		EA = E0;
-	btnUa = btnU;
-	btnDa = btnD;
-	btnLa = btnL;
-	btnRa = btnR;
-	btnCa = btnC;
+	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
@@ -71,11 +78,7 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
 		EA = E3;
 	else if(btnD == 1 && btnD != btnDa && btnU == 0)
 		EA = E1;
-	btnUa = btnU;
-	btnDa = btnD;
-	btnLa = btnL;
-	btnRa = btnR;
-	btnCa = btnC;
+	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
@@ -87,11 +90,7 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
 		EA = E4;
 	else if(btnD == 1 && btnD != btnDa && btnU == 0)
 		EA = E2;
-	btnUa = btnU;
-	btnDa = btnD;
-	btnLa = btnL;
-	btnRa = btnR;
-	btnCa = btnC;
+	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 void EDO_4(short btnU, short btnD, short btnL, short btnR, short btnC){
@@ -103,11 +102,7 @@ void EDO_4(short btnU, short btnD, short btnL, short btnR, short btnC){
 		EA = E5;
 	else if(btnD == 1 && btnD != btnDa && btnU == 0)
 		EA = E3;
-	btnUa = btnU;
-	btnDa = btnD;
-	btnLa = btnL;
-	btnRa = btnR;
-	btnCa = btnC;
+	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
@@ -119,11 +114,7 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
 		EA = E6;
 	else if(btnD == 1 && btnD != btnDa && btnU == 0)
 		EA = E4;
-	btnUa = btnU;
-	btnDa = btnD;
-	btnLa = btnL;
-	btnRa = btnR;
-	btnCa = btnC;
+	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 void EDO_6(short btnU, short btnD, short btnL, short btnR, short btnC){
@@ -135,11 +126,7 @@ void EDO_6(short btnU, short btnD, short btnL, short btnR, short btnC){
 		EA = E0;
 	else if(btnD == 1 && btnD != btnDa && btnU == 0)
 		EA = E5;
-	btnUa = btnU;
-	btnDa = btnD;
-	btnLa = btnL;
-	btnRa = btnR;
-	btnCa = btnC;
+	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 // Estructura para asignar una funcion a cada estado
