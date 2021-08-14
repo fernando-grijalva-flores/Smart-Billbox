@@ -23,8 +23,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "Diplays.h"
 #include "HAL_RGB.h"
-#include "HAL_FSM.h"
 #include "HAL_POT.h"
 #include "HAL_TEMPSen.h"
 #include "HAL_RTC.h"
@@ -109,14 +109,24 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   HAL_POT_Init();
-  HAL_LCD_MENU(0,0,0,0);
+  //HAL_LCD_MENU(0,0,0,0);
+
+
+  HAL_LCD_Write_AsciiString("Iniciando",36,1);
+  LL_mDelay(1000);
+  HAL_LCD_Clear();
 
   while (1)
   {
 	  short btnu = MX_Joystick_Up();
 	  short btnd = MX_Joystick_Down();
-	  POT1_Value=HAL_POT_Percentage(POT1_Channel);
-	  fsm(btnu, btnd);
+	  short btnl = MX_Joystick_Left();
+	  short btnr = MX_Joystick_Right();
+	  short btnc = MX_Joystick_Center();
+	  //POT1_Value = HAL_POT_Percentage(POT1_Channel);
+
+	  fsm(btnu, btnd, btnl, btnr, btnc);
+
 	  //test the integration of spi
 	  //This code is used to test the RTC configuration
 //	  uint16_t year = 0;
