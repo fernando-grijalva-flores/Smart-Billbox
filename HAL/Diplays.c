@@ -71,6 +71,11 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 		HAL_LCD_Write_AsciiString("Intervalo",36,1);
 		HAL_LCD_Write_AsciiString(":",60,2);
 		HAL_LCD_Write_AsciiString(">Aceptar<",36,3);
+		// > en A la primera vez
+		HAL_LCD_Write_ascii('>',72,0);
+		HAL_LCD_Write_ascii(' ',84,0);
+		HAL_LCD_Write_ascii(' ',96,0);
+		first = 1;
 	}
 	// Obtencion horas y minutos
 	Horas = HAL_POT_Percentage(POT1_Channel)*23/100;
