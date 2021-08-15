@@ -15,8 +15,6 @@ typedef enum{
 
 // Estado inicial
 Estados EA = E0;
-Estados EAnt = E0;
-
 
 // Puntero seleccion
 short Puntero = 0, first = 0, inicio = 0;
@@ -85,36 +83,61 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 		// Si el puntero esta en A carga los valores a A
 		IntervaloH1 = Horas;
 		IntervaloM1 = Minutos;
-		HAL_LCD_Write_ascii(">",72,0);
-		HAL_LCD_Write_ascii(" ",84,0);
-		HAL_LCD_Write_ascii(" ",96,0);
 	}
 	else if(Puntero == 1){
 		// Si el puntero esta en B carga los valores a B
 		IntervaloH2 = Horas;
 		IntervaloM2 = Minutos;
-		HAL_LCD_Write_ascii(" ",72,0);
-		HAL_LCD_Write_ascii(">",84,0);
-		HAL_LCD_Write_ascii(" ",96,0);
 	}
 	else if(Puntero == 2){
 		// Si el puntero esta en C carga los valores a C
 		IntervaloH3 = Horas;
 		IntervaloM3 = Minutos;
-		HAL_LCD_Write_ascii("",72,0);
-		HAL_LCD_Write_ascii(" ",84,0);
-		HAL_LCD_Write_ascii(">",96,0);
 	}
 	// Puntero
 	if(btnL == 1 && btnL != btnLa && btnR == 0){
 		Puntero -= 1;
 		if (Puntero < 0)
 			Puntero = 2;
+		switch (Puntero){
+			case 0:
+				HAL_LCD_Write_ascii('>',72,0);
+				HAL_LCD_Write_ascii(' ',84,0);
+				HAL_LCD_Write_ascii(' ',96,0);
+				break;
+			case 1:
+				HAL_LCD_Write_ascii(' ',72,0);
+				HAL_LCD_Write_ascii('>',84,0);
+				HAL_LCD_Write_ascii(' ',96,0);
+				break;
+			case 2:
+				HAL_LCD_Write_ascii(' ',72,0);
+				HAL_LCD_Write_ascii(' ',84,0);
+				HAL_LCD_Write_ascii('>',96,0);
+				break;
+		}
 	}
 	else if(btnR == 1 && btnR != btnRa && btnL == 0){
 		Puntero += 1;
 		if (Puntero > 2)
 			Puntero = 0;
+		switch (Puntero){
+			case 0:
+				HAL_LCD_Write_ascii('>',72,0);
+				HAL_LCD_Write_ascii(' ',84,0);
+				HAL_LCD_Write_ascii(' ',96,0);
+				break;
+			case 1:
+				HAL_LCD_Write_ascii(' ',72,0);
+				HAL_LCD_Write_ascii('>',84,0);
+				HAL_LCD_Write_ascii(' ',96,0);
+				break;
+			case 2:
+				HAL_LCD_Write_ascii(' ',72,0);
+				HAL_LCD_Write_ascii(' ',84,0);
+				HAL_LCD_Write_ascii('>',96,0);
+				break;
+		}
 	}
 	// Aceptar
 	if(btnC == 1 && btnC != btnCa && inicio == 0){
