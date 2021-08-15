@@ -34,7 +34,6 @@ void estado_Anterior(short btnU, short btnD, short btnL, short btnR, short btnC)
 // Funciones por estado
 void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Configuracion de reloj
-	// Codigo de estado inicio
 	if(first == 0){
 		// Mostrado de valores fijos
 		HAL_LCD_Write_AsciiString("Configuracion",24,0);
@@ -50,21 +49,23 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
 	if(btnC == 1 && btnC != btnCa && inicio == 0){
 		// Cambio de estado
 		EA = E1;
-		HAL_LCD_Clear();
 		first = 0;
+		inicio = 1;
+		HAL_LCD_Clear();
+		HAL_Set_ActualTime(Horas,Minutos,0);
 	}
 	else if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
+		EA = E3;
 		first = 0;
-		EA = E1;
 		HAL_LCD_Clear();
+		HAL_Set_ActualTime(Horas,Minutos,0);
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Configuracion pastillas
-	// Codigo de estado inicio
 	if(first == 0){
 		// Mostrado de valores fijos
 		HAL_LCD_Write_AsciiString("Pastilla  A B C",18,0);
@@ -148,14 +149,14 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 	if(btnC == 1 && btnC != btnCa && inicio == 0){
 		// Cambio de estado
 		EA = E2;
-		HAL_LCD_Clear();
 		first = 0;
 		inicio = 1;
+		HAL_LCD_Clear();
 	}
 	else if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
-		first = 0;
 		EA = E3;
+		first = 0;
 		HAL_LCD_Clear();
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
@@ -163,65 +164,102 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 
 void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Pantalla principal
-	// Codigo de estado inicio
-	rgb_azul();
-	// Codigo de estado fin
-	// Cambio de estado
-	if(btnU == 1 && btnU != btnUa && btnD == 0)
+	if(first == 0){
+		// Mostrado de valores fijos
+		HAL_LCD_Write_AsciiString("Reloj",48,0);
+		HAL_LCD_Write_ascii(':',60,1);
+		HAL_LCD_Write_AsciiString("Temperatura",30,2);
+		HAL_LCD_Write_AsciiString("°C",66,3);
+		first = 1;
+	}
+	uint8_t Hora,Minuto,Segundo;
+	// Obtener tiempo
+	HAL_Get_ActualTime(&Hora,&Minuto,&Segundo);
+	// Mostrar tiempo
+	HAL_LCD_Write_Number(Hora,48,1);
+	HAL_LCD_Write_Number(Minuto,66,1);
+	// Temperatura
+	uint8_t Temp = HAL_TEMPSen_ReadTemperature();
+	// Mostrar Temperaura
+	HAL_LCD_Write_Number(Temp,54,3);
+	if(btnC == 1 && btnC != btnCa){
+		// Cambio de estado
 		EA = E3;
-	else if(btnD == 1 && btnD != btnDa && btnU == 0)
-		EA = E1;
+		first = 0;
+		HAL_LCD_Clear();
+	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Menu
-	// Codigo de estado inicio
-	rgb_amarillo();
-	// Codigo de estado fin
-	// Cambio de estado
-	if(btnU == 1 && btnU != btnUa && btnD == 0)
-		EA = E4;
-	else if(btnD == 1 && btnD != btnDa && btnU == 0)
-		EA = E2;
+
+	if(btnC == 1 && btnC != btnCa){
+		// Cambio de estado
+
+		first = 0;
+		HAL_LCD_Clear();
+	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 void EDO_4(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Alarma Temperatura
-	// Codigo de estado inicio
-	rgb_celeste();
-	// Codigo de estado fin
-	// Cambio de estado
-	if(btnU == 1 && btnU != btnUa && btnD == 0)
-		EA = E5;
-	else if(btnD == 1 && btnD != btnDa && btnU == 0)
-		EA = E3;
-	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
+	if(first == 0){
+		// Mostrado de valores fijos
+		HAL_LCD_Write_AsciiString("Temperatura",30,1);
+		HAL_LCD_Write_AsciiString("Sobrepasada",30,2);
+		first = 1;
+	}
+	if(HAL_TEMPSen_ReadTemperature() < 40){
+		// Cambio de estado
+		EA = E2;
+		first = 0;
+		HAL_LCD_Clear();
+	}
 }
 
 void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Alarma Pastilla
-	// Codigo de estado inicio
-	rgb_morado();
-	// Codigo de estado fin
-	// Cambio de estado
-	if(btnU == 1 && btnU != btnUa && btnD == 0)
-		EA = E6;
-	else if(btnD == 1 && btnD != btnDa && btnU == 0)
-		EA = E4;
+	if(first == 0){
+		// Mostrado de valores fijos
+		HAL_LCD_Write_AsciiString("Tome pastilla",24,0);
+		HAL_LCD_Write_AsciiString("Rojo Verde",36,1);
+		HAL_LCD_Write_AsciiString("Azul",54,2);
+		HAL_LCD_Write_AsciiString(">Entendido<",30,3);
+		first = 1;
+	}
+	//if tiempo pastilla 1
+	//HAL_LCD_Write_ascii('>',30,1);
+	//else
+	//HAL_LCD_Write_ascii(' ',30,1);
+	//if tiempo pastilla 2
+	//HAL_LCD_Write_ascii('>',60,1);
+	//else
+	//HAL_LCD_Write_ascii(' ',60,1);
+	//if tiempo pastilla 3
+	//HAL_LCD_Write_ascii('>',48,2);
+	//else
+	//HAL_LCD_Write_ascii(' ',48,2);
+
+	if(btnC == 1 && btnC != btnCa){
+		// Cambio de estado
+		EA = E2;
+		first = 0;
+		HAL_LCD_Clear();
+	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 void EDO_6(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Codigo de estado inicio
-	rgb_blanco();
-	// Codigo de estado fin
-	// Cambio de estado
-	if(btnU == 1 && btnU != btnUa && btnD == 0)
-		EA = E0;
-	else if(btnD == 1 && btnD != btnDa && btnU == 0)
-		EA = E5;
+
+	if(btnC == 1 && btnC != btnCa){
+		// Cambio de estado
+		EA = E3;
+		first = 0;
+		HAL_LCD_Clear();
+	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
