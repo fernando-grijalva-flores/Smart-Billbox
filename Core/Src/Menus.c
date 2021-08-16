@@ -1,4 +1,4 @@
-#include <Diplays.h>
+#include <Menus.h>
 #include "HAL_POT.h"
 #include "HAL_RGB.h"
 #include "HAL_LCD.h"
@@ -23,17 +23,6 @@ Estados EA = E0;
 short Puntero = 0, first = 0, inicio = 0;
 // Variables almacenamiento tiempo
 uint8_t Horas, Minutos, IntervaloH1, IntervaloH2, IntervaloH3, IntervaloM1, IntervaloM2, IntervaloM3;
-uint8_t word[50][21]= {
-		"Configuracion",
-		"Reloj",
-		">Aceptar<",
-		"Pastilla  A B C",
-		"Intervalo"
-
-
-
-
-};
 
 // Estado anterior
 void estado_Anterior(short btnU, short btnD, short btnL, short btnR, short btnC){
@@ -49,10 +38,10 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Configuracion de reloj
 	if(first == 0){
 		// Mostrado de valores fijos
-		HAL_LCD_Write_AsciiString(word[configuration],24,0);
-		HAL_LCD_Write_AsciiString(word[clock],48,1);
+		HAL_LCD_Write_AsciiString(word[w_configuration],24,0);
+		HAL_LCD_Write_AsciiString(word[w_clock],48,1);
 		HAL_LCD_Write_ascii(':',60,2);
-		HAL_LCD_Write_AsciiString(word[accept],36,3);
+		HAL_LCD_Write_AsciiString(word[w_accept],36,3);
 		first = 1;
 	}
 	Horas = HAL_POT_Percentage(POT1_Channel)*23/100;
@@ -80,10 +69,10 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Configuracion pastillas
 	if(first == 0){
 		// Mostrado de valores fijos
-		HAL_LCD_Write_AsciiString(word[pillsABC],18,0);
-		HAL_LCD_Write_AsciiString(word[timeInterval],36,1);
+		HAL_LCD_Write_AsciiString(word[w_pillsABC],18,0);
+		HAL_LCD_Write_AsciiString(word[w_timeInterval],36,1);
 		HAL_LCD_Write_ascii(':',60,2);
-		HAL_LCD_Write_AsciiString(word[accept],36,3);
+		HAL_LCD_Write_AsciiString(word[w_accept],36,3);
 		// > en A la primera vez
 		HAL_LCD_Write_ascii('>',72,0);
 		HAL_LCD_Write_ascii(' ',84,0);
@@ -180,9 +169,9 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Pantalla principal
 	if(first == 0){
 		// Mostrado de valores fijos
-		HAL_LCD_Write_AsciiString("Reloj",48,0);
+		HAL_LCD_Write_AsciiString(word[w_clock],48,0);
 		HAL_LCD_Write_ascii(':',60,1);
-		HAL_LCD_Write_AsciiString("Temperatura",30,2);
+		HAL_LCD_Write_AsciiString(word[w_temp],30,2);
 		HAL_LCD_Write_ascii(SYMBOL_ASCII_CELSIUS,66,3);
 		HAL_LCD_Write_ascii('C',72,3);
 		first = 1;
@@ -211,14 +200,14 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Menu
 	if(first == 0){
 			// Mostrado de valores fijos
-			HAL_LCD_Write_AsciiString("Ajustar reloj",24,0);
-			HAL_LCD_Write_AsciiString("Ajustar pastilla",12,1);
-			HAL_LCD_Write_AsciiString("Hora y Tiempo",30,2);
-			HAL_LCD_Write_AsciiString("Intervalos pastillas",6,3);
+			HAL_LCD_Write_AsciiString(word[w_adjustClock],24,0);
+			HAL_LCD_Write_AsciiString(word[w_adjustPill],12,1);
+			HAL_LCD_Write_AsciiString(word[w_timeAndTemp],13,2);
+			HAL_LCD_Write_AsciiString(word[w_timePills],6,3);
 			// > en A la primera vez
 			HAL_LCD_Write_ascii('>',18,0);
 			HAL_LCD_Write_ascii(' ',6,1);
-			HAL_LCD_Write_ascii(' ',24,2);
+			HAL_LCD_Write_ascii(' ',6,2);
 			HAL_LCD_Write_ascii(' ',0,3);
 			first = 1;
 			Puntero=0;
@@ -258,28 +247,28 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
 				LL_mDelay(1);
 				HAL_LCD_Write_ascii('>',18,0);
 				HAL_LCD_Write_ascii(' ',6,1);
-				HAL_LCD_Write_ascii(' ',24,2);
+				HAL_LCD_Write_ascii(' ',6,2);
 				HAL_LCD_Write_ascii(' ',0,3);
 				break;
 			case 1:
 				LL_mDelay(1);
 				HAL_LCD_Write_ascii(' ',18,0);
 				HAL_LCD_Write_ascii('>',6,1);
-				HAL_LCD_Write_ascii(' ',24,2);
+				HAL_LCD_Write_ascii(' ',6,2);
 				HAL_LCD_Write_ascii(' ',0,3);
 				break;
 			case 2:
 				LL_mDelay(1);
 				HAL_LCD_Write_ascii(' ',18,0);
 				HAL_LCD_Write_ascii(' ',6,1);
-				HAL_LCD_Write_ascii('>',24,2);
+				HAL_LCD_Write_ascii('>',6,2);
 				HAL_LCD_Write_ascii(' ',0,3);
 				break;
 			case 3:
 				LL_mDelay(1);
 				HAL_LCD_Write_ascii(' ',18,0);
 				HAL_LCD_Write_ascii(' ',6,1);
-				HAL_LCD_Write_ascii(' ',24,2);
+				HAL_LCD_Write_ascii(' ',6,2);
 				HAL_LCD_Write_ascii('>',0,3);
 							break;
 		}
@@ -293,28 +282,28 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
 					//LL_mDelay(1);
 					HAL_LCD_Write_ascii('>',18,0);
 					HAL_LCD_Write_ascii(' ',6,1);
-					HAL_LCD_Write_ascii(' ',24,2);
+					HAL_LCD_Write_ascii(' ',6,2);
 					HAL_LCD_Write_ascii(' ',0,3);
 					break;
 				case 1:
 					//LL_mDelay(1);
 					HAL_LCD_Write_ascii(' ',18,0);
 					HAL_LCD_Write_ascii('>',6,1);
-					HAL_LCD_Write_ascii(' ',24,2);
+					HAL_LCD_Write_ascii(' ',6,2);
 					HAL_LCD_Write_ascii(' ',0,3);
 					break;
 				case 2:
 					//LL_mDelay(1);
 					HAL_LCD_Write_ascii(' ',18,0);
 					HAL_LCD_Write_ascii(' ',6,1);
-					HAL_LCD_Write_ascii('>',24,2);
+					HAL_LCD_Write_ascii('>',6,2);
 					HAL_LCD_Write_ascii(' ',0,3);
 					break;
 				case 3:
 					//LL_mDelay(1);
 					HAL_LCD_Write_ascii(' ',18,0);
 					HAL_LCD_Write_ascii(' ',6,1);
-					HAL_LCD_Write_ascii(' ',24,2);
+					HAL_LCD_Write_ascii(' ',6,2);
 					HAL_LCD_Write_ascii('>',0,3);
 								break;
 			}

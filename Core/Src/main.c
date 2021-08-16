@@ -23,13 +23,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Diplays.h"
 #include "HAL_RGB.h"
 #include "HAL_POT.h"
 #include "HAL_TEMPSen.h"
 #include "HAL_RTC.h"
 #include "HAL_LCD.h"
-#include "Diplays.h"
+#include <Menus.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -109,6 +108,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
+  HAL_LCD_Write_AsciiString(word[w_starting],36,1);
   LL_mDelay(1000);
   HAL_LCD_Clear();
 
