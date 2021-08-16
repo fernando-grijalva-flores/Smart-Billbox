@@ -70,7 +70,7 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 		// Mostrado de valores fijos
 		HAL_LCD_Write_AsciiString("Pastilla  A B C",18,0);
 		HAL_LCD_Write_AsciiString("Intervalo",36,1);
-		HAL_LCD_Write_AsciiString(":",60,2);
+		HAL_LCD_Write_ascii(':',60,2);
 		HAL_LCD_Write_AsciiString(">Aceptar<",36,3);
 		// > en A la primera vez
 		HAL_LCD_Write_ascii('>',72,0);
@@ -196,7 +196,19 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
 
 void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Menu
-
+	if(first == 0){
+			// Mostrado de valores fijos
+			HAL_LCD_Write_AsciiString("Ajustar reloj",24,0);
+			HAL_LCD_Write_AsciiString("Ajustar pastilla",12,1);
+			HAL_LCD_Write_AsciiString("Princial",36,2);
+			HAL_LCD_Write_AsciiString("Intervalos pastillas",6,3);
+			// > en A la primera vez
+			HAL_LCD_Write_ascii('>',72,0);
+			HAL_LCD_Write_ascii(' ',84,0);
+			HAL_LCD_Write_ascii(' ',96,0);
+			first = 1;
+			inicio=0;
+		}
 	if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
 
