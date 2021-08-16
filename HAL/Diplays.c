@@ -2,6 +2,7 @@
 #include "HAL_POT.h"
 #include "HAL_RGB.h"
 #include "HAL_LCD.h"
+#include "HAL_RTC.h"
 // Estados de la FSM
 typedef enum{
 	E0,
@@ -18,7 +19,6 @@ Estados EA = E0;
 
 // Puntero seleccion
 short Puntero = 0, first = 0, inicio = 0;
-
 // Variables almacenamiento tiempo
 uint8_t Horas, Minutos, IntervaloH1, IntervaloH2, IntervaloH3, IntervaloM1, IntervaloM2, IntervaloM3;
 
@@ -77,6 +77,7 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 		HAL_LCD_Write_ascii(' ',84,0);
 		HAL_LCD_Write_ascii(' ',96,0);
 		first = 1;
+		inicio=0;
 	}
 	// Obtencion horas y minutos
 	Horas = HAL_POT_Percentage(POT1_Channel)*23/100;
@@ -150,7 +151,7 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 		// Cambio de estado
 		EA = E2;
 		first = 0;
-		inicio = 1;
+		inicio = 1; //cambio, se setea en 0 cuando entramos a imprimir
 		HAL_LCD_Clear();
 	}
 	else if(btnC == 1 && btnC != btnCa){
@@ -169,19 +170,21 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
 		HAL_LCD_Write_AsciiString("Reloj",48,0);
 		HAL_LCD_Write_ascii(':',60,1);
 		HAL_LCD_Write_AsciiString("Temperatura",30,2);
-		HAL_LCD_Write_AsciiString("°C",66,3);
+		HAL_LCD_Write_ascii(SYMBOL_ASCII_CELSIUS,66,3);
+		HAL_LCD_Write_ascii('C',72,3);
 		first = 1;
 	}
 	uint8_t Hora,Minuto,Segundo;
 	// Obtener tiempo
 	HAL_Get_ActualTime(&Hora,&Minuto,&Segundo);
 	// Mostrar tiempo
-	HAL_LCD_Write_Number(Hora,48,1);
-	HAL_LCD_Write_Number(Minuto,66,1);
+	HAL_LCD_Write_Number(&Hora,48,1);
+	HAL_LCD_Write_Number(&Minuto,66,1);
 	// Temperatura
 	uint8_t Temp = HAL_TEMPSen_ReadTemperature();
+	LL_mDelay(1);
 	// Mostrar Temperaura
-	HAL_LCD_Write_Number(Temp,54,3);
+	HAL_LCD_Write_Number(&Temp,54,3);
 	if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
 		EA = E3;

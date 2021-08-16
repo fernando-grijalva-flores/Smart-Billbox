@@ -29,6 +29,7 @@
 #include "HAL_TEMPSen.h"
 #include "HAL_RTC.h"
 #include "HAL_LCD.h"
+#include "Diplays.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -112,7 +113,6 @@ int main(void)
   //HAL_LCD_MENU(0,0,0,0);
 
 
-  HAL_LCD_Write_AsciiString("Iniciando",36,1);
   LL_mDelay(1000);
   HAL_LCD_Clear();
 

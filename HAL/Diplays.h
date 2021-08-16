@@ -2,6 +2,9 @@
 #define Diplays_H_
 #endif
 
+
+#include "main.h"
+
 // Variables auxiliares de estado antiguo para detecion falling para cambiar de estado
 short btnU, btnUa, btnD, btnDa, btnL, btnLa, btnR, btnRa, btnC, btnCa;
 
@@ -14,3 +17,7 @@ void EDO_5(short,short,short,short,short);
 void EDO_6(short,short,short,short,short);
 
 void fsm(short,short,short,short,short);
+
+
+
+
