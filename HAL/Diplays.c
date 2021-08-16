@@ -3,6 +3,7 @@
 #include "HAL_RGB.h"
 #include "HAL_LCD.h"
 #include "HAL_RTC.h"
+#include "HAL_TEMPSen.h"
 // Estados de la FSM
 typedef enum{
 	E0,
@@ -22,6 +23,17 @@ Estados EA = E0;
 short Puntero = 0, first = 0, inicio = 0;
 // Variables almacenamiento tiempo
 uint8_t Horas, Minutos, IntervaloH1, IntervaloH2, IntervaloH3, IntervaloM1, IntervaloM2, IntervaloM3;
+uint8_t word[50][21]= {
+		"Configuracion",
+		"Reloj",
+		">Aceptar<",
+		"Pastilla  A B C",
+		"Intervalo"
+
+
+
+
+};
 
 // Estado anterior
 void estado_Anterior(short btnU, short btnD, short btnL, short btnR, short btnC){
@@ -37,10 +49,10 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Configuracion de reloj
 	if(first == 0){
 		// Mostrado de valores fijos
-		HAL_LCD_Write_AsciiString("Configuracion",24,0);
-		HAL_LCD_Write_AsciiString("Reloj",48,1);
+		HAL_LCD_Write_AsciiString(word[configuration],24,0);
+		HAL_LCD_Write_AsciiString(word[clock],48,1);
 		HAL_LCD_Write_ascii(':',60,2);
-		HAL_LCD_Write_AsciiString(">Aceptar<",36,3);
+		HAL_LCD_Write_AsciiString(word[accept],36,3);
 		first = 1;
 	}
 	Horas = HAL_POT_Percentage(POT1_Channel)*23/100;
@@ -68,10 +80,10 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Configuracion pastillas
 	if(first == 0){
 		// Mostrado de valores fijos
-		HAL_LCD_Write_AsciiString("Pastilla  A B C",18,0);
-		HAL_LCD_Write_AsciiString("Intervalo",36,1);
+		HAL_LCD_Write_AsciiString(word[pillsABC],18,0);
+		HAL_LCD_Write_AsciiString(word[timeInterval],36,1);
 		HAL_LCD_Write_ascii(':',60,2);
-		HAL_LCD_Write_AsciiString(">Aceptar<",36,3);
+		HAL_LCD_Write_AsciiString(word[accept],36,3);
 		// > en A la primera vez
 		HAL_LCD_Write_ascii('>',72,0);
 		HAL_LCD_Write_ascii(' ',84,0);
@@ -215,71 +227,106 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
 	if(Puntero == 0 && btnC == 1 && btnC != btnCa){
 		//Si puntero es igual a 0 y el boton central es presionado, ira a ajustar reloj
 		EA=E0;
+		HAL_LCD_Clear();
+		first=0;
 	}
 	else if(Puntero == 1 && btnC == 1 && btnC != btnCa){
 		//Si puntero es igual a 1 y el boton central es presionado, ira a ajustar intervalos pastilla
 		EA=E1;
+		HAL_LCD_Clear();
+		first=0;
 	}
 	else if(Puntero == 2 && btnC == 1 && btnC != btnCa){
 		//Si puntero es igual a 2 y el boton central es presionado, ira a mostrar hora actual y temp
 		EA=E2;
+		HAL_LCD_Clear();
+		first=0;
 	}
 	else if(Puntero == 3 && btnC == 1 && btnC != btnCa){
 		//Si puntero es igual a 3 y el boton central es presionado, ira a mostrar los intervalos configurados
-			EA=E7;
+		EA=E7;
+		HAL_LCD_Clear();
+		first=0;
 		}
 	// Puntero
-	if(btnU == 1 && btnU != btnUa && btnD == 0){
-		Puntero -= 1;
-		if (Puntero < 0)
-			Puntero = 2;
-		switch (Puntero){
-			case 0:
-				HAL_LCD_Write_ascii('>',72,0);
-				HAL_LCD_Write_ascii(' ',84,0);
-				HAL_LCD_Write_ascii(' ',96,0);
-				break;
-			case 1:
-				HAL_LCD_Write_ascii(' ',72,0);
-				HAL_LCD_Write_ascii('>',84,0);
-				HAL_LCD_Write_ascii(' ',96,0);
-				break;
-			case 2:
-				HAL_LCD_Write_ascii(' ',72,0);
-				HAL_LCD_Write_ascii(' ',84,0);
-				HAL_LCD_Write_ascii('>',96,0);
-				break;
-		}
-	}
-	else if(btnR == 1 && btnR != btnRa && btnL == 0){
+	if(btnD == 1 && btnD != btnDa && btnU == 0){
 		Puntero += 1;
-		if (Puntero > 2)
+		if (Puntero > 3)
 			Puntero = 0;
 		switch (Puntero){
 			case 0:
-				HAL_LCD_Write_ascii('>',72,0);
-				HAL_LCD_Write_ascii(' ',84,0);
-				HAL_LCD_Write_ascii(' ',96,0);
+				LL_mDelay(1);
+				HAL_LCD_Write_ascii('>',18,0);
+				HAL_LCD_Write_ascii(' ',6,1);
+				HAL_LCD_Write_ascii(' ',24,2);
+				HAL_LCD_Write_ascii(' ',0,3);
 				break;
 			case 1:
-				HAL_LCD_Write_ascii(' ',72,0);
-				HAL_LCD_Write_ascii('>',84,0);
-				HAL_LCD_Write_ascii(' ',96,0);
+				LL_mDelay(1);
+				HAL_LCD_Write_ascii(' ',18,0);
+				HAL_LCD_Write_ascii('>',6,1);
+				HAL_LCD_Write_ascii(' ',24,2);
+				HAL_LCD_Write_ascii(' ',0,3);
 				break;
 			case 2:
-				HAL_LCD_Write_ascii(' ',72,0);
-				HAL_LCD_Write_ascii(' ',84,0);
-				HAL_LCD_Write_ascii('>',96,0);
+				LL_mDelay(1);
+				HAL_LCD_Write_ascii(' ',18,0);
+				HAL_LCD_Write_ascii(' ',6,1);
+				HAL_LCD_Write_ascii('>',24,2);
+				HAL_LCD_Write_ascii(' ',0,3);
 				break;
+			case 3:
+				LL_mDelay(1);
+				HAL_LCD_Write_ascii(' ',18,0);
+				HAL_LCD_Write_ascii(' ',6,1);
+				HAL_LCD_Write_ascii(' ',24,2);
+				HAL_LCD_Write_ascii('>',0,3);
+							break;
 		}
 	}
+	else if(btnU == 1 && btnU != btnUa && btnD == 0){
+			Puntero -= 1;
+			if (Puntero < 0)
+				Puntero = 3;
+			switch (Puntero){
+				case 0:
+					//LL_mDelay(1);
+					HAL_LCD_Write_ascii('>',18,0);
+					HAL_LCD_Write_ascii(' ',6,1);
+					HAL_LCD_Write_ascii(' ',24,2);
+					HAL_LCD_Write_ascii(' ',0,3);
+					break;
+				case 1:
+					//LL_mDelay(1);
+					HAL_LCD_Write_ascii(' ',18,0);
+					HAL_LCD_Write_ascii('>',6,1);
+					HAL_LCD_Write_ascii(' ',24,2);
+					HAL_LCD_Write_ascii(' ',0,3);
+					break;
+				case 2:
+					//LL_mDelay(1);
+					HAL_LCD_Write_ascii(' ',18,0);
+					HAL_LCD_Write_ascii(' ',6,1);
+					HAL_LCD_Write_ascii('>',24,2);
+					HAL_LCD_Write_ascii(' ',0,3);
+					break;
+				case 3:
+					//LL_mDelay(1);
+					HAL_LCD_Write_ascii(' ',18,0);
+					HAL_LCD_Write_ascii(' ',6,1);
+					HAL_LCD_Write_ascii(' ',24,2);
+					HAL_LCD_Write_ascii('>',0,3);
+								break;
+			}
+		}
 
-	if(btnC == 1 && btnC != btnCa){
+
+	/*if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
 
 		first = 0;
 		HAL_LCD_Clear();
-	}
+	}*/
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 

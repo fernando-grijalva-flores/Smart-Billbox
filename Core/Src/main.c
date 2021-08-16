@@ -104,50 +104,27 @@ int main(void)
   HAL_TEMPSen_Init();
   HAL_RTC_Init();
   HAL_LCD_Init();
-  //TEST fer
+  HAL_POT_Init();
   /* USER CODE END 2 */
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  HAL_POT_Init();
-  //HAL_LCD_MENU(0,0,0,0);
-
 
   LL_mDelay(1000);
   HAL_LCD_Clear();
 
   while (1)
   {
+
 	  short btnu = MX_Joystick_Up();
+	 // LL_mDelay(2);
 	  short btnd = MX_Joystick_Down();
+	  //LL_mDelay(2);
 	  short btnl = MX_Joystick_Left();
+	  //LL_mDelay(2);
 	  short btnr = MX_Joystick_Right();
+	 // LL_mDelay(2);
 	  short btnc = MX_Joystick_Center();
-	  //POT1_Value = HAL_POT_Percentage(POT1_Channel);
-
 	  fsm(btnu, btnd, btnl, btnr, btnc);
-
-	  //test the integration of spi
-	  //This code is used to test the RTC configuration
-//	  uint16_t year = 0;
-//	  uint8_t month = 0, day = 0, weekday = 0, hh = 0, mm= 0, ss = 0;
-//	  HAL_Get_ActualDate(&year, &month, &weekday, &day);
-//	  HAL_Get_ActualTime(&hh, &mm, &ss);
-//	  HAL_Set_ActualTime(14,49,7);
-//	  HAL_Set_ActualDate(21, August, Friday, 13);
-//	  LL_mDelay(100);
-//	  HAL_Get_ActualDate(&year, &month, &weekday, &day);
-//	  HAL_Get_ActualTime(&hh, &mm, &ss);
-//	  LL_mDelay(100);
-//	  Temp = HAL_TEMPSen_ReadTemperature();
-//	  LL_mDelay(100);
-//	  /*---------------------------------------------------------------------------
-//	   *-------------This section is just to test The files for potentiometers---*/
-//	  HAL_POT_Init();
-//	  POT1_Value = HAL_POT_Percentage(POT1_Channel);
-//	  LL_mDelay(150);
-//	  /*-------------------------------------------------------------------------*/
-//    /* USER CODE BEGIN 3 */
 
     /* USER CODE END WHILE */
 

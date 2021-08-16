@@ -18,6 +18,13 @@ void EDO_6(short,short,short,short,short);
 
 void fsm(short,short,short,short,short);
 
+/* Words for word[] array */
 
+	/*This are the all the used words in order to
+	display them in the LCD with a particular screen*/
 
-
+#define	configuration				(0)
+#define clock						(1)
+#define accept						(2)
+#define pillsABC					(3)
+#define timeInterval				(4)
