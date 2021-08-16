@@ -29,6 +29,7 @@
 #include "HAL_TEMPSen.h"
 #include "HAL_RTC.h"
 #include "HAL_LCD.h"
+#include "HAL_BUZZER.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -103,6 +104,7 @@ int main(void)
   HAL_TEMPSen_Init();
   HAL_RTC_Init();
   HAL_LCD_Init();
+  HAL_Buzzer_Init();
   //TEST fer
   /* USER CODE END 2 */
 
@@ -127,6 +129,11 @@ int main(void)
 
 	  fsm(btnu, btnd, btnl, btnr, btnc);
 
+	  HAL_Buzzer_State(On);
+	  LL_mDelay(500);
+	  HAL_Buzzer_State(Off);
+	  LL_mDelay(500);
+
 	  //test the integration of spi
 	  //This code is used to test the RTC configuration
 //	  uint16_t year = 0;
@@ -148,6 +155,10 @@ int main(void)
 //	  LL_mDelay(150);
 //	  /*-------------------------------------------------------------------------*/
 //    /* USER CODE BEGIN 3 */
+
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
 
     /* USER CODE END WHILE */
 
