@@ -11,7 +11,8 @@ typedef enum{
   	E3,
 	E4,
 	E5,
-	E6
+	E6,
+	E7
 }Estados;
 
 // Estado inicial
@@ -50,7 +51,6 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
 		// Cambio de estado
 		EA = E1;
 		first = 0;
-		inicio = 1;
 		HAL_LCD_Clear();
 		HAL_Set_ActualTime(Horas,Minutos,0);
 	}
@@ -77,7 +77,7 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 		HAL_LCD_Write_ascii(' ',84,0);
 		HAL_LCD_Write_ascii(' ',96,0);
 		first = 1;
-		inicio=0;
+		Puntero=0;
 	}
 	// Obtencion horas y minutos
 	Horas = HAL_POT_Percentage(POT1_Channel)*23/100;
@@ -146,6 +146,69 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 				break;
 		}
 	}
+
+	if(Puntero == 0){
+		// Si el puntero esta en A carga los valores a A
+		IntervaloH1 = Horas;
+		IntervaloM1 = Minutos;
+	}
+	else if(Puntero == 1){
+		// Si el puntero esta en B carga los valores a B
+		IntervaloH2 = Horas;
+		IntervaloM2 = Minutos;
+	}
+	else if(Puntero == 2){
+		// Si el puntero esta en C carga los valores a C
+		IntervaloH3 = Horas;
+		IntervaloM3 = Minutos;
+	}
+	// Puntero
+	if(btnL == 1 && btnL != btnLa && btnR == 0){
+		Puntero -= 1;
+		if (Puntero < 0)
+			Puntero = 2;
+		switch (Puntero){
+			case 0:
+				HAL_LCD_Write_ascii('>',72,0);
+				HAL_LCD_Write_ascii(' ',84,0);
+				HAL_LCD_Write_ascii(' ',96,0);
+				break;
+			case 1:
+				HAL_LCD_Write_ascii(' ',72,0);
+				HAL_LCD_Write_ascii('>',84,0);
+				HAL_LCD_Write_ascii(' ',96,0);
+				break;
+			case 2:
+				HAL_LCD_Write_ascii(' ',72,0);
+				HAL_LCD_Write_ascii(' ',84,0);
+				HAL_LCD_Write_ascii('>',96,0);
+				break;
+		}
+	}
+	else if(btnR == 1 && btnR != btnRa && btnL == 0){
+		Puntero += 1;
+		if (Puntero > 2)
+			Puntero = 0;
+		switch (Puntero){
+			case 0:
+				HAL_LCD_Write_ascii('>',72,0);
+				HAL_LCD_Write_ascii(' ',84,0);
+				HAL_LCD_Write_ascii(' ',96,0);
+				break;
+			case 1:
+				HAL_LCD_Write_ascii(' ',72,0);
+				HAL_LCD_Write_ascii('>',84,0);
+				HAL_LCD_Write_ascii(' ',96,0);
+				break;
+			case 2:
+				HAL_LCD_Write_ascii(' ',72,0);
+				HAL_LCD_Write_ascii(' ',84,0);
+				HAL_LCD_Write_ascii('>',96,0);
+				break;
+		}
+	}
+
+
 	// Aceptar
 	if(btnC == 1 && btnC != btnCa && inicio == 0){
 		// Cambio de estado
@@ -200,15 +263,79 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
 			// Mostrado de valores fijos
 			HAL_LCD_Write_AsciiString("Ajustar reloj",24,0);
 			HAL_LCD_Write_AsciiString("Ajustar pastilla",12,1);
-			HAL_LCD_Write_AsciiString("Princial",36,2);
+			HAL_LCD_Write_AsciiString("Hora y Tiempo",30,2);
 			HAL_LCD_Write_AsciiString("Intervalos pastillas",6,3);
 			// > en A la primera vez
-			HAL_LCD_Write_ascii('>',72,0);
-			HAL_LCD_Write_ascii(' ',84,0);
-			HAL_LCD_Write_ascii(' ',96,0);
+			HAL_LCD_Write_ascii('>',18,0);
+			HAL_LCD_Write_ascii(' ',6,1);
+			HAL_LCD_Write_ascii(' ',24,2);
+			HAL_LCD_Write_ascii(' ',0,3);
 			first = 1;
-			inicio=0;
+			Puntero=0;
 		}
+
+	if(Puntero == 0 && btnC == 1 && btnC != btnCa){
+		// Si el puntero esta en A carga los valores a A
+		EA=E0;
+	}
+	else if(Puntero == 1 && btnC == 1 && btnC != btnCa){
+		// Si el puntero esta en B carga los valores a B
+		EA=E1;
+	}
+	else if(Puntero == 2 && btnC == 1 && btnC != btnCa){
+		// Si el puntero esta en C carga los valores a C
+		EA=E2;
+	}
+	else if(Puntero == 3 && btnC == 1 && btnC != btnCa){
+			// Si el puntero esta en C carga los valores a C
+			EA=E7;
+		}
+	// Puntero
+	if(btnL == 1 && btnL != btnLa && btnR == 0){
+		Puntero -= 1;
+		if (Puntero < 0)
+			Puntero = 2;
+		switch (Puntero){
+			case 0:
+				HAL_LCD_Write_ascii('>',72,0);
+				HAL_LCD_Write_ascii(' ',84,0);
+				HAL_LCD_Write_ascii(' ',96,0);
+				break;
+			case 1:
+				HAL_LCD_Write_ascii(' ',72,0);
+				HAL_LCD_Write_ascii('>',84,0);
+				HAL_LCD_Write_ascii(' ',96,0);
+				break;
+			case 2:
+				HAL_LCD_Write_ascii(' ',72,0);
+				HAL_LCD_Write_ascii(' ',84,0);
+				HAL_LCD_Write_ascii('>',96,0);
+				break;
+		}
+	}
+	else if(btnR == 1 && btnR != btnRa && btnL == 0){
+		Puntero += 1;
+		if (Puntero > 2)
+			Puntero = 0;
+		switch (Puntero){
+			case 0:
+				HAL_LCD_Write_ascii('>',72,0);
+				HAL_LCD_Write_ascii(' ',84,0);
+				HAL_LCD_Write_ascii(' ',96,0);
+				break;
+			case 1:
+				HAL_LCD_Write_ascii(' ',72,0);
+				HAL_LCD_Write_ascii('>',84,0);
+				HAL_LCD_Write_ascii(' ',96,0);
+				break;
+			case 2:
+				HAL_LCD_Write_ascii(' ',72,0);
+				HAL_LCD_Write_ascii(' ',84,0);
+				HAL_LCD_Write_ascii('>',96,0);
+				break;
+		}
+	}
+
 	if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
 
@@ -277,6 +404,17 @@ void EDO_6(short btnU, short btnD, short btnL, short btnR, short btnC){
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
+void EDO_7(short btnU, short btnD, short btnL, short btnR, short btnC){
+	//Intervalos pastillas
+
+	if(btnC == 1 && btnC != btnCa){
+		// Cambio de estado
+
+		first = 0;
+		HAL_LCD_Clear();
+	}
+	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
+}
 
 // Estructura para asignar una funcion a cada estado
 typedef struct {
@@ -292,7 +430,8 @@ FSM MDE[] = {
         {E3,EDO_3},
 		{E4,EDO_4},
 		{E5,EDO_5},
-		{E6,EDO_6}
+		{E6,EDO_6},
+		{E7,EDO_7}
 };
 
 void fsm(short btnU, short btnD,short btnL, short btnR, short btnC){
