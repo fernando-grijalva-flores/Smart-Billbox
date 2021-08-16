@@ -77,7 +77,6 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 		HAL_LCD_Write_ascii(' ',84,0);
 		HAL_LCD_Write_ascii(' ',96,0);
 		first = 1;
-		Puntero=0;
 	}
 	// Obtencion horas y minutos
 	Horas = HAL_POT_Percentage(POT1_Channel)*23/100;
@@ -275,23 +274,23 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
 		}
 
 	if(Puntero == 0 && btnC == 1 && btnC != btnCa){
-		// Si el puntero esta en A carga los valores a A
+		//Si puntero es igual a 0 y el boton central es presionado, ira a ajustar reloj
 		EA=E0;
 	}
 	else if(Puntero == 1 && btnC == 1 && btnC != btnCa){
-		// Si el puntero esta en B carga los valores a B
+		//Si puntero es igual a 1 y el boton central es presionado, ira a ajustar intervalos pastilla
 		EA=E1;
 	}
 	else if(Puntero == 2 && btnC == 1 && btnC != btnCa){
-		// Si el puntero esta en C carga los valores a C
+		//Si puntero es igual a 2 y el boton central es presionado, ira a mostrar hora actual y temp
 		EA=E2;
 	}
 	else if(Puntero == 3 && btnC == 1 && btnC != btnCa){
-			// Si el puntero esta en C carga los valores a C
+		//Si puntero es igual a 3 y el boton central es presionado, ira a mostrar los intervalos configurados
 			EA=E7;
 		}
 	// Puntero
-	if(btnL == 1 && btnL != btnLa && btnR == 0){
+	if(btnU == 1 && btnU != btnUa && btnD == 0){
 		Puntero -= 1;
 		if (Puntero < 0)
 			Puntero = 2;
