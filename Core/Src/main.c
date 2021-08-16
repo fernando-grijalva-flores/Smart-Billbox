@@ -48,7 +48,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint8_t hr=0,min=0,H1=0,M1=0,H2=0,M2=0,H3=0,M3=0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -59,8 +59,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-	uint16_t POT1_Value = 0;
-	uint8_t Temp = 0;
 /* USER CODE END 0 */
 
 /**
@@ -114,7 +112,7 @@ int main(void)
 
   while (1)
   {
-
+	  get_intervals(&hr,&min,&H1,&H2,&H3,&M1,&M2,&M3);
 	  short btnu = MX_Joystick_Up();
 	 // LL_mDelay(2);
 	  short btnd = MX_Joystick_Down();

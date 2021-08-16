@@ -23,6 +23,7 @@ Estados EA = E0;
 short Puntero = 0, first = 0, inicio = 0;
 // Variables almacenamiento tiempo
 uint8_t Horas, Minutos, IntervaloH1, IntervaloH2, IntervaloH3, IntervaloM1, IntervaloM2, IntervaloM3;
+uint8_t Hora,Minuto,Segundo;
 
 // Estado anterior
 void estado_Anterior(short btnU, short btnD, short btnL, short btnR, short btnC){
@@ -176,7 +177,6 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
 		HAL_LCD_Write_ascii('C',72,3);
 		first = 1;
 	}
-	uint8_t Hora,Minuto,Segundo;
 	// Obtener tiempo
 	HAL_Get_ActualTime(&Hora,&Minuto,&Segundo);
 	// Mostrar tiempo
@@ -380,12 +380,29 @@ void EDO_6(short btnU, short btnD, short btnL, short btnR, short btnC){
 }
 void EDO_7(short btnU, short btnD, short btnL, short btnR, short btnC){
 	//Intervalos pastillas
+	if (first==0)
+	{
+		HAL_LCD_Write_AsciiString(word[w_alarms],42,0);
+		HAL_LCD_Write_AsciiString(word[w_red],30,1);
+		HAL_LCD_Write_AsciiString(word[w_green],30,2);
+		HAL_LCD_Write_AsciiString(word[w_blue],30,3);
+		HAL_LCD_Write_ascii(':',78,1);
+		HAL_LCD_Write_ascii(':',78,2);
+		HAL_LCD_Write_ascii(':',78,3);
+		HAL_LCD_Write_Number(&IntervaloH1,66,1);
+		HAL_LCD_Write_Number(&IntervaloM1,84,1);
+		HAL_LCD_Write_Number(&IntervaloH2,66,2);
+		HAL_LCD_Write_Number(&IntervaloM2,84,2);
+		HAL_LCD_Write_Number(&IntervaloH3,66,3);
+		HAL_LCD_Write_Number(&IntervaloM3,84,3);
+		first=1;
+	}
 
 	if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
-
 		first = 0;
 		HAL_LCD_Clear();
+		EA=E3;
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
@@ -411,7 +428,16 @@ FSM MDE[] = {
 void fsm(short btnU, short btnD,short btnL, short btnR, short btnC){
 	MDE[EA].func(btnU, btnD, btnL, btnR, btnC);
 }
-//LL_GPIO_SetOutputPin(GPIOA,LD2_Pin);
-//LL_mDelay(300);
-//LL_GPIO_ResetOutputPin(GPIOA,LD2_Pin);
-//LL_mDelay(300);
+
+void get_intervals(uint8_t *hr, uint8_t *min, uint8_t *H1, uint8_t *H2, uint8_t *H3, uint8_t *M1, uint8_t *M2, uint8_t *M3)
+{
+	*H1=IntervaloH1;
+	*H2=IntervaloH2;
+	*H3=IntervaloH3;
+	*M1=IntervaloM1;
+	*M2=IntervaloM2;
+	*M3=IntervaloM3;
+	*hr=Hora;
+	*min=Minuto;
+}
+

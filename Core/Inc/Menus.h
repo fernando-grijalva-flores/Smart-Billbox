@@ -15,8 +15,11 @@ void EDO_3(short,short,short,short,short);
 void EDO_4(short,short,short,short,short);
 void EDO_5(short,short,short,short,short);
 void EDO_6(short,short,short,short,short);
+void EDO_7(short,short,short,short,short);
 
 void fsm(short,short,short,short,short);
+
+void get_intervals(uint8_t *Horas, uint8_t *Minutos, uint8_t *H1, uint8_t *H2, uint8_t *H3, uint8_t *M1, uint8_t *M2, uint8_t *M3);
 
 /* Word defines */
 
@@ -40,8 +43,9 @@ void fsm(short,short,short,short,short);
 #define w_green						(14)
 #define	w_blue						(15)
 #define w_okay						(16)
+#define w_alarms					(17)
 
-static uint8_t word[17][21]= {
+static uint8_t word[18][21]= {
 		"Configuracion", //0
 		"Reloj",
 		">Aceptar<",
@@ -58,6 +62,7 @@ static uint8_t word[17][21]= {
 		"Rojo",
 		"Verde",
 		"Azul",
-		">Entendido<" //16
+		">Entendido<", //16
+		"Alarmas"
 };
 
