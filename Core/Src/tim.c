@@ -42,25 +42,26 @@ void MX_TIM2_Init(void)
   /* USER CODE BEGIN TIM2_Init 1 */
 
   /* USER CODE END TIM2_Init 1 */
-  TIM_InitStruct.Prescaler = 32;
+  TIM_InitStruct.Prescaler = 1;
   TIM_InitStruct.CounterMode = LL_TIM_COUNTERMODE_UP;
-  TIM_InitStruct.Autoreload = 8000;
+  TIM_InitStruct.Autoreload = 4000;
   TIM_InitStruct.ClockDivision = LL_TIM_CLOCKDIVISION_DIV1;
   LL_TIM_Init(TIM2, &TIM_InitStruct);
-  LL_TIM_DisableARRPreload(TIM2);
+  LL_TIM_EnableARRPreload(TIM2);
   LL_TIM_SetClockSource(TIM2, LL_TIM_CLOCKSOURCE_INTERNAL);
   LL_TIM_OC_EnablePreload(TIM2, LL_TIM_CHANNEL_CH3);
   TIM_OC_InitStruct.OCMode = LL_TIM_OCMODE_PWM1;
   TIM_OC_InitStruct.OCState = LL_TIM_OCSTATE_DISABLE;
   TIM_OC_InitStruct.OCNState = LL_TIM_OCSTATE_DISABLE;
-  TIM_OC_InitStruct.CompareValue = 6000;
+  TIM_OC_InitStruct.CompareValue = 3000;
   TIM_OC_InitStruct.OCPolarity = LL_TIM_OCPOLARITY_HIGH;
   LL_TIM_OC_Init(TIM2, LL_TIM_CHANNEL_CH3, &TIM_OC_InitStruct);
   LL_TIM_OC_DisableFast(TIM2, LL_TIM_CHANNEL_CH3);
   LL_TIM_SetTriggerOutput(TIM2, LL_TIM_TRGO_RESET);
   LL_TIM_DisableMasterSlaveMode(TIM2);
   /* USER CODE BEGIN TIM2_Init 2 */
-
+  LL_TIM_CC_EnableChannel(TIM2,LL_TIM_CHANNEL_CH3);
+  LL_TIM_EnableCounter(TIM2);
   /* USER CODE END TIM2_Init 2 */
   LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOB);
     /**TIM2 GPIO Configuration
@@ -77,6 +78,7 @@ void MX_TIM2_Init(void)
 }
 
 /* USER CODE BEGIN 1 */
+
 //ThisFunction enable the counter used to create the PWM signal
 void MX_PWM_TurnOn(void)
 {

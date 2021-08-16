@@ -4,7 +4,6 @@
 void HAL_Buzzer_Init(void)
 {
 	MX_TIM2_Init();
-	LL_mDelay(50);
 	MX_PWM_TurnOff();
 	return;
 }
