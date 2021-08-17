@@ -76,6 +76,7 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Temp_limit (40)
 #define J_RIGHT_Pin LL_GPIO_PIN_0
 #define J_RIGHT_GPIO_Port GPIOC
 #define J_LEFT_Pin LL_GPIO_PIN_1

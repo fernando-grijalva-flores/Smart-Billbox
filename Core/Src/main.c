@@ -29,7 +29,7 @@
 #include "HAL_RTC.h"
 #include "HAL_LCD.h"
 #include "HAL_JOYSTICK.h"
-
+#include "HAL_BUZZER.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
