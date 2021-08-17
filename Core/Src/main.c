@@ -132,6 +132,7 @@ int main(void)
   HAL_RTC_Init();
   HAL_LCD_Init();
   HAL_POT_Init();
+  HAL_Buzzer_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -142,6 +143,7 @@ int main(void)
   HAL_LCD_Clear();
   while (1)
   {
+	  HAL_Buzzer_State(On);
 	  //La temperatura se debe leer en todo momento, por lo que se llama a la funcion de ReadTemperature de la libreria HAL del sensor LM75B
 	  Temp = HAL_TEMPSen_ReadTemperature();
 
@@ -149,7 +151,7 @@ int main(void)
 
 	  if (inicio==1){
 		  if ((Hora-IntervaloAH1) >= IntervaloH1 && (Minuto-IntervaloAM1) >= IntervaloM1 && alarma1==inactive){
-			  HAL_Buzzer_State(1);
+			  HAL_Buzzer_State(On);
 			  tiempobuzer = Minuto;
 			  IntervaloAH1 = Hora;
 			  IntervaloAM1 = Minuto;
@@ -161,7 +163,7 @@ int main(void)
 		  	  alarma1=active;
 		  }
 		  if ((Hora-IntervaloAH2) >= IntervaloH2 && (Minuto-IntervaloAM2) >= IntervaloM2 && alarma2==inactive){
-			  HAL_Buzzer_State(1);
+			  HAL_Buzzer_State(On);
 			  tiempobuzer = Minuto;
 			  IntervaloAH2 = Hora;
 			  IntervaloAM2 = Minuto;
@@ -173,7 +175,7 @@ int main(void)
 			  alarma2=active;
 		  }
 		  if ((Hora-IntervaloAH3) >= IntervaloH3 && (Minuto-IntervaloAM3) >= IntervaloM3 && alarma3==inactive){
-			  HAL_Buzzer_State(1);
+			  HAL_Buzzer_State(On);
 			  tiempobuzer = Minuto;
 			  IntervaloAH3 = Hora;
 			  IntervaloAM3 = Minuto;
@@ -187,7 +189,7 @@ int main(void)
 	  }
 
 	  if(Temp >= Temp_limit){
-		  HAL_Buzzer_State(1);
+		  HAL_Buzzer_State(On);
 		  tiempobuzer = Minuto;
 		  temp_alert = active;
 		  EA = E4;
@@ -604,8 +606,8 @@ void EDO_4(short btnU, short btnD, short btnL, short btnR, short btnC){
 			HAL_LCD_Write_ascii('C',66,3);
 			first = 1;
 		}
-		if((Minuto-tiempobuzer) >= 2)
-			HAL_Buzzer_State(0);
+		if((Minuto-tiempobuzer) > 2)
+			HAL_Buzzer_State(Off);
 		HAL_LCD_Write_Number(&Temp,48,3);
 		/*El estado actual se mantendrá en el Estado 8 (estado alerta de temperatura elevada) mientras  temp_alert este activa
 		 esto debido a que la temperatura no a decendido del valor limite
@@ -615,7 +617,7 @@ void EDO_4(short btnU, short btnD, short btnL, short btnR, short btnC){
 			//Si la temperatura deciende del valor limite, el estado regresa a mostrar la pantalla principal
 			EA = E2;
 			first = 0;
-			HAL_Buzzer_State(0);
+			HAL_Buzzer_State(Off);
 		}
 
 		estado_Anterior(btnU, btnD, btnL, btnR, btnC);
@@ -677,8 +679,8 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
 		HAL_LCD_Write_ascii('>',60,1);
 	}
 
-	if((Minuto-tiempobuzer) >= 2)
-		HAL_Buzzer_State(0);
+	if((Minuto-tiempobuzer) > 2)
+		HAL_Buzzer_State(Off);
 
 	if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
@@ -687,7 +689,7 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
 		inicio2 = 0;
 		rgb_apagado();
 		HAL_LCD_Clear();
-		HAL_Buzzer_State(0);
+		HAL_Buzzer_State(Off);
 		HAL_Get_ActualTime(&Hora,&Minuto,&Segundo);
 		if(alarma1==active)
 			alarma1=inactive;
