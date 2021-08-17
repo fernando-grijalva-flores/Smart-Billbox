@@ -138,6 +138,28 @@ void fsm(short,short,short,short,short);
 
 	/*This are the all the used words in order to
 	display them in the LCD with a particular screen*/
+typedef enum{
+	configuracion =0,
+	reloj,
+	aceptar,
+	pastillasABC,
+	intervalo,
+	iniciando,
+	temperatura,
+	ajustarReloj,
+	ajustarPastilla,
+	HoraYtemperatura,
+	intervalosPastilla,
+	sobrepasada,
+	tomePastilla,
+	rojo,
+	verde,
+	azul,
+	entendido,
+	alarmas
+}words;
+
+
 
 #define	w_configuration				(0)
 #define w_clock						(1)

@@ -49,6 +49,13 @@ typedef enum{
 	E7
 }Estados;
 
+typedef enum
+{
+	inactive,
+	active
+
+}alarm_state;
+
 Estados EA = E0;
 // Puntero seleccion
 short Puntero = 0, first = 0, inicio = 0;
@@ -130,16 +137,31 @@ int main(void)
 
   while (1)
   {
-	  if (IntervaloH1==Hora && IntervaloM1==Minuto)
-		  EA=E5;
-	  	  alarma1=1;
-	  if (IntervaloH2==Hora && IntervaloM2==Minuto)
-		  EA=E5;
-	  	  alarma2=1;
-	  if (IntervaloH3 == Hora && IntervaloM3 == Minuto)
-		  EA=E5;
-	  	  alarma3=1;
 
+	  if (inicio==1)
+	  	  {
+
+		  if (IntervaloH1==Hora && IntervaloM1==Minuto && alarma1==inactive)
+		  {
+		  	  EA=E5;
+		  	  alarma1=active;
+		  	  first=0;
+		  }
+		  if (IntervaloH2==Hora && IntervaloM2==Minuto && alarma2==inactive)
+		  {
+			  EA=E5;
+		  	  alarma2=active;
+		  	  first=0;
+		  }
+		  if (IntervaloH3 == Hora && IntervaloM3 == Minuto && alarma3==inactive)
+		  {
+			  EA=E5;
+		  	  alarma3=active;
+		  	  first=0;
+		  }
+
+
+	  }
 	  short btnu = MX_Joystick_Up();
 	 // LL_mDelay(2);
 	  short btnd = MX_Joystick_Down();
@@ -151,7 +173,7 @@ int main(void)
 	  short btnc = MX_Joystick_Center();
 	  fsm(btnu, btnd, btnl, btnr, btnc);
 
-    /* USER CODE END WHILE */
+	/* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 
@@ -245,10 +267,10 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Configuracion de reloj
 	if(first == 0){
 		// Mostrado de valores fijos
-		HAL_LCD_Write_AsciiString(word[w_configuration],24,0);
-		HAL_LCD_Write_AsciiString(word[w_clock],48,1);
+		HAL_LCD_Write_AsciiString(word[configuracion],24,0);
+		HAL_LCD_Write_AsciiString(word[reloj],48,1);
 		HAL_LCD_Write_ascii(':',60,2);
-		HAL_LCD_Write_AsciiString(word[w_accept],36,3);
+		HAL_LCD_Write_AsciiString(word[aceptar],36,3);
 		first = 1;
 	}
 	Horas = HAL_POT_Percentage(POT1_Channel)*23/100;
@@ -276,7 +298,7 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Configuracion pastillas
 	if(first == 0){
 		// Mostrado de valores fijos
-		HAL_LCD_Write_AsciiString(word[w_pillsABC],18,0);
+		HAL_LCD_Write_AsciiString(word[pastillasABC],18,0);
 		HAL_LCD_Write_AsciiString(word[w_timeInterval],36,1);
 		HAL_LCD_Write_ascii(':',60,2);
 		HAL_LCD_Write_AsciiString(word[w_accept],36,3);
@@ -376,9 +398,9 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Pantalla principal
 	if(first == 0){
 		// Mostrado de valores fijos
-		HAL_LCD_Write_AsciiString(word[w_clock],48,0);
+		HAL_LCD_Write_AsciiString(word[reloj],48,0);
 		HAL_LCD_Write_ascii(':',60,1);
-		HAL_LCD_Write_AsciiString(word[w_temp],30,2);
+		HAL_LCD_Write_AsciiString(word[temperatura],30,2);
 		HAL_LCD_Write_ascii(SYMBOL_ASCII_CELSIUS,66,3);
 		HAL_LCD_Write_ascii('C',72,3);
 		first = 1;
@@ -545,28 +567,18 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Alarma Pastilla
 	if(first == 0){
 		// Mostrado de valores fijos
-		HAL_LCD_Write_AsciiString("Tome pastilla",24,0);
-		HAL_LCD_Write_AsciiString("Rojo Verde",36,1);
-		HAL_LCD_Write_AsciiString("Azul",54,2);
-		HAL_LCD_Write_AsciiString(">Entendido<",30,3);
+		HAL_LCD_Clear();
+		HAL_LCD_Write_AsciiString(word[tomePastilla],24,0);
+		HAL_LCD_Write_AsciiString(word[rojo],36,1);
+		HAL_LCD_Write_AsciiString(word[verde],66,1);
+		HAL_LCD_Write_AsciiString(word[azul],54,2);
+		HAL_LCD_Write_AsciiString(word[entendido],30,3);
 		first = 1;
 	}
-	//if tiempo pastilla 1
-	//HAL_LCD_Write_ascii('>',30,1);
-	//else
-	//HAL_LCD_Write_ascii(' ',30,1);
-	//if tiempo pastilla 2
-	//HAL_LCD_Write_ascii('>',60,1);
-	//else
-	//HAL_LCD_Write_ascii(' ',60,1);
-	//if tiempo pastilla 3
-	//HAL_LCD_Write_ascii('>',48,2);
-	//else
-	//HAL_LCD_Write_ascii(' ',48,2);
 
 	if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
-		EA = E2;
+		EA = E3;
 		first = 0;
 		HAL_LCD_Clear();
 	}
