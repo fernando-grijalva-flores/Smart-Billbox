@@ -97,6 +97,8 @@ void Error_Handler(void);
 #define J_CENTER_GPIO_Port GPIOB
 #define LCD_CS_N_Pin LL_GPIO_PIN_6
 #define LCD_CS_N_GPIO_Port GPIOB
+
+#define Temp_limit		(5) // Temperatura limite
 #ifndef NVIC_PRIORITYGROUP_0
 #define NVIC_PRIORITYGROUP_0         ((uint32_t)0x00000007) /*!< 0 bit  for pre-emption priority,
                                                                  4 bits for subpriority */
@@ -156,31 +158,13 @@ typedef enum{
 	verde,
 	azul,
 	entendido,
-	alarmas
+	alarmas,
+	alerta,
+	de,
+	elevada
 }words;
 
-
-
-#define	w_configuration				(0)
-#define w_clock						(1)
-#define w_accept					(2)
-#define w_pillsABC					(3)
-#define w_timeInterval				(4)
-#define w_starting					(5)
-#define w_temp						(6)
-#define w_adjustClock				(7)
-#define w_adjustPill				(8)
-#define w_timeAndTemp				(9)
-#define w_timePills					(10)
-#define w_overTemp					(11)
-#define w_takePill					(12)
-#define w_red						(13)
-#define w_green						(14)
-#define	w_blue						(15)
-#define w_okay						(16)
-#define w_alarms					(17)
-
-static uint8_t word[18][21]= {
+static uint8_t word[21][21]= {
 		"Configuracion", //0
 		"Reloj",
 		">Aceptar<",
@@ -198,9 +182,11 @@ static uint8_t word[18][21]= {
 		"Verde",
 		"Azul",
 		">Entendido<", //16
-		"Alarmas"
+		"Alarmas",
+		"Alerta",
+		"de",
+		"Elevada"
 };
-
 
 /* USER CODE END Private defines */
 

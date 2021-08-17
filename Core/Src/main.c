@@ -46,7 +46,8 @@ typedef enum{
 	E4,
 	E5,
 	E6,
-	E7
+	E7,
+	E8
 }Estados;
 
 typedef enum
@@ -84,6 +85,8 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint8_t Temp = 0; //Variable para guardar la lectura de la temperatura actual
+uint8_t temp_alert = inactive;
 /* USER CODE END 0 */
 
 /**
@@ -137,7 +140,11 @@ int main(void)
   uint8_t inicio2=0;
   while (1)
   {
+	  //La temperatura se debe leer en todo momento, por lo que se llama a la funcion de ReadTemperature de la libreria HAL del sensor LM75B
+	  Temp = HAL_TEMPSen_ReadTemperature();
+
 	  HAL_Get_ActualTime(&Hora,&Minuto,&Segundo);
+
 	  if (inicio==1)
 	  	  {
 
@@ -175,7 +182,20 @@ int main(void)
 
 		  }
 	  }
+<<<<<<< HEAD
+
+	  if(Temp >= Temp_limit)
+	  {
+		  temp_alert = active;
+		  EA = E8;
+	  }else
+	  {
+		  temp_alert = inactive;
+	  }
+	  short btnu = MX_Joystick_Up();
+=======
 	  short btnu = HAL_JOYSTICK_UpPressed();
+>>>>>>> 6ef1c946f82640891de4e4204d9be56353cda309
 	 // LL_mDelay(2);
 	  short btnd = HAL_JOYSTICK_DownPressed();
 	  //LL_mDelay(2);
@@ -312,9 +332,9 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 	if(first == 0){
 		// Mostrado de valores fijos
 		HAL_LCD_Write_AsciiString(word[pastillasABC],18,0);
-		HAL_LCD_Write_AsciiString(word[w_timeInterval],36,1);
+		HAL_LCD_Write_AsciiString(word[intervalo],36,1);
 		HAL_LCD_Write_ascii(':',60,2);
-		HAL_LCD_Write_AsciiString(word[w_accept],36,3);
+		HAL_LCD_Write_AsciiString(word[aceptar],36,3);
 		// > en A la primera vez
 		HAL_LCD_Write_ascii('>',72,0);
 		HAL_LCD_Write_ascii(' ',84,0);
@@ -422,9 +442,6 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Mostrar tiempo
 	HAL_LCD_Write_Number(&Hora,48,1);
 	HAL_LCD_Write_Number(&Minuto,66,1);
-	// Temperatura
-	uint8_t Temp = HAL_TEMPSen_ReadTemperature();
-	LL_mDelay(1);
 	// Mostrar Temperaura
 	HAL_LCD_Write_Number(&Temp,54,3);
 	if(btnC == 1 && btnC != btnCa){
@@ -440,10 +457,10 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Menu
 	if(first == 0){
 			// Mostrado de valores fijos
-			HAL_LCD_Write_AsciiString(word[w_adjustClock],24,0);
-			HAL_LCD_Write_AsciiString(word[w_adjustPill],12,1);
-			HAL_LCD_Write_AsciiString(word[w_timeAndTemp],13,2);
-			HAL_LCD_Write_AsciiString(word[w_timePills],6,3);
+			HAL_LCD_Write_AsciiString(word[ajustarReloj],24,0);
+			HAL_LCD_Write_AsciiString(word[ajustarPastilla],12,1);
+			HAL_LCD_Write_AsciiString(word[HoraYtemperatura],13,2);
+			HAL_LCD_Write_AsciiString(word[intervalosPastilla],6,3);
 			// > en A la primera vez
 			HAL_LCD_Write_ascii('>',18,0);
 			HAL_LCD_Write_ascii(' ',6,1);
@@ -639,14 +656,15 @@ void EDO_6(short btnU, short btnD, short btnL, short btnR, short btnC){
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
+
 void EDO_7(short btnU, short btnD, short btnL, short btnR, short btnC){
 	//Intervalos pastillas
 	if (first==0)
 	{
-		HAL_LCD_Write_AsciiString(word[w_alarms],42,0);
-		HAL_LCD_Write_AsciiString(word[w_red],30,1);
-		HAL_LCD_Write_AsciiString(word[w_green],30,2);
-		HAL_LCD_Write_AsciiString(word[w_blue],30,3);
+		HAL_LCD_Write_AsciiString(word[alarmas],42,0);
+		HAL_LCD_Write_AsciiString(word[rojo],30,1);
+		HAL_LCD_Write_AsciiString(word[verde],30,2);
+		HAL_LCD_Write_AsciiString(word[azul],30,3);
 		HAL_LCD_Write_ascii(':',78,1);
 		HAL_LCD_Write_ascii(':',78,2);
 		HAL_LCD_Write_ascii(':',78,3);
@@ -668,6 +686,36 @@ void EDO_7(short btnU, short btnD, short btnL, short btnR, short btnC){
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
+//Función usada para el estado de "Alarma de Temperatura Activa"
+void EDO_8(short btnU, short btnD, short btnL, short btnR, short btnC)
+{
+	if(first == 0)
+	{
+		// Mostrado de valores fijos
+		HAL_LCD_Clear();
+		HAL_LCD_Write_AsciiString(word[alerta],30,0);
+		HAL_LCD_Write_AsciiString(word[de],72,0);
+		HAL_LCD_Write_AsciiString(word[temperatura],24,1);
+		HAL_LCD_Write_AsciiString(word[elevada],36,2);
+		HAL_LCD_Write_ascii(SYMBOL_ASCII_CELSIUS,60,3);
+		HAL_LCD_Write_ascii('C',66,3);
+		first = 1;
+	}
+
+	HAL_LCD_Write_Number(&Temp,48,3);
+	/*El estado actual se mantendrá en el Estado 8 (estado alerta de temperatura elevada) mientras  temp_alert este activa
+	 esto debido a que la temperatura no a decendido del valor limite
+	*/
+	if(!temp_alert)
+	{
+		//Si la temperatura deciende del valor limite, el estado regresa a mostrar la pantalla principal
+		first = 0;
+		EA = E2;
+	}
+
+	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
+
+}
 // Estructura para asignar una funcion a cada estado
 typedef struct {
 	Estados Estado;
@@ -683,7 +731,8 @@ FSM MDE[] = {
 		{E4,EDO_4},
 		{E5,EDO_5},
 		{E6,EDO_6},
-		{E7,EDO_7}
+		{E7,EDO_7},
+		{E8,EDO_8}
 };
 
 void fsm(short btnU, short btnD,short btnL, short btnR, short btnC){

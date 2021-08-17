@@ -33,7 +33,7 @@ uint8_t HAL_TEMPSen_ReadTemperature(void)
 		  }
 	  }
 	  measure = measure >> 5;
-	  temp = (uint8_t)(measure * 0.125);
+	  temp = (uint8_t)(measure*125)/100;
 
 	  return temp;
 }
