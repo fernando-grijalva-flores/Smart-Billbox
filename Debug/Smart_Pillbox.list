@@ -5,15 +5,15 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .isr_vector   00000188  08000000  08000000  00010000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  1 .text         00004514  08000188  08000188  00010188  2**2
+  1 .text         00004558  08000188  08000188  00010188  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000028  0800469c  0800469c  0001469c  2**2
+  2 .rodata       00000028  080046e0  080046e0  000146e0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .init_array   00000004  080046c4  080046c4  000146c4  2**2
+  3 .init_array   00000004  08004708  08004708  00014708  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  4 .fini_array   00000004  080046c8  080046c8  000146c8  2**2
+  4 .fini_array   00000004  0800470c  0800470c  0001470c  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  5 .data         000006bc  20000000  080046cc  00020000  2**2
+  5 .data         000006bc  20000000  08004710  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
   6 .ccmram       00000000  10000000  10000000  000206bc  2**0
                   CONTENTS
@@ -23,21 +23,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
   9 .ARM.attributes 00000030  00000000  00000000  000206bc  2**0
                   CONTENTS, READONLY
- 10 .debug_info   00008a20  00000000  00000000  000206ec  2**0
+ 10 .debug_info   00008a91  00000000  00000000  000206ec  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_abbrev 00001e03  00000000  00000000  0002910c  2**0
+ 11 .debug_abbrev 00001e21  00000000  00000000  0002917d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_aranges 00000b58  00000000  00000000  0002af10  2**3
+ 12 .debug_aranges 00000b80  00000000  00000000  0002afa0  2**3
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   0000460d  00000000  00000000  0002ba68  2**0
+ 13 .debug_ranges 00000a60  00000000  00000000  0002bb20  2**3
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    0000296c  00000000  00000000  00030075  2**0
+ 14 .debug_line   0000467b  00000000  00000000  0002c580  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .comment      0000007c  00000000  00000000  000329e1  2**0
+ 15 .debug_str    000029ec  00000000  00000000  00030bfb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 16 .comment      0000007c  00000000  00000000  000335e7  2**0
                   CONTENTS, READONLY
- 16 .debug_ranges 00000a30  00000000  00000000  00032a60  2**3
-                  CONTENTS, READONLY, DEBUGGING
- 17 .debug_frame  00002ec0  00000000  00000000  00033490  2**2
+ 17 .debug_frame  00002f5c  00000000  00000000  00033664  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -56,7 +56,7 @@ Disassembly of section .text:
  800019e:	bd10      	pop	{r4, pc}
  80001a0:	200006bc 	.word	0x200006bc
  80001a4:	00000000 	.word	0x00000000
- 80001a8:	08004684 	.word	0x08004684
+ 80001a8:	080046c8 	.word	0x080046c8
 
 080001ac <frame_dummy>:
  80001ac:	b508      	push	{r3, lr}
@@ -68,7 +68,7 @@ Disassembly of section .text:
  80001ba:	bd08      	pop	{r3, pc}
  80001bc:	00000000 	.word	0x00000000
  80001c0:	200006c0 	.word	0x200006c0
- 80001c4:	08004684 	.word	0x08004684
+ 80001c4:	080046c8 	.word	0x080046c8
 
 080001c8 <__aeabi_drsub>:
  80001c8:	f081 4100 	eor.w	r1, r1, #2147483648	; 0x80000000
@@ -1506,8 +1506,8 @@ void MX_ADC1_SetChannel(uint32_t Channel)
  8000e32:	46bd      	mov	sp, r7
  8000e34:	bd80      	pop	{r7, pc}
  8000e36:	bf00      	nop
- 8000e38:	080046b4 	.word	0x080046b4
- 8000e3c:	080046bc 	.word	0x080046bc
+ 8000e38:	080046f8 	.word	0x080046f8
+ 8000e3c:	08004700 	.word	0x08004700
 
 08000e40 <MX_ADC1_StartConversion>:
 
@@ -3717,13 +3717,13 @@ int main(void)
  8001a9e:	f7ff fa3b 	bl	8000f18 <MX_GPIO_Init>
   /* USER CODE BEGIN 2 */
   HAL_TEMPSen_Init();
- 8001aa2:	f002 fd4d 	bl	8004540 <HAL_TEMPSen_Init>
+ 8001aa2:	f002 fd6f 	bl	8004584 <HAL_TEMPSen_Init>
   HAL_RTC_Init();
- 8001aa6:	f002 fd1d 	bl	80044e4 <HAL_RTC_Init>
+ 8001aa6:	f002 fd3f 	bl	8004528 <HAL_RTC_Init>
   HAL_LCD_Init();
- 8001aaa:	f002 fb3f 	bl	800412c <HAL_LCD_Init>
+ 8001aaa:	f002 fb62 	bl	8004172 <HAL_LCD_Init>
   HAL_POT_Init();
- 8001aae:	f002 fcd7 	bl	8004460 <HAL_POT_Init>
+ 8001aae:	f002 fcf9 	bl	80044a4 <HAL_POT_Init>
   /* USER CODE END 2 */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -3732,12 +3732,12 @@ int main(void)
  8001ab2:	2201      	movs	r2, #1
  8001ab4:	2124      	movs	r1, #36	; 0x24
  8001ab6:	4849      	ldr	r0, [pc, #292]	; (8001bdc <main+0x178>)
- 8001ab8:	f002 fc70 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8001ab8:	f002 fc92 	bl	80043e0 <HAL_LCD_Write_AsciiString>
   LL_mDelay(1000);
  8001abc:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8001ac0:	f002 fae4 	bl	800408c <LL_mDelay>
   HAL_LCD_Clear();
- 8001ac4:	f002 fbab 	bl	800421e <HAL_LCD_Clear>
+ 8001ac4:	f002 fbce 	bl	8004264 <HAL_LCD_Clear>
 
   while (1)
   {
@@ -3745,7 +3745,7 @@ int main(void)
  8001ac8:	4a45      	ldr	r2, [pc, #276]	; (8001be0 <main+0x17c>)
  8001aca:	4946      	ldr	r1, [pc, #280]	; (8001be4 <main+0x180>)
  8001acc:	4846      	ldr	r0, [pc, #280]	; (8001be8 <main+0x184>)
- 8001ace:	f002 fd0f 	bl	80044f0 <HAL_Get_ActualTime>
+ 8001ace:	f002 fd31 	bl	8004534 <HAL_Get_ActualTime>
 	  if (inicio==1)
  8001ad2:	4b46      	ldr	r3, [pc, #280]	; (8001bec <main+0x188>)
  8001ad4:	f9b3 3000 	ldrsh.w	r3, [r3]
@@ -3873,28 +3873,28 @@ int main(void)
  8001b94:	801a      	strh	r2, [r3, #0]
 		  }
 	  }
-	  short btnu = MX_Joystick_Up();
- 8001b96:	f7ff fa59 	bl	800104c <MX_Joystick_Up>
+	  short btnu = HAL_JOYSTICK_UpPressed();
+ 8001b96:	f002 fab4 	bl	8004102 <HAL_JOYSTICK_UpPressed>
  8001b9a:	4603      	mov	r3, r0
  8001b9c:	81fb      	strh	r3, [r7, #14]
 	 // LL_mDelay(2);
-	  short btnd = MX_Joystick_Down();
- 8001b9e:	f7ff fa65 	bl	800106c <MX_Joystick_Down>
+	  short btnd = HAL_JOYSTICK_DownPressed();
+ 8001b9e:	f002 fab7 	bl	8004110 <HAL_JOYSTICK_DownPressed>
  8001ba2:	4603      	mov	r3, r0
  8001ba4:	81bb      	strh	r3, [r7, #12]
 	  //LL_mDelay(2);
-	  short btnl = MX_Joystick_Left();
- 8001ba6:	f7ff fa85 	bl	80010b4 <MX_Joystick_Left>
+	  short btnl = HAL_JOYSTICK_LeftPressed();
+ 8001ba6:	f002 fac1 	bl	800412c <HAL_JOYSTICK_LeftPressed>
  8001baa:	4603      	mov	r3, r0
  8001bac:	817b      	strh	r3, [r7, #10]
 	  //LL_mDelay(2);
-	  short btnr = MX_Joystick_Right();
- 8001bae:	f7ff fa6f 	bl	8001090 <MX_Joystick_Right>
+	  short btnr = HAL_JOYSTICK_RightPressed();
+ 8001bae:	f002 fab6 	bl	800411e <HAL_JOYSTICK_RightPressed>
  8001bb2:	4603      	mov	r3, r0
  8001bb4:	813b      	strh	r3, [r7, #8]
 	 // LL_mDelay(2);
-	  short btnc = MX_Joystick_Center();
- 8001bb6:	f7ff fa8f 	bl	80010d8 <MX_Joystick_Center>
+	  short btnc = HAL_JOYSTICK_CenterPressed();
+ 8001bb6:	f002 fa9d 	bl	80040f4 <HAL_JOYSTICK_CenterPressed>
  8001bba:	4603      	mov	r3, r0
  8001bbc:	80fb      	strh	r3, [r7, #6]
 	  fsm(btnu, btnd, btnl, btnr, btnc);
@@ -4132,22 +4132,22 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
  8001d68:	2200      	movs	r2, #0
  8001d6a:	2118      	movs	r1, #24
  8001d6c:	484a      	ldr	r0, [pc, #296]	; (8001e98 <EDO_0+0x158>)
- 8001d6e:	f002 fb15 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8001d6e:	f002 fb37 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_AsciiString(word[reloj],48,1);
  8001d72:	2201      	movs	r2, #1
  8001d74:	2130      	movs	r1, #48	; 0x30
  8001d76:	4849      	ldr	r0, [pc, #292]	; (8001e9c <EDO_0+0x15c>)
- 8001d78:	f002 fb10 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8001d78:	f002 fb32 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_ascii(':',60,2);
  8001d7c:	2202      	movs	r2, #2
  8001d7e:	213c      	movs	r1, #60	; 0x3c
  8001d80:	203a      	movs	r0, #58	; 0x3a
- 8001d82:	f002 faa3 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8001d82:	f002 fac5 	bl	8004310 <HAL_LCD_Write_ascii>
 		HAL_LCD_Write_AsciiString(word[aceptar],36,3);
  8001d86:	2203      	movs	r2, #3
  8001d88:	2124      	movs	r1, #36	; 0x24
  8001d8a:	4845      	ldr	r0, [pc, #276]	; (8001ea0 <EDO_0+0x160>)
- 8001d8c:	f002 fb06 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8001d8c:	f002 fb28 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		first = 1;
  8001d90:	4b40      	ldr	r3, [pc, #256]	; (8001e94 <EDO_0+0x154>)
  8001d92:	2201      	movs	r2, #1
@@ -4155,7 +4155,7 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
 	}
 	Horas = HAL_POT_Percentage(POT1_Channel)*23/100;
  8001d96:	2000      	movs	r0, #0
- 8001d98:	f002 fb84 	bl	80044a4 <HAL_POT_Percentage>
+ 8001d98:	f002 fba6 	bl	80044e8 <HAL_POT_Percentage>
  8001d9c:	4603      	mov	r3, r0
  8001d9e:	461a      	mov	r2, r3
  8001da0:	4613      	mov	r3, r2
@@ -4173,7 +4173,7 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
  8001dba:	701a      	strb	r2, [r3, #0]
 	Minutos = HAL_POT_Percentage(POT2_Channel)*59/100;
  8001dbc:	2001      	movs	r0, #1
- 8001dbe:	f002 fb71 	bl	80044a4 <HAL_POT_Percentage>
+ 8001dbe:	f002 fb93 	bl	80044e8 <HAL_POT_Percentage>
  8001dc2:	4603      	mov	r3, r0
  8001dc4:	461a      	mov	r2, r3
  8001dc6:	4613      	mov	r3, r2
@@ -4193,12 +4193,12 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
  8001de2:	2202      	movs	r2, #2
  8001de4:	2130      	movs	r1, #48	; 0x30
  8001de6:	4830      	ldr	r0, [pc, #192]	; (8001ea8 <EDO_0+0x168>)
- 8001de8:	f002 fb08 	bl	80043fc <HAL_LCD_Write_Number>
+ 8001de8:	f002 fb2a 	bl	8004440 <HAL_LCD_Write_Number>
 	HAL_LCD_Write_Number(&Minutos,67,2);
  8001dec:	2202      	movs	r2, #2
  8001dee:	2143      	movs	r1, #67	; 0x43
  8001df0:	482e      	ldr	r0, [pc, #184]	; (8001eac <EDO_0+0x16c>)
- 8001df2:	f002 fb03 	bl	80043fc <HAL_LCD_Write_Number>
+ 8001df2:	f002 fb25 	bl	8004440 <HAL_LCD_Write_Number>
 	if(btnC == 1 && btnC != btnCa && inicio == 0){
  8001df6:	f9b7 3018 	ldrsh.w	r3, [r7, #24]
  8001dfa:	2b01      	cmp	r3, #1
@@ -4222,7 +4222,7 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
  8001e1e:	2200      	movs	r2, #0
  8001e20:	801a      	strh	r2, [r3, #0]
 		HAL_LCD_Clear();
- 8001e22:	f002 f9fc 	bl	800421e <HAL_LCD_Clear>
+ 8001e22:	f002 fa1f 	bl	8004264 <HAL_LCD_Clear>
 		HAL_Set_ActualTime(Horas,Minutos,0);
  8001e26:	4b20      	ldr	r3, [pc, #128]	; (8001ea8 <EDO_0+0x168>)
  8001e28:	7818      	ldrb	r0, [r3, #0]
@@ -4230,7 +4230,7 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
  8001e2c:	781b      	ldrb	r3, [r3, #0]
  8001e2e:	2200      	movs	r2, #0
  8001e30:	4619      	mov	r1, r3
- 8001e32:	f002 fb6f 	bl	8004514 <HAL_Set_ActualTime>
+ 8001e32:	f002 fb91 	bl	8004558 <HAL_Set_ActualTime>
  8001e36:	e01a      	b.n	8001e6e <EDO_0+0x12e>
 	}
 	else if(btnC == 1 && btnC != btnCa){
@@ -4252,7 +4252,7 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
  8001e56:	2200      	movs	r2, #0
  8001e58:	801a      	strh	r2, [r3, #0]
 		HAL_LCD_Clear();
- 8001e5a:	f002 f9e0 	bl	800421e <HAL_LCD_Clear>
+ 8001e5a:	f002 fa03 	bl	8004264 <HAL_LCD_Clear>
 		HAL_Set_ActualTime(Horas,Minutos,0);
  8001e5e:	4b12      	ldr	r3, [pc, #72]	; (8001ea8 <EDO_0+0x168>)
  8001e60:	7818      	ldrb	r0, [r3, #0]
@@ -4260,7 +4260,7 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
  8001e64:	781b      	ldrb	r3, [r3, #0]
  8001e66:	2200      	movs	r2, #0
  8001e68:	4619      	mov	r1, r3
- 8001e6a:	f002 fb53 	bl	8004514 <HAL_Set_ActualTime>
+ 8001e6a:	f002 fb75 	bl	8004558 <HAL_Set_ActualTime>
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
  8001e6e:	f9b7 4000 	ldrsh.w	r4, [r7]
@@ -4317,38 +4317,38 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
  8001ee4:	2200      	movs	r2, #0
  8001ee6:	2112      	movs	r1, #18
  8001ee8:	48b9      	ldr	r0, [pc, #740]	; (80021d0 <EDO_1+0x314>)
- 8001eea:	f002 fa57 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8001eea:	f002 fa79 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_AsciiString(word[w_timeInterval],36,1);
  8001eee:	2201      	movs	r2, #1
  8001ef0:	2124      	movs	r1, #36	; 0x24
  8001ef2:	48b8      	ldr	r0, [pc, #736]	; (80021d4 <EDO_1+0x318>)
- 8001ef4:	f002 fa52 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8001ef4:	f002 fa74 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_ascii(':',60,2);
  8001ef8:	2202      	movs	r2, #2
  8001efa:	213c      	movs	r1, #60	; 0x3c
  8001efc:	203a      	movs	r0, #58	; 0x3a
- 8001efe:	f002 f9e5 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8001efe:	f002 fa07 	bl	8004310 <HAL_LCD_Write_ascii>
 		HAL_LCD_Write_AsciiString(word[w_accept],36,3);
  8001f02:	2203      	movs	r2, #3
  8001f04:	2124      	movs	r1, #36	; 0x24
  8001f06:	48b4      	ldr	r0, [pc, #720]	; (80021d8 <EDO_1+0x31c>)
- 8001f08:	f002 fa48 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8001f08:	f002 fa6a 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		// > en A la primera vez
 		HAL_LCD_Write_ascii('>',72,0);
  8001f0c:	2200      	movs	r2, #0
  8001f0e:	2148      	movs	r1, #72	; 0x48
  8001f10:	203e      	movs	r0, #62	; 0x3e
- 8001f12:	f002 f9db 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8001f12:	f002 f9fd 	bl	8004310 <HAL_LCD_Write_ascii>
 		HAL_LCD_Write_ascii(' ',84,0);
  8001f16:	2200      	movs	r2, #0
  8001f18:	2154      	movs	r1, #84	; 0x54
  8001f1a:	2020      	movs	r0, #32
- 8001f1c:	f002 f9d6 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8001f1c:	f002 f9f8 	bl	8004310 <HAL_LCD_Write_ascii>
 		HAL_LCD_Write_ascii(' ',96,0);
  8001f20:	2200      	movs	r2, #0
  8001f22:	2160      	movs	r1, #96	; 0x60
  8001f24:	2020      	movs	r0, #32
- 8001f26:	f002 f9d1 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8001f26:	f002 f9f3 	bl	8004310 <HAL_LCD_Write_ascii>
 		first = 1;
  8001f2a:	4ba8      	ldr	r3, [pc, #672]	; (80021cc <EDO_1+0x310>)
  8001f2c:	2201      	movs	r2, #1
@@ -4357,7 +4357,7 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Obtencion horas y minutos
 	Horas = HAL_POT_Percentage(POT1_Channel)*23/100;
  8001f30:	2000      	movs	r0, #0
- 8001f32:	f002 fab7 	bl	80044a4 <HAL_POT_Percentage>
+ 8001f32:	f002 fad9 	bl	80044e8 <HAL_POT_Percentage>
  8001f36:	4603      	mov	r3, r0
  8001f38:	461a      	mov	r2, r3
  8001f3a:	4613      	mov	r3, r2
@@ -4375,7 +4375,7 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
  8001f54:	701a      	strb	r2, [r3, #0]
 	Minutos = HAL_POT_Percentage(POT2_Channel)*59/100;
  8001f56:	2001      	movs	r0, #1
- 8001f58:	f002 faa4 	bl	80044a4 <HAL_POT_Percentage>
+ 8001f58:	f002 fac6 	bl	80044e8 <HAL_POT_Percentage>
  8001f5c:	4603      	mov	r3, r0
  8001f5e:	461a      	mov	r2, r3
  8001f60:	4613      	mov	r3, r2
@@ -4396,12 +4396,12 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
  8001f7c:	2202      	movs	r2, #2
  8001f7e:	2130      	movs	r1, #48	; 0x30
  8001f80:	4897      	ldr	r0, [pc, #604]	; (80021e0 <EDO_1+0x324>)
- 8001f82:	f002 fa3b 	bl	80043fc <HAL_LCD_Write_Number>
+ 8001f82:	f002 fa5d 	bl	8004440 <HAL_LCD_Write_Number>
 	HAL_LCD_Write_Number(&Minutos,67,2);
  8001f86:	2202      	movs	r2, #2
  8001f88:	2143      	movs	r1, #67	; 0x43
  8001f8a:	4896      	ldr	r0, [pc, #600]	; (80021e4 <EDO_1+0x328>)
- 8001f8c:	f002 fa36 	bl	80043fc <HAL_LCD_Write_Number>
+ 8001f8c:	f002 fa58 	bl	8004440 <HAL_LCD_Write_Number>
 
 	if(Puntero == 0){
  8001f90:	4b95      	ldr	r3, [pc, #596]	; (80021e8 <EDO_1+0x32c>)
@@ -4507,51 +4507,51 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
  8002036:	2200      	movs	r2, #0
  8002038:	2148      	movs	r1, #72	; 0x48
  800203a:	203e      	movs	r0, #62	; 0x3e
- 800203c:	f002 f946 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800203c:	f002 f968 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',84,0);
  8002040:	2200      	movs	r2, #0
  8002042:	2154      	movs	r1, #84	; 0x54
  8002044:	2020      	movs	r0, #32
- 8002046:	f002 f941 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002046:	f002 f963 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',96,0);
  800204a:	2200      	movs	r2, #0
  800204c:	2160      	movs	r1, #96	; 0x60
  800204e:	2020      	movs	r0, #32
- 8002050:	f002 f93c 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002050:	f002 f95e 	bl	8004310 <HAL_LCD_Write_ascii>
 				break;
  8002054:	e01f      	b.n	8002096 <EDO_1+0x1da>
 				HAL_LCD_Write_ascii(' ',72,0);
  8002056:	2200      	movs	r2, #0
  8002058:	2148      	movs	r1, #72	; 0x48
  800205a:	2020      	movs	r0, #32
- 800205c:	f002 f936 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800205c:	f002 f958 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii('>',84,0);
  8002060:	2200      	movs	r2, #0
  8002062:	2154      	movs	r1, #84	; 0x54
  8002064:	203e      	movs	r0, #62	; 0x3e
- 8002066:	f002 f931 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002066:	f002 f953 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',96,0);
  800206a:	2200      	movs	r2, #0
  800206c:	2160      	movs	r1, #96	; 0x60
  800206e:	2020      	movs	r0, #32
- 8002070:	f002 f92c 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002070:	f002 f94e 	bl	8004310 <HAL_LCD_Write_ascii>
 				break;
  8002074:	e00f      	b.n	8002096 <EDO_1+0x1da>
 				HAL_LCD_Write_ascii(' ',72,0);
  8002076:	2200      	movs	r2, #0
  8002078:	2148      	movs	r1, #72	; 0x48
  800207a:	2020      	movs	r0, #32
- 800207c:	f002 f926 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800207c:	f002 f948 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',84,0);
  8002080:	2200      	movs	r2, #0
  8002082:	2154      	movs	r1, #84	; 0x54
  8002084:	2020      	movs	r0, #32
- 8002086:	f002 f921 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002086:	f002 f943 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii('>',96,0);
  800208a:	2200      	movs	r2, #0
  800208c:	2160      	movs	r1, #96	; 0x60
  800208e:	203e      	movs	r0, #62	; 0x3e
- 8002090:	f002 f91c 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002090:	f002 f93e 	bl	8004310 <HAL_LCD_Write_ascii>
 				break;
  8002094:	bf00      	nop
 	}
@@ -4600,17 +4600,17 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
  80020ea:	2200      	movs	r2, #0
  80020ec:	2148      	movs	r1, #72	; 0x48
  80020ee:	203e      	movs	r0, #62	; 0x3e
- 80020f0:	f002 f8ec 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80020f0:	f002 f90e 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',84,0);
  80020f4:	2200      	movs	r2, #0
  80020f6:	2154      	movs	r1, #84	; 0x54
  80020f8:	2020      	movs	r0, #32
- 80020fa:	f002 f8e7 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80020fa:	f002 f909 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',96,0);
  80020fe:	2200      	movs	r2, #0
  8002100:	2160      	movs	r1, #96	; 0x60
  8002102:	2020      	movs	r0, #32
- 8002104:	f002 f8e2 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002104:	f002 f904 	bl	8004310 <HAL_LCD_Write_ascii>
 				break;
  8002108:	e01f      	b.n	800214a <EDO_1+0x28e>
 			case 1:
@@ -4618,17 +4618,17 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
  800210a:	2200      	movs	r2, #0
  800210c:	2148      	movs	r1, #72	; 0x48
  800210e:	2020      	movs	r0, #32
- 8002110:	f002 f8dc 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002110:	f002 f8fe 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii('>',84,0);
  8002114:	2200      	movs	r2, #0
  8002116:	2154      	movs	r1, #84	; 0x54
  8002118:	203e      	movs	r0, #62	; 0x3e
- 800211a:	f002 f8d7 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800211a:	f002 f8f9 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',96,0);
  800211e:	2200      	movs	r2, #0
  8002120:	2160      	movs	r1, #96	; 0x60
  8002122:	2020      	movs	r0, #32
- 8002124:	f002 f8d2 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002124:	f002 f8f4 	bl	8004310 <HAL_LCD_Write_ascii>
 				break;
  8002128:	e00f      	b.n	800214a <EDO_1+0x28e>
 			case 2:
@@ -4636,17 +4636,17 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
  800212a:	2200      	movs	r2, #0
  800212c:	2148      	movs	r1, #72	; 0x48
  800212e:	2020      	movs	r0, #32
- 8002130:	f002 f8cc 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002130:	f002 f8ee 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',84,0);
  8002134:	2200      	movs	r2, #0
  8002136:	2154      	movs	r1, #84	; 0x54
  8002138:	2020      	movs	r0, #32
- 800213a:	f002 f8c7 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800213a:	f002 f8e9 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii('>',96,0);
  800213e:	2200      	movs	r2, #0
  8002140:	2160      	movs	r1, #96	; 0x60
  8002142:	203e      	movs	r0, #62	; 0x3e
- 8002144:	f002 f8c2 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002144:	f002 f8e4 	bl	8004310 <HAL_LCD_Write_ascii>
 				break;
  8002148:	bf00      	nop
 		}
@@ -4681,7 +4681,7 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
  8002178:	2201      	movs	r2, #1
  800217a:	801a      	strh	r2, [r3, #0]
 		HAL_LCD_Clear();
- 800217c:	f002 f84f 	bl	800421e <HAL_LCD_Clear>
+ 800217c:	f002 f872 	bl	8004264 <HAL_LCD_Clear>
  8002180:	e012      	b.n	80021a8 <EDO_1+0x2ec>
 	}
 	else if(btnC == 1 && btnC != btnCa){
@@ -4703,7 +4703,7 @@ void EDO_1(short btnU, short btnD, short btnL, short btnR, short btnC){
  80021a0:	2200      	movs	r2, #0
  80021a2:	801a      	strh	r2, [r3, #0]
 		HAL_LCD_Clear();
- 80021a4:	f002 f83b 	bl	800421e <HAL_LCD_Clear>
+ 80021a4:	f002 f85e 	bl	8004264 <HAL_LCD_Clear>
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
  80021a8:	f9b7 4000 	ldrsh.w	r4, [r7]
@@ -4768,27 +4768,27 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
  8002240:	2200      	movs	r2, #0
  8002242:	2130      	movs	r1, #48	; 0x30
  8002244:	482c      	ldr	r0, [pc, #176]	; (80022f8 <EDO_2+0xe0>)
- 8002246:	f002 f8a9 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8002246:	f002 f8cb 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_ascii(':',60,1);
  800224a:	2201      	movs	r2, #1
  800224c:	213c      	movs	r1, #60	; 0x3c
  800224e:	203a      	movs	r0, #58	; 0x3a
- 8002250:	f002 f83c 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002250:	f002 f85e 	bl	8004310 <HAL_LCD_Write_ascii>
 		HAL_LCD_Write_AsciiString(word[temperatura],30,2);
  8002254:	2202      	movs	r2, #2
  8002256:	211e      	movs	r1, #30
  8002258:	4828      	ldr	r0, [pc, #160]	; (80022fc <EDO_2+0xe4>)
- 800225a:	f002 f89f 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 800225a:	f002 f8c1 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_ascii(SYMBOL_ASCII_CELSIUS,66,3);
  800225e:	2203      	movs	r2, #3
  8002260:	2142      	movs	r1, #66	; 0x42
  8002262:	20f8      	movs	r0, #248	; 0xf8
- 8002264:	f002 f832 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002264:	f002 f854 	bl	8004310 <HAL_LCD_Write_ascii>
 		HAL_LCD_Write_ascii('C',72,3);
  8002268:	2203      	movs	r2, #3
  800226a:	2148      	movs	r1, #72	; 0x48
  800226c:	2043      	movs	r0, #67	; 0x43
- 800226e:	f002 f82d 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800226e:	f002 f84f 	bl	8004310 <HAL_LCD_Write_ascii>
 		first = 1;
  8002272:	4b20      	ldr	r3, [pc, #128]	; (80022f4 <EDO_2+0xdc>)
  8002274:	2201      	movs	r2, #1
@@ -4800,15 +4800,15 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
  8002278:	2201      	movs	r2, #1
  800227a:	2130      	movs	r1, #48	; 0x30
  800227c:	4820      	ldr	r0, [pc, #128]	; (8002300 <EDO_2+0xe8>)
- 800227e:	f002 f8bd 	bl	80043fc <HAL_LCD_Write_Number>
+ 800227e:	f002 f8df 	bl	8004440 <HAL_LCD_Write_Number>
 	HAL_LCD_Write_Number(&Minuto,66,1);
  8002282:	2201      	movs	r2, #1
  8002284:	2142      	movs	r1, #66	; 0x42
  8002286:	481f      	ldr	r0, [pc, #124]	; (8002304 <EDO_2+0xec>)
- 8002288:	f002 f8b8 	bl	80043fc <HAL_LCD_Write_Number>
+ 8002288:	f002 f8da 	bl	8004440 <HAL_LCD_Write_Number>
 	// Temperatura
 	uint8_t Temp = HAL_TEMPSen_ReadTemperature();
- 800228c:	f002 f95e 	bl	800454c <HAL_TEMPSen_ReadTemperature>
+ 800228c:	f002 f980 	bl	8004590 <HAL_TEMPSen_ReadTemperature>
  8002290:	4603      	mov	r3, r0
  8002292:	73fb      	strb	r3, [r7, #15]
 	LL_mDelay(1);
@@ -4820,7 +4820,7 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
  800229e:	2203      	movs	r2, #3
  80022a0:	2136      	movs	r1, #54	; 0x36
  80022a2:	4618      	mov	r0, r3
- 80022a4:	f002 f8aa 	bl	80043fc <HAL_LCD_Write_Number>
+ 80022a4:	f002 f8cc 	bl	8004440 <HAL_LCD_Write_Number>
 	if(btnC == 1 && btnC != btnCa){
  80022a8:	f9b7 3020 	ldrsh.w	r3, [r7, #32]
  80022ac:	2b01      	cmp	r3, #1
@@ -4840,7 +4840,7 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
  80022c6:	2200      	movs	r2, #0
  80022c8:	801a      	strh	r2, [r3, #0]
 		HAL_LCD_Clear();
- 80022ca:	f001 ffa8 	bl	800421e <HAL_LCD_Clear>
+ 80022ca:	f001 ffcb 	bl	8004264 <HAL_LCD_Clear>
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
  80022ce:	f9b7 4000 	ldrsh.w	r4, [r7]
@@ -4894,43 +4894,43 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  8002338:	2200      	movs	r2, #0
  800233a:	2118      	movs	r1, #24
  800233c:	48cc      	ldr	r0, [pc, #816]	; (8002670 <EDO_3+0x360>)
- 800233e:	f002 f82d 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 800233e:	f002 f84f 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 			HAL_LCD_Write_AsciiString(word[w_adjustPill],12,1);
  8002342:	2201      	movs	r2, #1
  8002344:	210c      	movs	r1, #12
  8002346:	48cb      	ldr	r0, [pc, #812]	; (8002674 <EDO_3+0x364>)
- 8002348:	f002 f828 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8002348:	f002 f84a 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 			HAL_LCD_Write_AsciiString(word[w_timeAndTemp],13,2);
  800234c:	2202      	movs	r2, #2
  800234e:	210d      	movs	r1, #13
  8002350:	48c9      	ldr	r0, [pc, #804]	; (8002678 <EDO_3+0x368>)
- 8002352:	f002 f823 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8002352:	f002 f845 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 			HAL_LCD_Write_AsciiString(word[w_timePills],6,3);
  8002356:	2203      	movs	r2, #3
  8002358:	2106      	movs	r1, #6
  800235a:	48c8      	ldr	r0, [pc, #800]	; (800267c <EDO_3+0x36c>)
- 800235c:	f002 f81e 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 800235c:	f002 f840 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 			// > en A la primera vez
 			HAL_LCD_Write_ascii('>',18,0);
  8002360:	2200      	movs	r2, #0
  8002362:	2112      	movs	r1, #18
  8002364:	203e      	movs	r0, #62	; 0x3e
- 8002366:	f001 ffb1 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002366:	f001 ffd3 	bl	8004310 <HAL_LCD_Write_ascii>
 			HAL_LCD_Write_ascii(' ',6,1);
  800236a:	2201      	movs	r2, #1
  800236c:	2106      	movs	r1, #6
  800236e:	2020      	movs	r0, #32
- 8002370:	f001 ffac 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002370:	f001 ffce 	bl	8004310 <HAL_LCD_Write_ascii>
 			HAL_LCD_Write_ascii(' ',6,2);
  8002374:	2202      	movs	r2, #2
  8002376:	2106      	movs	r1, #6
  8002378:	2020      	movs	r0, #32
- 800237a:	f001 ffa7 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800237a:	f001 ffc9 	bl	8004310 <HAL_LCD_Write_ascii>
 			HAL_LCD_Write_ascii(' ',0,3);
  800237e:	2203      	movs	r2, #3
  8002380:	2100      	movs	r1, #0
  8002382:	2020      	movs	r0, #32
- 8002384:	f001 ffa2 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002384:	f001 ffc4 	bl	8004310 <HAL_LCD_Write_ascii>
 			first = 1;
  8002388:	4bb8      	ldr	r3, [pc, #736]	; (800266c <EDO_3+0x35c>)
  800238a:	2201      	movs	r2, #1
@@ -4960,7 +4960,7 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  80023b6:	2200      	movs	r2, #0
  80023b8:	701a      	strb	r2, [r3, #0]
 		HAL_LCD_Clear();
- 80023ba:	f001 ff30 	bl	800421e <HAL_LCD_Clear>
+ 80023ba:	f001 ff53 	bl	8004264 <HAL_LCD_Clear>
 		first=0;
  80023be:	4bab      	ldr	r3, [pc, #684]	; (800266c <EDO_3+0x35c>)
  80023c0:	2200      	movs	r2, #0
@@ -4986,7 +4986,7 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  80023e8:	2201      	movs	r2, #1
  80023ea:	701a      	strb	r2, [r3, #0]
 		HAL_LCD_Clear();
- 80023ec:	f001 ff17 	bl	800421e <HAL_LCD_Clear>
+ 80023ec:	f001 ff3a 	bl	8004264 <HAL_LCD_Clear>
 		first=0;
  80023f0:	4b9e      	ldr	r3, [pc, #632]	; (800266c <EDO_3+0x35c>)
  80023f2:	2200      	movs	r2, #0
@@ -5012,7 +5012,7 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  800241a:	2202      	movs	r2, #2
  800241c:	701a      	strb	r2, [r3, #0]
 		HAL_LCD_Clear();
- 800241e:	f001 fefe 	bl	800421e <HAL_LCD_Clear>
+ 800241e:	f001 ff21 	bl	8004264 <HAL_LCD_Clear>
 		first=0;
  8002422:	4b92      	ldr	r3, [pc, #584]	; (800266c <EDO_3+0x35c>)
  8002424:	2200      	movs	r2, #0
@@ -5038,7 +5038,7 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  800244c:	2207      	movs	r2, #7
  800244e:	701a      	strb	r2, [r3, #0]
 		HAL_LCD_Clear();
- 8002450:	f001 fee5 	bl	800421e <HAL_LCD_Clear>
+ 8002450:	f001 ff08 	bl	8004264 <HAL_LCD_Clear>
 		first=0;
  8002454:	4b85      	ldr	r3, [pc, #532]	; (800266c <EDO_3+0x35c>)
  8002456:	2200      	movs	r2, #0
@@ -5095,22 +5095,22 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  80024ca:	2200      	movs	r2, #0
  80024cc:	2112      	movs	r1, #18
  80024ce:	203e      	movs	r0, #62	; 0x3e
- 80024d0:	f001 fefc 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80024d0:	f001 ff1e 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',6,1);
  80024d4:	2201      	movs	r2, #1
  80024d6:	2106      	movs	r1, #6
  80024d8:	2020      	movs	r0, #32
- 80024da:	f001 fef7 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80024da:	f001 ff19 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',6,2);
  80024de:	2202      	movs	r2, #2
  80024e0:	2106      	movs	r1, #6
  80024e2:	2020      	movs	r0, #32
- 80024e4:	f001 fef2 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80024e4:	f001 ff14 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',0,3);
  80024e8:	2203      	movs	r2, #3
  80024ea:	2100      	movs	r1, #0
  80024ec:	2020      	movs	r0, #32
- 80024ee:	f001 feed 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80024ee:	f001 ff0f 	bl	8004310 <HAL_LCD_Write_ascii>
 				break;
  80024f2:	e047      	b.n	8002584 <EDO_3+0x274>
 			case 1:
@@ -5121,22 +5121,22 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  80024fa:	2200      	movs	r2, #0
  80024fc:	2112      	movs	r1, #18
  80024fe:	2020      	movs	r0, #32
- 8002500:	f001 fee4 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002500:	f001 ff06 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii('>',6,1);
  8002504:	2201      	movs	r2, #1
  8002506:	2106      	movs	r1, #6
  8002508:	203e      	movs	r0, #62	; 0x3e
- 800250a:	f001 fedf 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800250a:	f001 ff01 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',6,2);
  800250e:	2202      	movs	r2, #2
  8002510:	2106      	movs	r1, #6
  8002512:	2020      	movs	r0, #32
- 8002514:	f001 feda 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002514:	f001 fefc 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',0,3);
  8002518:	2203      	movs	r2, #3
  800251a:	2100      	movs	r1, #0
  800251c:	2020      	movs	r0, #32
- 800251e:	f001 fed5 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800251e:	f001 fef7 	bl	8004310 <HAL_LCD_Write_ascii>
 				break;
  8002522:	e02f      	b.n	8002584 <EDO_3+0x274>
 			case 2:
@@ -5147,22 +5147,22 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  800252a:	2200      	movs	r2, #0
  800252c:	2112      	movs	r1, #18
  800252e:	2020      	movs	r0, #32
- 8002530:	f001 fecc 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002530:	f001 feee 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',6,1);
  8002534:	2201      	movs	r2, #1
  8002536:	2106      	movs	r1, #6
  8002538:	2020      	movs	r0, #32
- 800253a:	f001 fec7 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800253a:	f001 fee9 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii('>',6,2);
  800253e:	2202      	movs	r2, #2
  8002540:	2106      	movs	r1, #6
  8002542:	203e      	movs	r0, #62	; 0x3e
- 8002544:	f001 fec2 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002544:	f001 fee4 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',0,3);
  8002548:	2203      	movs	r2, #3
  800254a:	2100      	movs	r1, #0
  800254c:	2020      	movs	r0, #32
- 800254e:	f001 febd 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800254e:	f001 fedf 	bl	8004310 <HAL_LCD_Write_ascii>
 				break;
  8002552:	e017      	b.n	8002584 <EDO_3+0x274>
 			case 3:
@@ -5173,22 +5173,22 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  800255a:	2200      	movs	r2, #0
  800255c:	2112      	movs	r1, #18
  800255e:	2020      	movs	r0, #32
- 8002560:	f001 feb4 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002560:	f001 fed6 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',6,1);
  8002564:	2201      	movs	r2, #1
  8002566:	2106      	movs	r1, #6
  8002568:	2020      	movs	r0, #32
- 800256a:	f001 feaf 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800256a:	f001 fed1 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii(' ',6,2);
  800256e:	2202      	movs	r2, #2
  8002570:	2106      	movs	r1, #6
  8002572:	2020      	movs	r0, #32
- 8002574:	f001 feaa 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002574:	f001 fecc 	bl	8004310 <HAL_LCD_Write_ascii>
 				HAL_LCD_Write_ascii('>',0,3);
  8002578:	2203      	movs	r2, #3
  800257a:	2100      	movs	r1, #0
  800257c:	203e      	movs	r0, #62	; 0x3e
- 800257e:	f001 fea5 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800257e:	f001 fec7 	bl	8004310 <HAL_LCD_Write_ascii>
 							break;
  8002582:	bf00      	nop
 		}
@@ -5241,22 +5241,22 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  80025ec:	2200      	movs	r2, #0
  80025ee:	2112      	movs	r1, #18
  80025f0:	203e      	movs	r0, #62	; 0x3e
- 80025f2:	f001 fe6b 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80025f2:	f001 fe8d 	bl	8004310 <HAL_LCD_Write_ascii>
 					HAL_LCD_Write_ascii(' ',6,1);
  80025f6:	2201      	movs	r2, #1
  80025f8:	2106      	movs	r1, #6
  80025fa:	2020      	movs	r0, #32
- 80025fc:	f001 fe66 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80025fc:	f001 fe88 	bl	8004310 <HAL_LCD_Write_ascii>
 					HAL_LCD_Write_ascii(' ',6,2);
  8002600:	2202      	movs	r2, #2
  8002602:	2106      	movs	r1, #6
  8002604:	2020      	movs	r0, #32
- 8002606:	f001 fe61 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002606:	f001 fe83 	bl	8004310 <HAL_LCD_Write_ascii>
 					HAL_LCD_Write_ascii(' ',0,3);
  800260a:	2203      	movs	r2, #3
  800260c:	2100      	movs	r1, #0
  800260e:	2020      	movs	r0, #32
- 8002610:	f001 fe5c 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002610:	f001 fe7e 	bl	8004310 <HAL_LCD_Write_ascii>
 					break;
  8002614:	e054      	b.n	80026c0 <EDO_3+0x3b0>
 				case 1:
@@ -5265,22 +5265,22 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  8002616:	2200      	movs	r2, #0
  8002618:	2112      	movs	r1, #18
  800261a:	2020      	movs	r0, #32
- 800261c:	f001 fe56 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800261c:	f001 fe78 	bl	8004310 <HAL_LCD_Write_ascii>
 					HAL_LCD_Write_ascii('>',6,1);
  8002620:	2201      	movs	r2, #1
  8002622:	2106      	movs	r1, #6
  8002624:	203e      	movs	r0, #62	; 0x3e
- 8002626:	f001 fe51 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002626:	f001 fe73 	bl	8004310 <HAL_LCD_Write_ascii>
 					HAL_LCD_Write_ascii(' ',6,2);
  800262a:	2202      	movs	r2, #2
  800262c:	2106      	movs	r1, #6
  800262e:	2020      	movs	r0, #32
- 8002630:	f001 fe4c 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002630:	f001 fe6e 	bl	8004310 <HAL_LCD_Write_ascii>
 					HAL_LCD_Write_ascii(' ',0,3);
  8002634:	2203      	movs	r2, #3
  8002636:	2100      	movs	r1, #0
  8002638:	2020      	movs	r0, #32
- 800263a:	f001 fe47 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800263a:	f001 fe69 	bl	8004310 <HAL_LCD_Write_ascii>
 					break;
  800263e:	e03f      	b.n	80026c0 <EDO_3+0x3b0>
 				case 2:
@@ -5289,22 +5289,22 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  8002640:	2200      	movs	r2, #0
  8002642:	2112      	movs	r1, #18
  8002644:	2020      	movs	r0, #32
- 8002646:	f001 fe41 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002646:	f001 fe63 	bl	8004310 <HAL_LCD_Write_ascii>
 					HAL_LCD_Write_ascii(' ',6,1);
  800264a:	2201      	movs	r2, #1
  800264c:	2106      	movs	r1, #6
  800264e:	2020      	movs	r0, #32
- 8002650:	f001 fe3c 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002650:	f001 fe5e 	bl	8004310 <HAL_LCD_Write_ascii>
 					HAL_LCD_Write_ascii('>',6,2);
  8002654:	2202      	movs	r2, #2
  8002656:	2106      	movs	r1, #6
  8002658:	203e      	movs	r0, #62	; 0x3e
- 800265a:	f001 fe37 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800265a:	f001 fe59 	bl	8004310 <HAL_LCD_Write_ascii>
 					HAL_LCD_Write_ascii(' ',0,3);
  800265e:	2203      	movs	r2, #3
  8002660:	2100      	movs	r1, #0
  8002662:	2020      	movs	r0, #32
- 8002664:	f001 fe32 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002664:	f001 fe54 	bl	8004310 <HAL_LCD_Write_ascii>
 					break;
  8002668:	e02a      	b.n	80026c0 <EDO_3+0x3b0>
  800266a:	bf00      	nop
@@ -5324,22 +5324,22 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
  8002694:	2200      	movs	r2, #0
  8002696:	2112      	movs	r1, #18
  8002698:	2020      	movs	r0, #32
- 800269a:	f001 fe17 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800269a:	f001 fe39 	bl	8004310 <HAL_LCD_Write_ascii>
 					HAL_LCD_Write_ascii(' ',6,1);
  800269e:	2201      	movs	r2, #1
  80026a0:	2106      	movs	r1, #6
  80026a2:	2020      	movs	r0, #32
- 80026a4:	f001 fe12 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80026a4:	f001 fe34 	bl	8004310 <HAL_LCD_Write_ascii>
 					HAL_LCD_Write_ascii(' ',6,2);
  80026a8:	2202      	movs	r2, #2
  80026aa:	2106      	movs	r1, #6
  80026ac:	2020      	movs	r0, #32
- 80026ae:	f001 fe0d 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80026ae:	f001 fe2f 	bl	8004310 <HAL_LCD_Write_ascii>
 					HAL_LCD_Write_ascii('>',0,3);
  80026b2:	2203      	movs	r2, #3
  80026b4:	2100      	movs	r1, #0
  80026b6:	203e      	movs	r0, #62	; 0x3e
- 80026b8:	f001 fe08 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80026b8:	f001 fe2a 	bl	8004310 <HAL_LCD_Write_ascii>
 								break;
  80026bc:	e000      	b.n	80026c0 <EDO_3+0x3b0>
 	}
@@ -5393,19 +5393,19 @@ void EDO_4(short btnU, short btnD, short btnL, short btnR, short btnC){
  800270c:	2201      	movs	r2, #1
  800270e:	211e      	movs	r1, #30
  8002710:	480e      	ldr	r0, [pc, #56]	; (800274c <EDO_4+0x68>)
- 8002712:	f001 fe43 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8002712:	f001 fe65 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_AsciiString("Sobrepasada",30,2);
  8002716:	2202      	movs	r2, #2
  8002718:	211e      	movs	r1, #30
  800271a:	480d      	ldr	r0, [pc, #52]	; (8002750 <EDO_4+0x6c>)
- 800271c:	f001 fe3e 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 800271c:	f001 fe60 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		first = 1;
  8002720:	4b09      	ldr	r3, [pc, #36]	; (8002748 <EDO_4+0x64>)
  8002722:	2201      	movs	r2, #1
  8002724:	801a      	strh	r2, [r3, #0]
 	}
 	if(HAL_TEMPSen_ReadTemperature() < 40){
- 8002726:	f001 ff11 	bl	800454c <HAL_TEMPSen_ReadTemperature>
+ 8002726:	f001 ff33 	bl	8004590 <HAL_TEMPSen_ReadTemperature>
  800272a:	4603      	mov	r3, r0
  800272c:	2b27      	cmp	r3, #39	; 0x27
  800272e:	d807      	bhi.n	8002740 <EDO_4+0x5c>
@@ -5419,7 +5419,7 @@ void EDO_4(short btnU, short btnD, short btnL, short btnR, short btnC){
  8002738:	2200      	movs	r2, #0
  800273a:	801a      	strh	r2, [r3, #0]
 		HAL_LCD_Clear();
- 800273c:	f001 fd6f 	bl	800421e <HAL_LCD_Clear>
+ 800273c:	f001 fd92 	bl	8004264 <HAL_LCD_Clear>
 	}
 }
  8002740:	bf00      	nop
@@ -5427,8 +5427,8 @@ void EDO_4(short btnU, short btnD, short btnL, short btnR, short btnC){
  8002744:	46bd      	mov	sp, r7
  8002746:	bd90      	pop	{r4, r7, pc}
  8002748:	200006dc 	.word	0x200006dc
- 800274c:	0800469c 	.word	0x0800469c
- 8002750:	080046a8 	.word	0x080046a8
+ 800274c:	080046e0 	.word	0x080046e0
+ 8002750:	080046ec 	.word	0x080046ec
  8002754:	200006d8 	.word	0x200006d8
 
 08002758 <EDO_5>:
@@ -5457,32 +5457,32 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
  800277e:	d11d      	bne.n	80027bc <EDO_5+0x64>
 		// Mostrado de valores fijos
 		HAL_LCD_Clear();
- 8002780:	f001 fd4d 	bl	800421e <HAL_LCD_Clear>
+ 8002780:	f001 fd70 	bl	8004264 <HAL_LCD_Clear>
 		HAL_LCD_Write_AsciiString(word[tomePastilla],24,0);
  8002784:	2200      	movs	r2, #0
  8002786:	2118      	movs	r1, #24
  8002788:	482d      	ldr	r0, [pc, #180]	; (8002840 <EDO_5+0xe8>)
- 800278a:	f001 fe07 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 800278a:	f001 fe29 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_AsciiString(word[rojo],36,1);
  800278e:	2201      	movs	r2, #1
  8002790:	2124      	movs	r1, #36	; 0x24
  8002792:	482c      	ldr	r0, [pc, #176]	; (8002844 <EDO_5+0xec>)
- 8002794:	f001 fe02 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8002794:	f001 fe24 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_AsciiString(word[verde],66,1);
  8002798:	2201      	movs	r2, #1
  800279a:	2142      	movs	r1, #66	; 0x42
  800279c:	482a      	ldr	r0, [pc, #168]	; (8002848 <EDO_5+0xf0>)
- 800279e:	f001 fdfd 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 800279e:	f001 fe1f 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_AsciiString(word[azul],54,2);
  80027a2:	2202      	movs	r2, #2
  80027a4:	2136      	movs	r1, #54	; 0x36
  80027a6:	4829      	ldr	r0, [pc, #164]	; (800284c <EDO_5+0xf4>)
- 80027a8:	f001 fdf8 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 80027a8:	f001 fe1a 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_AsciiString(word[entendido],30,3);
  80027ac:	2203      	movs	r2, #3
  80027ae:	211e      	movs	r1, #30
  80027b0:	4827      	ldr	r0, [pc, #156]	; (8002850 <EDO_5+0xf8>)
- 80027b2:	f001 fdf3 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 80027b2:	f001 fe15 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		first = 1;
  80027b6:	4b21      	ldr	r3, [pc, #132]	; (800283c <EDO_5+0xe4>)
  80027b8:	2201      	movs	r2, #1
@@ -5498,7 +5498,7 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
  80027c4:	2201      	movs	r2, #1
  80027c6:	211e      	movs	r1, #30
  80027c8:	203e      	movs	r0, #62	; 0x3e
- 80027ca:	f001 fd7f 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80027ca:	f001 fda1 	bl	8004310 <HAL_LCD_Write_ascii>
 	}
 	if (alarma2==active)
  80027ce:	4b22      	ldr	r3, [pc, #136]	; (8002858 <EDO_5+0x100>)
@@ -5510,7 +5510,7 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
  80027d6:	2201      	movs	r2, #1
  80027d8:	213c      	movs	r1, #60	; 0x3c
  80027da:	203e      	movs	r0, #62	; 0x3e
- 80027dc:	f001 fd76 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80027dc:	f001 fd98 	bl	8004310 <HAL_LCD_Write_ascii>
 
 	}
 	if (alarma3==active)
@@ -5523,7 +5523,7 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
  80027e8:	2202      	movs	r2, #2
  80027ea:	2130      	movs	r1, #48	; 0x30
  80027ec:	203e      	movs	r0, #62	; 0x3e
- 80027ee:	f001 fd6d 	bl	80042cc <HAL_LCD_Write_ascii>
+ 80027ee:	f001 fd8f 	bl	8004310 <HAL_LCD_Write_ascii>
 	}
 
 	if(btnC == 1 && btnC != btnCa){
@@ -5545,7 +5545,7 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
  8002810:	2200      	movs	r2, #0
  8002812:	801a      	strh	r2, [r3, #0]
 		HAL_LCD_Clear();
- 8002814:	f001 fd03 	bl	800421e <HAL_LCD_Clear>
+ 8002814:	f001 fd26 	bl	8004264 <HAL_LCD_Clear>
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
  8002818:	f9b7 4000 	ldrsh.w	r4, [r7]
@@ -5612,7 +5612,7 @@ void EDO_6(short btnU, short btnD, short btnL, short btnR, short btnC){
  80028a4:	2200      	movs	r2, #0
  80028a6:	801a      	strh	r2, [r3, #0]
 		HAL_LCD_Clear();
- 80028a8:	f001 fcb9 	bl	800421e <HAL_LCD_Clear>
+ 80028a8:	f001 fcdc 	bl	8004264 <HAL_LCD_Clear>
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
  80028ac:	f9b7 4000 	ldrsh.w	r4, [r7]
@@ -5660,67 +5660,67 @@ void EDO_7(short btnU, short btnD, short btnL, short btnR, short btnC){
  8002904:	2200      	movs	r2, #0
  8002906:	212a      	movs	r1, #42	; 0x2a
  8002908:	4834      	ldr	r0, [pc, #208]	; (80029dc <EDO_7+0x100>)
- 800290a:	f001 fd47 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 800290a:	f001 fd69 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_AsciiString(word[w_red],30,1);
  800290e:	2201      	movs	r2, #1
  8002910:	211e      	movs	r1, #30
  8002912:	4833      	ldr	r0, [pc, #204]	; (80029e0 <EDO_7+0x104>)
- 8002914:	f001 fd42 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8002914:	f001 fd64 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_AsciiString(word[w_green],30,2);
  8002918:	2202      	movs	r2, #2
  800291a:	211e      	movs	r1, #30
  800291c:	4831      	ldr	r0, [pc, #196]	; (80029e4 <EDO_7+0x108>)
- 800291e:	f001 fd3d 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 800291e:	f001 fd5f 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_AsciiString(word[w_blue],30,3);
  8002922:	2203      	movs	r2, #3
  8002924:	211e      	movs	r1, #30
  8002926:	4830      	ldr	r0, [pc, #192]	; (80029e8 <EDO_7+0x10c>)
- 8002928:	f001 fd38 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 8002928:	f001 fd5a 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 		HAL_LCD_Write_ascii(':',78,1);
  800292c:	2201      	movs	r2, #1
  800292e:	214e      	movs	r1, #78	; 0x4e
  8002930:	203a      	movs	r0, #58	; 0x3a
- 8002932:	f001 fccb 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002932:	f001 fced 	bl	8004310 <HAL_LCD_Write_ascii>
 		HAL_LCD_Write_ascii(':',78,2);
  8002936:	2202      	movs	r2, #2
  8002938:	214e      	movs	r1, #78	; 0x4e
  800293a:	203a      	movs	r0, #58	; 0x3a
- 800293c:	f001 fcc6 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800293c:	f001 fce8 	bl	8004310 <HAL_LCD_Write_ascii>
 		HAL_LCD_Write_ascii(':',78,3);
  8002940:	2203      	movs	r2, #3
  8002942:	214e      	movs	r1, #78	; 0x4e
  8002944:	203a      	movs	r0, #58	; 0x3a
- 8002946:	f001 fcc1 	bl	80042cc <HAL_LCD_Write_ascii>
+ 8002946:	f001 fce3 	bl	8004310 <HAL_LCD_Write_ascii>
 		HAL_LCD_Write_Number(&IntervaloH1,66,1);
  800294a:	2201      	movs	r2, #1
  800294c:	2142      	movs	r1, #66	; 0x42
  800294e:	4827      	ldr	r0, [pc, #156]	; (80029ec <EDO_7+0x110>)
- 8002950:	f001 fd54 	bl	80043fc <HAL_LCD_Write_Number>
+ 8002950:	f001 fd76 	bl	8004440 <HAL_LCD_Write_Number>
 		HAL_LCD_Write_Number(&IntervaloM1,84,1);
  8002954:	2201      	movs	r2, #1
  8002956:	2154      	movs	r1, #84	; 0x54
  8002958:	4825      	ldr	r0, [pc, #148]	; (80029f0 <EDO_7+0x114>)
- 800295a:	f001 fd4f 	bl	80043fc <HAL_LCD_Write_Number>
+ 800295a:	f001 fd71 	bl	8004440 <HAL_LCD_Write_Number>
 		HAL_LCD_Write_Number(&IntervaloH2,66,2);
  800295e:	2202      	movs	r2, #2
  8002960:	2142      	movs	r1, #66	; 0x42
  8002962:	4824      	ldr	r0, [pc, #144]	; (80029f4 <EDO_7+0x118>)
- 8002964:	f001 fd4a 	bl	80043fc <HAL_LCD_Write_Number>
+ 8002964:	f001 fd6c 	bl	8004440 <HAL_LCD_Write_Number>
 		HAL_LCD_Write_Number(&IntervaloM2,84,2);
  8002968:	2202      	movs	r2, #2
  800296a:	2154      	movs	r1, #84	; 0x54
  800296c:	4822      	ldr	r0, [pc, #136]	; (80029f8 <EDO_7+0x11c>)
- 800296e:	f001 fd45 	bl	80043fc <HAL_LCD_Write_Number>
+ 800296e:	f001 fd67 	bl	8004440 <HAL_LCD_Write_Number>
 		HAL_LCD_Write_Number(&IntervaloH3,66,3);
  8002972:	2203      	movs	r2, #3
  8002974:	2142      	movs	r1, #66	; 0x42
  8002976:	4821      	ldr	r0, [pc, #132]	; (80029fc <EDO_7+0x120>)
- 8002978:	f001 fd40 	bl	80043fc <HAL_LCD_Write_Number>
+ 8002978:	f001 fd62 	bl	8004440 <HAL_LCD_Write_Number>
 		HAL_LCD_Write_Number(&IntervaloM3,84,3);
  800297c:	2203      	movs	r2, #3
  800297e:	2154      	movs	r1, #84	; 0x54
  8002980:	481f      	ldr	r0, [pc, #124]	; (8002a00 <EDO_7+0x124>)
- 8002982:	f001 fd3b 	bl	80043fc <HAL_LCD_Write_Number>
+ 8002982:	f001 fd5d 	bl	8004440 <HAL_LCD_Write_Number>
 		first=1;
  8002986:	4b14      	ldr	r3, [pc, #80]	; (80029d8 <EDO_7+0xfc>)
  8002988:	2201      	movs	r2, #1
@@ -5742,7 +5742,7 @@ void EDO_7(short btnU, short btnD, short btnL, short btnR, short btnC){
  80029a4:	2200      	movs	r2, #0
  80029a6:	801a      	strh	r2, [r3, #0]
 		HAL_LCD_Clear();
- 80029a8:	f001 fc39 	bl	800421e <HAL_LCD_Clear>
+ 80029a8:	f001 fc5c 	bl	8004264 <HAL_LCD_Clear>
 		EA=E3;
  80029ac:	4b16      	ldr	r3, [pc, #88]	; (8002a08 <EDO_7+0x12c>)
  80029ae:	2203      	movs	r2, #3
@@ -6920,7 +6920,7 @@ void MX_SPI1_Init(void)
  80030ba:	2228      	movs	r2, #40	; 0x28
  80030bc:	2100      	movs	r1, #0
  80030be:	4618      	mov	r0, r3
- 80030c0:	f001 fad8 	bl	8004674 <memset>
+ 80030c0:	f001 fafa 	bl	80046b8 <memset>
 
   LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
  80030c4:	463b      	mov	r3, r7
@@ -9814,1064 +9814,1127 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
  80040ee:	bf00      	nop
  80040f0:	200001bc 	.word	0x200001bc
 
-080040f4 <LL_GPIO_SetOutputPin>:
+080040f4 <HAL_JOYSTICK_CenterPressed>:
+
+#include "HAL_JOYSTICK.h"
+#include "gpio.h"
+
+short HAL_JOYSTICK_CenterPressed(void)
 {
- 80040f4:	b480      	push	{r7}
- 80040f6:	b083      	sub	sp, #12
- 80040f8:	af00      	add	r7, sp, #0
- 80040fa:	6078      	str	r0, [r7, #4]
- 80040fc:	6039      	str	r1, [r7, #0]
+ 80040f4:	b580      	push	{r7, lr}
+ 80040f6:	af00      	add	r7, sp, #0
+	return MX_Joystick_Center();
+ 80040f8:	f7fc ffee 	bl	80010d8 <MX_Joystick_Center>
+ 80040fc:	4603      	mov	r3, r0
+}
+ 80040fe:	4618      	mov	r0, r3
+ 8004100:	bd80      	pop	{r7, pc}
+
+08004102 <HAL_JOYSTICK_UpPressed>:
+short HAL_JOYSTICK_UpPressed(void)
+{
+ 8004102:	b580      	push	{r7, lr}
+ 8004104:	af00      	add	r7, sp, #0
+	return MX_Joystick_Up();
+ 8004106:	f7fc ffa1 	bl	800104c <MX_Joystick_Up>
+ 800410a:	4603      	mov	r3, r0
+}
+ 800410c:	4618      	mov	r0, r3
+ 800410e:	bd80      	pop	{r7, pc}
+
+08004110 <HAL_JOYSTICK_DownPressed>:
+short HAL_JOYSTICK_DownPressed(void)
+{
+ 8004110:	b580      	push	{r7, lr}
+ 8004112:	af00      	add	r7, sp, #0
+	return MX_Joystick_Down();
+ 8004114:	f7fc ffaa 	bl	800106c <MX_Joystick_Down>
+ 8004118:	4603      	mov	r3, r0
+}
+ 800411a:	4618      	mov	r0, r3
+ 800411c:	bd80      	pop	{r7, pc}
+
+0800411e <HAL_JOYSTICK_RightPressed>:
+short HAL_JOYSTICK_RightPressed(void)
+{
+ 800411e:	b580      	push	{r7, lr}
+ 8004120:	af00      	add	r7, sp, #0
+	return MX_Joystick_Right();
+ 8004122:	f7fc ffb5 	bl	8001090 <MX_Joystick_Right>
+ 8004126:	4603      	mov	r3, r0
+}
+ 8004128:	4618      	mov	r0, r3
+ 800412a:	bd80      	pop	{r7, pc}
+
+0800412c <HAL_JOYSTICK_LeftPressed>:
+short HAL_JOYSTICK_LeftPressed(void)
+{
+ 800412c:	b580      	push	{r7, lr}
+ 800412e:	af00      	add	r7, sp, #0
+	return MX_Joystick_Left();
+ 8004130:	f7fc ffc0 	bl	80010b4 <MX_Joystick_Left>
+ 8004134:	4603      	mov	r3, r0
+}
+ 8004136:	4618      	mov	r0, r3
+ 8004138:	bd80      	pop	{r7, pc}
+
+0800413a <LL_GPIO_SetOutputPin>:
+{
+ 800413a:	b480      	push	{r7}
+ 800413c:	b083      	sub	sp, #12
+ 800413e:	af00      	add	r7, sp, #0
+ 8004140:	6078      	str	r0, [r7, #4]
+ 8004142:	6039      	str	r1, [r7, #0]
   WRITE_REG(GPIOx->BSRR, PinMask);
- 80040fe:	687b      	ldr	r3, [r7, #4]
- 8004100:	683a      	ldr	r2, [r7, #0]
- 8004102:	619a      	str	r2, [r3, #24]
+ 8004144:	687b      	ldr	r3, [r7, #4]
+ 8004146:	683a      	ldr	r2, [r7, #0]
+ 8004148:	619a      	str	r2, [r3, #24]
 }
- 8004104:	bf00      	nop
- 8004106:	370c      	adds	r7, #12
- 8004108:	46bd      	mov	sp, r7
- 800410a:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800410e:	4770      	bx	lr
+ 800414a:	bf00      	nop
+ 800414c:	370c      	adds	r7, #12
+ 800414e:	46bd      	mov	sp, r7
+ 8004150:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8004154:	4770      	bx	lr
 
-08004110 <LL_GPIO_ResetOutputPin>:
+08004156 <LL_GPIO_ResetOutputPin>:
 {
- 8004110:	b480      	push	{r7}
- 8004112:	b083      	sub	sp, #12
- 8004114:	af00      	add	r7, sp, #0
- 8004116:	6078      	str	r0, [r7, #4]
- 8004118:	6039      	str	r1, [r7, #0]
+ 8004156:	b480      	push	{r7}
+ 8004158:	b083      	sub	sp, #12
+ 800415a:	af00      	add	r7, sp, #0
+ 800415c:	6078      	str	r0, [r7, #4]
+ 800415e:	6039      	str	r1, [r7, #0]
   WRITE_REG(GPIOx->BRR, PinMask);
- 800411a:	687b      	ldr	r3, [r7, #4]
- 800411c:	683a      	ldr	r2, [r7, #0]
- 800411e:	629a      	str	r2, [r3, #40]	; 0x28
+ 8004160:	687b      	ldr	r3, [r7, #4]
+ 8004162:	683a      	ldr	r2, [r7, #0]
+ 8004164:	629a      	str	r2, [r3, #40]	; 0x28
 }
- 8004120:	bf00      	nop
- 8004122:	370c      	adds	r7, #12
- 8004124:	46bd      	mov	sp, r7
- 8004126:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800412a:	4770      	bx	lr
+ 8004166:	bf00      	nop
+ 8004168:	370c      	adds	r7, #12
+ 800416a:	46bd      	mov	sp, r7
+ 800416c:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8004170:	4770      	bx	lr
 
-0800412c <HAL_LCD_Init>:
+08004172 <HAL_LCD_Init>:
 
 
 
 
 void HAL_LCD_Init(void)
 {
- 800412c:	b580      	push	{r7, lr}
- 800412e:	af00      	add	r7, sp, #0
+ 8004172:	b580      	push	{r7, lr}
+ 8004174:	af00      	add	r7, sp, #0
 	/* This function initialize the LCD, this function must be call first
 	before performing any operation in the LCD, the used GPIOs were initialized in the main */
 
 	/*Before starting sending information to the LCD,
 	it is necessary to initialize the SPI communication*/
 	MX_SPI1_Init();
- 8004130:	f7fe ffbe 	bl	80030b0 <MX_SPI1_Init>
+ 8004176:	f7fe ff9b 	bl	80030b0 <MX_SPI1_Init>
 
 	/*We need to make sure the LCD reaches 3.3V, therefore we make a delay of 1ms after reseting the LCD
 	to start sending information*/
 	HAL_LCD_Reset();
- 8004134:	f000 f822 	bl	800417c <HAL_LCD_Reset>
+ 800417a:	f000 f822 	bl	80041c2 <HAL_LCD_Reset>
 	LL_mDelay(1);
- 8004138:	2001      	movs	r0, #1
- 800413a:	f7ff ffa7 	bl	800408c <LL_mDelay>
+ 800417e:	2001      	movs	r0, #1
+ 8004180:	f7ff ff84 	bl	800408c <LL_mDelay>
 
 	/*These commands are necessary to initialize the LCD, you can find
 	them in the datasheet of the LCD NHD-C12832A1Z-FSW-FBW-3V3 or chip on glass ST7565R */
 
 	/*We set the segment (columns) order to NORMAL*/
 	HAL_LCD_Send_Command(CMD_ADC_SELECT(ADC_NORMAL));
- 800413e:	20a0      	movs	r0, #160	; 0xa0
- 8004140:	f000 f841 	bl	80041c6 <HAL_LCD_Send_Command>
+ 8004184:	20a0      	movs	r0, #160	; 0xa0
+ 8004186:	f000 f841 	bl	800420c <HAL_LCD_Send_Command>
 
 	 /*TURNS OFF the display*/
 	HAL_LCD_Send_Command(CMD_DISPLAY_ON_OFF(DISPLAY_OFF));
- 8004144:	20ae      	movs	r0, #174	; 0xae
- 8004146:	f000 f83e 	bl	80041c6 <HAL_LCD_Send_Command>
+ 800418a:	20ae      	movs	r0, #174	; 0xae
+ 800418c:	f000 f83e 	bl	800420c <HAL_LCD_Send_Command>
 
 	/*Selects COM output scan direction to normal direction*/
 	HAL_LCD_Send_Command(CMD_COM_DIRECTION(COM_DIRECTION_REVERSE));
- 800414a:	20c8      	movs	r0, #200	; 0xc8
- 800414c:	f000 f83b 	bl	80041c6 <HAL_LCD_Send_Command>
+ 8004190:	20c8      	movs	r0, #200	; 0xc8
+ 8004192:	f000 f83b 	bl	800420c <HAL_LCD_Send_Command>
 
 	/*Sets the LCD drive voltage bias ratio to 1/9*/
 	HAL_LCD_Send_Command(CMD_BIAS_RATIO(CMD_BIAS_19));
- 8004150:	20a2      	movs	r0, #162	; 0xa2
- 8004152:	f000 f838 	bl	80041c6 <HAL_LCD_Send_Command>
+ 8004196:	20a2      	movs	r0, #162	; 0xa2
+ 8004198:	f000 f838 	bl	800420c <HAL_LCD_Send_Command>
 
 	/*Select internal power supply 111*/
 	HAL_LCD_Send_Command(CMD_PWR_CONTROL(PWR_INTERNAL_SUPPLY));
- 8004156:	202f      	movs	r0, #47	; 0x2f
- 8004158:	f000 f835 	bl	80041c6 <HAL_LCD_Send_Command>
+ 800419c:	202f      	movs	r0, #47	; 0x2f
+ 800419e:	f000 f835 	bl	800420c <HAL_LCD_Send_Command>
 
 	/*Select internal resistor ratio 001 */
 	HAL_LCD_Send_Command(CMD_RES_RATIO(RES_RATIO_35));
- 800415c:	2021      	movs	r0, #33	; 0x21
- 800415e:	f000 f832 	bl	80041c6 <HAL_LCD_Send_Command>
+ 80041a2:	2021      	movs	r0, #33	; 0x21
+ 80041a4:	f000 f832 	bl	800420c <HAL_LCD_Send_Command>
 
 	/*Electronic volume mode  */
 	HAL_LCD_Send_Command(CMD_ELEC_VOL_MODE);
- 8004162:	2081      	movs	r0, #129	; 0x81
- 8004164:	f000 f82f 	bl	80041c6 <HAL_LCD_Send_Command>
+ 80041a8:	2081      	movs	r0, #129	; 0x81
+ 80041aa:	f000 f82f 	bl	800420c <HAL_LCD_Send_Command>
 
 	/*SET electronic volume (contrast), please NOTE this value is different from the datasheet,
 	the datasheet specifies to configure a 3F, however, the contrast is to high and we would have
 	problems to see the configured pixel in further LCD configurations*/
 	HAL_LCD_Send_Command(CMD_ELEC_VOL_SET_LOW);
- 8004168:	201f      	movs	r0, #31
- 800416a:	f000 f82c 	bl	80041c6 <HAL_LCD_Send_Command>
+ 80041ae:	201f      	movs	r0, #31
+ 80041b0:	f000 f82c 	bl	800420c <HAL_LCD_Send_Command>
 
 	/* End of the initialization commands from datasheet, the following commands are just to prepare the
 	 LCD before start implementing functions */
 
 	/* With this command we want to set all the points in the LCD to work normal*/
 	HAL_LCD_Send_Command(CMD_LCD_POINTS(LCD_POINTS_NORMAL));
- 800416e:	20a4      	movs	r0, #164	; 0xa4
- 8004170:	f000 f829 	bl	80041c6 <HAL_LCD_Send_Command>
+ 80041b4:	20a4      	movs	r0, #164	; 0xa4
+ 80041b6:	f000 f829 	bl	800420c <HAL_LCD_Send_Command>
 
 	/*After initializating the LCD, it is necessary to clear all display because
 	it could have information in RAM after it was turned off*/
 	HAL_LCD_Clear();
- 8004174:	f000 f853 	bl	800421e <HAL_LCD_Clear>
+ 80041ba:	f000 f853 	bl	8004264 <HAL_LCD_Clear>
 
 	return;
- 8004178:	bf00      	nop
+ 80041be:	bf00      	nop
 }
- 800417a:	bd80      	pop	{r7, pc}
+ 80041c0:	bd80      	pop	{r7, pc}
 
-0800417c <HAL_LCD_Reset>:
+080041c2 <HAL_LCD_Reset>:
 void HAL_LCD_Reset(void)
 {
- 800417c:	b580      	push	{r7, lr}
- 800417e:	af00      	add	r7, sp, #0
+ 80041c2:	b580      	push	{r7, lr}
+ 80041c4:	af00      	add	r7, sp, #0
 	/*Pin PA6 is configured as RESET signal of LCD,
 	when the reset signal is inactive, it is HIGH, if we want to reset the LCD
 	, we reset the signal to LOW and release
 	PA6   ------> LCD_RESET*/
 
 	LL_GPIO_ResetOutputPin(LCD_RESET_GPIO_Port,LCD_RESET_Pin);
- 8004180:	2140      	movs	r1, #64	; 0x40
- 8004182:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
- 8004186:	f7ff ffc3 	bl	8004110 <LL_GPIO_ResetOutputPin>
+ 80041c6:	2140      	movs	r1, #64	; 0x40
+ 80041c8:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 80041cc:	f7ff ffc3 	bl	8004156 <LL_GPIO_ResetOutputPin>
 	LL_mDelay(1);
- 800418a:	2001      	movs	r0, #1
- 800418c:	f7ff ff7e 	bl	800408c <LL_mDelay>
+ 80041d0:	2001      	movs	r0, #1
+ 80041d2:	f7ff ff5b 	bl	800408c <LL_mDelay>
 	LL_GPIO_SetOutputPin(LCD_RESET_GPIO_Port,LCD_RESET_Pin);
- 8004190:	2140      	movs	r1, #64	; 0x40
- 8004192:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
- 8004196:	f7ff ffad 	bl	80040f4 <LL_GPIO_SetOutputPin>
+ 80041d6:	2140      	movs	r1, #64	; 0x40
+ 80041d8:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 80041dc:	f7ff ffad 	bl	800413a <LL_GPIO_SetOutputPin>
 
 	return;
- 800419a:	bf00      	nop
+ 80041e0:	bf00      	nop
 }
- 800419c:	bd80      	pop	{r7, pc}
+ 80041e2:	bd80      	pop	{r7, pc}
 
-0800419e <HAL_LCD_A0_Data>:
+080041e4 <HAL_LCD_A0_Data>:
 
 void HAL_LCD_A0_Data(void)
 {
- 800419e:	b580      	push	{r7, lr}
- 80041a0:	af00      	add	r7, sp, #0
+ 80041e4:	b580      	push	{r7, lr}
+ 80041e6:	af00      	add	r7, sp, #0
 	/*Pin PA8 is configured as A0 signal of LCD,
 	when the A0 is HIGH, the information is a DATA
 	PA8   ------> LCD_A0*/
 	LL_GPIO_SetOutputPin(LCD_A0_GPIO_Port,LCD_A0_Pin);
- 80041a2:	f44f 7180 	mov.w	r1, #256	; 0x100
- 80041a6:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
- 80041aa:	f7ff ffa3 	bl	80040f4 <LL_GPIO_SetOutputPin>
+ 80041e8:	f44f 7180 	mov.w	r1, #256	; 0x100
+ 80041ec:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 80041f0:	f7ff ffa3 	bl	800413a <LL_GPIO_SetOutputPin>
 
 	return;
- 80041ae:	bf00      	nop
+ 80041f4:	bf00      	nop
 }
- 80041b0:	bd80      	pop	{r7, pc}
+ 80041f6:	bd80      	pop	{r7, pc}
 
-080041b2 <HAL_LCD_A0_Command>:
+080041f8 <HAL_LCD_A0_Command>:
 void HAL_LCD_A0_Command(void)
 {
- 80041b2:	b580      	push	{r7, lr}
- 80041b4:	af00      	add	r7, sp, #0
+ 80041f8:	b580      	push	{r7, lr}
+ 80041fa:	af00      	add	r7, sp, #0
 	/*Pin PA8 is configured as A0 signal of LCD,
 	when the A0 is LOW, the information is a COMMAND
 	PA8   ------> LCD_A0*/
 	LL_GPIO_ResetOutputPin(LCD_A0_GPIO_Port,LCD_A0_Pin);
- 80041b6:	f44f 7180 	mov.w	r1, #256	; 0x100
- 80041ba:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
- 80041be:	f7ff ffa7 	bl	8004110 <LL_GPIO_ResetOutputPin>
+ 80041fc:	f44f 7180 	mov.w	r1, #256	; 0x100
+ 8004200:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8004204:	f7ff ffa7 	bl	8004156 <LL_GPIO_ResetOutputPin>
 
 	return;
- 80041c2:	bf00      	nop
+ 8004208:	bf00      	nop
 }
- 80041c4:	bd80      	pop	{r7, pc}
+ 800420a:	bd80      	pop	{r7, pc}
 
-080041c6 <HAL_LCD_Send_Command>:
+0800420c <HAL_LCD_Send_Command>:
 
 void HAL_LCD_Send_Command(uint8_t command)
 {
- 80041c6:	b580      	push	{r7, lr}
- 80041c8:	b082      	sub	sp, #8
- 80041ca:	af00      	add	r7, sp, #0
- 80041cc:	4603      	mov	r3, r0
- 80041ce:	71fb      	strb	r3, [r7, #7]
+ 800420c:	b580      	push	{r7, lr}
+ 800420e:	b082      	sub	sp, #8
+ 8004210:	af00      	add	r7, sp, #0
+ 8004212:	4603      	mov	r3, r0
+ 8004214:	71fb      	strb	r3, [r7, #7]
 	/*Function to send a command through SPI1, it configures automatically the A0=0
 	therefore, it is a command. It enables CHIP SELECT signal and disables it after transmission is done */
 	MX_SPI1_CS_Enable();
- 80041d0:	f7fe fff8 	bl	80031c4 <MX_SPI1_CS_Enable>
+ 8004216:	f7fe ffd5 	bl	80031c4 <MX_SPI1_CS_Enable>
 	HAL_LCD_A0_Command();
- 80041d4:	f7ff ffed 	bl	80041b2 <HAL_LCD_A0_Command>
+ 800421a:	f7ff ffed 	bl	80041f8 <HAL_LCD_A0_Command>
 	MX_SPI1_Send(command);
- 80041d8:	79fb      	ldrb	r3, [r7, #7]
- 80041da:	4618      	mov	r0, r3
- 80041dc:	f7fe ffd4 	bl	8003188 <MX_SPI1_Send>
+ 800421e:	79fb      	ldrb	r3, [r7, #7]
+ 8004220:	4618      	mov	r0, r3
+ 8004222:	f7fe ffb1 	bl	8003188 <MX_SPI1_Send>
 	LL_mDelay(1);
- 80041e0:	2001      	movs	r0, #1
- 80041e2:	f7ff ff53 	bl	800408c <LL_mDelay>
+ 8004226:	2001      	movs	r0, #1
+ 8004228:	f7ff ff30 	bl	800408c <LL_mDelay>
 	MX_SPI1_CS_Disable();
- 80041e6:	f7fe fff7 	bl	80031d8 <MX_SPI1_CS_Disable>
+ 800422c:	f7fe ffd4 	bl	80031d8 <MX_SPI1_CS_Disable>
 
 	return;
- 80041ea:	bf00      	nop
+ 8004230:	bf00      	nop
 }
- 80041ec:	3708      	adds	r7, #8
- 80041ee:	46bd      	mov	sp, r7
- 80041f0:	bd80      	pop	{r7, pc}
+ 8004232:	3708      	adds	r7, #8
+ 8004234:	46bd      	mov	sp, r7
+ 8004236:	bd80      	pop	{r7, pc}
 
-080041f2 <HAL_LCD_Send_Data>:
+08004238 <HAL_LCD_Send_Data>:
 
 void HAL_LCD_Send_Data(uint8_t data)
 {
- 80041f2:	b580      	push	{r7, lr}
- 80041f4:	b082      	sub	sp, #8
- 80041f6:	af00      	add	r7, sp, #0
- 80041f8:	4603      	mov	r3, r0
- 80041fa:	71fb      	strb	r3, [r7, #7]
+ 8004238:	b580      	push	{r7, lr}
+ 800423a:	b082      	sub	sp, #8
+ 800423c:	af00      	add	r7, sp, #0
+ 800423e:	4603      	mov	r3, r0
+ 8004240:	71fb      	strb	r3, [r7, #7]
 	/*Function to send a data through SPI1, it configures automatically the A0=1
 	therefore, it is a data. It enables CHIP SELECT signal and disables it after transmission is done */
 	MX_SPI1_CS_Enable();
- 80041fc:	f7fe ffe2 	bl	80031c4 <MX_SPI1_CS_Enable>
+ 8004242:	f7fe ffbf 	bl	80031c4 <MX_SPI1_CS_Enable>
 	HAL_LCD_A0_Data();
- 8004200:	f7ff ffcd 	bl	800419e <HAL_LCD_A0_Data>
+ 8004246:	f7ff ffcd 	bl	80041e4 <HAL_LCD_A0_Data>
 	MX_SPI1_Send(data);
- 8004204:	79fb      	ldrb	r3, [r7, #7]
- 8004206:	4618      	mov	r0, r3
- 8004208:	f7fe ffbe 	bl	8003188 <MX_SPI1_Send>
+ 800424a:	79fb      	ldrb	r3, [r7, #7]
+ 800424c:	4618      	mov	r0, r3
+ 800424e:	f7fe ff9b 	bl	8003188 <MX_SPI1_Send>
 	LL_mDelay(1);
- 800420c:	2001      	movs	r0, #1
- 800420e:	f7ff ff3d 	bl	800408c <LL_mDelay>
+ 8004252:	2001      	movs	r0, #1
+ 8004254:	f7ff ff1a 	bl	800408c <LL_mDelay>
 	MX_SPI1_CS_Disable();
- 8004212:	f7fe ffe1 	bl	80031d8 <MX_SPI1_CS_Disable>
+ 8004258:	f7fe ffbe 	bl	80031d8 <MX_SPI1_CS_Disable>
 
 	return;
- 8004216:	bf00      	nop
+ 800425c:	bf00      	nop
 }
- 8004218:	3708      	adds	r7, #8
- 800421a:	46bd      	mov	sp, r7
- 800421c:	bd80      	pop	{r7, pc}
+ 800425e:	3708      	adds	r7, #8
+ 8004260:	46bd      	mov	sp, r7
+ 8004262:	bd80      	pop	{r7, pc}
 
-0800421e <HAL_LCD_Clear>:
+08004264 <HAL_LCD_Clear>:
 
 void HAL_LCD_Clear(void)
 {
- 800421e:	b580      	push	{r7, lr}
- 8004220:	b082      	sub	sp, #8
- 8004222:	af00      	add	r7, sp, #0
+ 8004264:	b580      	push	{r7, lr}
+ 8004266:	b082      	sub	sp, #8
+ 8004268:	af00      	add	r7, sp, #0
 	/*Function to clear ALL LCD, from page=0, column =0,
 	to page = 3, column = 127, after clear, the cursor
 	is set at page=0, column=0*/
 	HAL_LCD_Send_Command(CMD_DISPLAY_ON_OFF(DISPLAY_OFF));
- 8004224:	20ae      	movs	r0, #174	; 0xae
- 8004226:	f7ff ffce 	bl	80041c6 <HAL_LCD_Send_Command>
+ 800426a:	20ae      	movs	r0, #174	; 0xae
+ 800426c:	f7ff ffce 	bl	800420c <HAL_LCD_Send_Command>
 	for (uint8_t page=0 ; page <= MAX_PAGES ; page++)
- 800422a:	2300      	movs	r3, #0
- 800422c:	71fb      	strb	r3, [r7, #7]
- 800422e:	e014      	b.n	800425a <HAL_LCD_Clear+0x3c>
+ 8004270:	2300      	movs	r3, #0
+ 8004272:	71fb      	strb	r3, [r7, #7]
+ 8004274:	e014      	b.n	80042a0 <HAL_LCD_Clear+0x3c>
 	{
 
 		HAL_LCD_Set_Position(0,page);
- 8004230:	79fb      	ldrb	r3, [r7, #7]
- 8004232:	4619      	mov	r1, r3
- 8004234:	2000      	movs	r0, #0
- 8004236:	f000 f81e 	bl	8004276 <HAL_LCD_Set_Position>
+ 8004276:	79fb      	ldrb	r3, [r7, #7]
+ 8004278:	4619      	mov	r1, r3
+ 800427a:	2000      	movs	r0, #0
+ 800427c:	f000 f81e 	bl	80042bc <HAL_LCD_Set_Position>
 		for(uint8_t column=0;column<= MAX_WIDHT ; column++)
- 800423a:	2300      	movs	r3, #0
- 800423c:	71bb      	strb	r3, [r7, #6]
- 800423e:	e005      	b.n	800424c <HAL_LCD_Clear+0x2e>
+ 8004280:	2300      	movs	r3, #0
+ 8004282:	71bb      	strb	r3, [r7, #6]
+ 8004284:	e005      	b.n	8004292 <HAL_LCD_Clear+0x2e>
 		{
 			HAL_LCD_Send_Data(ERASE_BYTE);
- 8004240:	2000      	movs	r0, #0
- 8004242:	f7ff ffd6 	bl	80041f2 <HAL_LCD_Send_Data>
+ 8004286:	2000      	movs	r0, #0
+ 8004288:	f7ff ffd6 	bl	8004238 <HAL_LCD_Send_Data>
 		for(uint8_t column=0;column<= MAX_WIDHT ; column++)
- 8004246:	79bb      	ldrb	r3, [r7, #6]
- 8004248:	3301      	adds	r3, #1
- 800424a:	71bb      	strb	r3, [r7, #6]
- 800424c:	f997 3006 	ldrsb.w	r3, [r7, #6]
- 8004250:	2b00      	cmp	r3, #0
- 8004252:	daf5      	bge.n	8004240 <HAL_LCD_Clear+0x22>
+ 800428c:	79bb      	ldrb	r3, [r7, #6]
+ 800428e:	3301      	adds	r3, #1
+ 8004290:	71bb      	strb	r3, [r7, #6]
+ 8004292:	f997 3006 	ldrsb.w	r3, [r7, #6]
+ 8004296:	2b00      	cmp	r3, #0
+ 8004298:	daf5      	bge.n	8004286 <HAL_LCD_Clear+0x22>
 	for (uint8_t page=0 ; page <= MAX_PAGES ; page++)
- 8004254:	79fb      	ldrb	r3, [r7, #7]
- 8004256:	3301      	adds	r3, #1
- 8004258:	71fb      	strb	r3, [r7, #7]
- 800425a:	79fb      	ldrb	r3, [r7, #7]
- 800425c:	2b03      	cmp	r3, #3
- 800425e:	d9e7      	bls.n	8004230 <HAL_LCD_Clear+0x12>
+ 800429a:	79fb      	ldrb	r3, [r7, #7]
+ 800429c:	3301      	adds	r3, #1
+ 800429e:	71fb      	strb	r3, [r7, #7]
+ 80042a0:	79fb      	ldrb	r3, [r7, #7]
+ 80042a2:	2b03      	cmp	r3, #3
+ 80042a4:	d9e7      	bls.n	8004276 <HAL_LCD_Clear+0x12>
 		}
 	}
 	HAL_LCD_Set_Position(0,0);
- 8004260:	2100      	movs	r1, #0
- 8004262:	2000      	movs	r0, #0
- 8004264:	f000 f807 	bl	8004276 <HAL_LCD_Set_Position>
+ 80042a6:	2100      	movs	r1, #0
+ 80042a8:	2000      	movs	r0, #0
+ 80042aa:	f000 f807 	bl	80042bc <HAL_LCD_Set_Position>
 	HAL_LCD_Send_Command(CMD_DISPLAY_ON_OFF(DISPLAY_ON));
- 8004268:	20af      	movs	r0, #175	; 0xaf
- 800426a:	f7ff ffac 	bl	80041c6 <HAL_LCD_Send_Command>
+ 80042ae:	20af      	movs	r0, #175	; 0xaf
+ 80042b0:	f7ff ffac 	bl	800420c <HAL_LCD_Send_Command>
 
 	return;
- 800426e:	bf00      	nop
+ 80042b4:	bf00      	nop
 }
- 8004270:	3708      	adds	r7, #8
- 8004272:	46bd      	mov	sp, r7
- 8004274:	bd80      	pop	{r7, pc}
+ 80042b6:	3708      	adds	r7, #8
+ 80042b8:	46bd      	mov	sp, r7
+ 80042ba:	bd80      	pop	{r7, pc}
 
-08004276 <HAL_LCD_Set_Position>:
+080042bc <HAL_LCD_Set_Position>:
 
 void HAL_LCD_Set_Position(uint8_t column, uint8_t page)
 {
- 8004276:	b580      	push	{r7, lr}
- 8004278:	b082      	sub	sp, #8
- 800427a:	af00      	add	r7, sp, #0
- 800427c:	4603      	mov	r3, r0
- 800427e:	460a      	mov	r2, r1
- 8004280:	71fb      	strb	r3, [r7, #7]
- 8004282:	4613      	mov	r3, r2
- 8004284:	71bb      	strb	r3, [r7, #6]
+ 80042bc:	b580      	push	{r7, lr}
+ 80042be:	b082      	sub	sp, #8
+ 80042c0:	af00      	add	r7, sp, #0
+ 80042c2:	4603      	mov	r3, r0
+ 80042c4:	460a      	mov	r2, r1
+ 80042c6:	71fb      	strb	r3, [r7, #7]
+ 80042c8:	4613      	mov	r3, r2
+ 80042ca:	71bb      	strb	r3, [r7, #6]
 	/*This function sets the position of the cursor, remember that
 	MAX COLUMN = 127 and MAX PAGE = 3, the cursor is not explicit showed in the LCD,
 	it is just a reference word to understand where the LCD starting is*/
 	HAL_LCD_Send_Command(CMD_COLUMN_MSB(column));
- 8004286:	79fb      	ldrb	r3, [r7, #7]
- 8004288:	091b      	lsrs	r3, r3, #4
- 800428a:	b2db      	uxtb	r3, r3
- 800428c:	b25b      	sxtb	r3, r3
- 800428e:	f043 0310 	orr.w	r3, r3, #16
- 8004292:	b25b      	sxtb	r3, r3
- 8004294:	b2db      	uxtb	r3, r3
- 8004296:	4618      	mov	r0, r3
- 8004298:	f7ff ff95 	bl	80041c6 <HAL_LCD_Send_Command>
+ 80042cc:	79fb      	ldrb	r3, [r7, #7]
+ 80042ce:	091b      	lsrs	r3, r3, #4
+ 80042d0:	b2db      	uxtb	r3, r3
+ 80042d2:	b25b      	sxtb	r3, r3
+ 80042d4:	f043 0310 	orr.w	r3, r3, #16
+ 80042d8:	b25b      	sxtb	r3, r3
+ 80042da:	b2db      	uxtb	r3, r3
+ 80042dc:	4618      	mov	r0, r3
+ 80042de:	f7ff ff95 	bl	800420c <HAL_LCD_Send_Command>
 	HAL_LCD_Send_Command(CMD_COLUMN_LSB(column));
- 800429c:	79fb      	ldrb	r3, [r7, #7]
- 800429e:	f003 030f 	and.w	r3, r3, #15
- 80042a2:	b2db      	uxtb	r3, r3
- 80042a4:	4618      	mov	r0, r3
- 80042a6:	f7ff ff8e 	bl	80041c6 <HAL_LCD_Send_Command>
+ 80042e2:	79fb      	ldrb	r3, [r7, #7]
+ 80042e4:	f003 030f 	and.w	r3, r3, #15
+ 80042e8:	b2db      	uxtb	r3, r3
+ 80042ea:	4618      	mov	r0, r3
+ 80042ec:	f7ff ff8e 	bl	800420c <HAL_LCD_Send_Command>
 	HAL_LCD_Send_Command(CMD_PAGE(page));
- 80042aa:	f997 3006 	ldrsb.w	r3, [r7, #6]
- 80042ae:	f003 030f 	and.w	r3, r3, #15
- 80042b2:	b25b      	sxtb	r3, r3
- 80042b4:	f063 034f 	orn	r3, r3, #79	; 0x4f
- 80042b8:	b25b      	sxtb	r3, r3
- 80042ba:	b2db      	uxtb	r3, r3
- 80042bc:	4618      	mov	r0, r3
- 80042be:	f7ff ff82 	bl	80041c6 <HAL_LCD_Send_Command>
+ 80042f0:	f997 3006 	ldrsb.w	r3, [r7, #6]
+ 80042f4:	f003 030f 	and.w	r3, r3, #15
+ 80042f8:	b25b      	sxtb	r3, r3
+ 80042fa:	f063 034f 	orn	r3, r3, #79	; 0x4f
+ 80042fe:	b25b      	sxtb	r3, r3
+ 8004300:	b2db      	uxtb	r3, r3
+ 8004302:	4618      	mov	r0, r3
+ 8004304:	f7ff ff82 	bl	800420c <HAL_LCD_Send_Command>
 
 	return;
- 80042c2:	bf00      	nop
+ 8004308:	bf00      	nop
 }
- 80042c4:	3708      	adds	r7, #8
- 80042c6:	46bd      	mov	sp, r7
- 80042c8:	bd80      	pop	{r7, pc}
-	...
+ 800430a:	3708      	adds	r7, #8
+ 800430c:	46bd      	mov	sp, r7
+ 800430e:	bd80      	pop	{r7, pc}
 
-080042cc <HAL_LCD_Write_ascii>:
+08004310 <HAL_LCD_Write_ascii>:
 void HAL_LCD_Write_ascii(uint8_t ascii, uint8_t column, uint8_t page)
 {
- 80042cc:	b580      	push	{r7, lr}
- 80042ce:	b084      	sub	sp, #16
- 80042d0:	af00      	add	r7, sp, #0
- 80042d2:	4603      	mov	r3, r0
- 80042d4:	71fb      	strb	r3, [r7, #7]
- 80042d6:	460b      	mov	r3, r1
- 80042d8:	71bb      	strb	r3, [r7, #6]
- 80042da:	4613      	mov	r3, r2
- 80042dc:	717b      	strb	r3, [r7, #5]
+ 8004310:	b580      	push	{r7, lr}
+ 8004312:	b084      	sub	sp, #16
+ 8004314:	af00      	add	r7, sp, #0
+ 8004316:	4603      	mov	r3, r0
+ 8004318:	71fb      	strb	r3, [r7, #7]
+ 800431a:	460b      	mov	r3, r1
+ 800431c:	71bb      	strb	r3, [r7, #6]
+ 800431e:	4613      	mov	r3, r2
+ 8004320:	717b      	strb	r3, [r7, #5]
 	/*This function requires a byte to print a single ascii character in the LCD,
 	this function also requires the exact page and column to print the ascii character in the lcd
 	remember that, MAX_WIDTH = 127, MAX_PAGE = 3 */
 	HAL_LCD_Send_Command(CMD_DISPLAY_ON_OFF(DISPLAY_ON));
- 80042de:	20af      	movs	r0, #175	; 0xaf
- 80042e0:	f7ff ff71 	bl	80041c6 <HAL_LCD_Send_Command>
+ 8004322:	20af      	movs	r0, #175	; 0xaf
+ 8004324:	f7ff ff72 	bl	800420c <HAL_LCD_Send_Command>
 	HAL_LCD_Set_Position(column,page);
- 80042e4:	797a      	ldrb	r2, [r7, #5]
- 80042e6:	79bb      	ldrb	r3, [r7, #6]
- 80042e8:	4611      	mov	r1, r2
- 80042ea:	4618      	mov	r0, r3
- 80042ec:	f7ff ffc3 	bl	8004276 <HAL_LCD_Set_Position>
+ 8004328:	797a      	ldrb	r2, [r7, #5]
+ 800432a:	79bb      	ldrb	r3, [r7, #6]
+ 800432c:	4611      	mov	r1, r2
+ 800432e:	4618      	mov	r0, r3
+ 8004330:	f7ff ffc4 	bl	80042bc <HAL_LCD_Set_Position>
 
 	for (uint8_t i=0; i<MAX_PIXEL_WIDTH ; i++)
- 80042f0:	2300      	movs	r3, #0
- 80042f2:	73fb      	strb	r3, [r7, #15]
- 80042f4:	e011      	b.n	800431a <HAL_LCD_Write_ascii+0x4e>
+ 8004334:	2300      	movs	r3, #0
+ 8004336:	73fb      	strb	r3, [r7, #15]
+ 8004338:	e011      	b.n	800435e <HAL_LCD_Write_ascii+0x4e>
 	{
 		HAL_LCD_Send_Data(HAL_REVERSE_BYTE(font[(ascii*5)+i]));
- 80042f6:	79fa      	ldrb	r2, [r7, #7]
- 80042f8:	4613      	mov	r3, r2
- 80042fa:	009b      	lsls	r3, r3, #2
- 80042fc:	441a      	add	r2, r3
- 80042fe:	7bfb      	ldrb	r3, [r7, #15]
- 8004300:	4413      	add	r3, r2
- 8004302:	4a0b      	ldr	r2, [pc, #44]	; (8004330 <HAL_LCD_Write_ascii+0x64>)
- 8004304:	5cd3      	ldrb	r3, [r2, r3]
- 8004306:	4618      	mov	r0, r3
- 8004308:	f000 f814 	bl	8004334 <HAL_REVERSE_BYTE>
- 800430c:	4603      	mov	r3, r0
- 800430e:	4618      	mov	r0, r3
- 8004310:	f7ff ff6f 	bl	80041f2 <HAL_LCD_Send_Data>
+ 800433a:	79fa      	ldrb	r2, [r7, #7]
+ 800433c:	4613      	mov	r3, r2
+ 800433e:	009b      	lsls	r3, r3, #2
+ 8004340:	441a      	add	r2, r3
+ 8004342:	7bfb      	ldrb	r3, [r7, #15]
+ 8004344:	4413      	add	r3, r2
+ 8004346:	4a0b      	ldr	r2, [pc, #44]	; (8004374 <HAL_LCD_Write_ascii+0x64>)
+ 8004348:	5cd3      	ldrb	r3, [r2, r3]
+ 800434a:	4618      	mov	r0, r3
+ 800434c:	f000 f814 	bl	8004378 <HAL_REVERSE_BYTE>
+ 8004350:	4603      	mov	r3, r0
+ 8004352:	4618      	mov	r0, r3
+ 8004354:	f7ff ff70 	bl	8004238 <HAL_LCD_Send_Data>
 	for (uint8_t i=0; i<MAX_PIXEL_WIDTH ; i++)
- 8004314:	7bfb      	ldrb	r3, [r7, #15]
- 8004316:	3301      	adds	r3, #1
- 8004318:	73fb      	strb	r3, [r7, #15]
- 800431a:	7bfb      	ldrb	r3, [r7, #15]
- 800431c:	2b04      	cmp	r3, #4
- 800431e:	d9ea      	bls.n	80042f6 <HAL_LCD_Write_ascii+0x2a>
+ 8004358:	7bfb      	ldrb	r3, [r7, #15]
+ 800435a:	3301      	adds	r3, #1
+ 800435c:	73fb      	strb	r3, [r7, #15]
+ 800435e:	7bfb      	ldrb	r3, [r7, #15]
+ 8004360:	2b04      	cmp	r3, #4
+ 8004362:	d9ea      	bls.n	800433a <HAL_LCD_Write_ascii+0x2a>
 	}
 
 	HAL_LCD_Send_Data(LETTER_SEPARATOR_BYTE);
- 8004320:	2000      	movs	r0, #0
- 8004322:	f7ff ff66 	bl	80041f2 <HAL_LCD_Send_Data>
+ 8004364:	2000      	movs	r0, #0
+ 8004366:	f7ff ff67 	bl	8004238 <HAL_LCD_Send_Data>
 
 	return;
- 8004326:	bf00      	nop
+ 800436a:	bf00      	nop
 }
- 8004328:	3710      	adds	r7, #16
- 800432a:	46bd      	mov	sp, r7
- 800432c:	bd80      	pop	{r7, pc}
- 800432e:	bf00      	nop
- 8004330:	200001c0 	.word	0x200001c0
+ 800436c:	3710      	adds	r7, #16
+ 800436e:	46bd      	mov	sp, r7
+ 8004370:	bd80      	pop	{r7, pc}
+ 8004372:	bf00      	nop
+ 8004374:	200001c0 	.word	0x200001c0
 
-08004334 <HAL_REVERSE_BYTE>:
+08004378 <HAL_REVERSE_BYTE>:
 uint8_t HAL_REVERSE_BYTE(uint8_t byte)
 {
- 8004334:	b480      	push	{r7}
- 8004336:	b083      	sub	sp, #12
- 8004338:	af00      	add	r7, sp, #0
- 800433a:	4603      	mov	r3, r0
- 800433c:	71fb      	strb	r3, [r7, #7]
+ 8004378:	b480      	push	{r7}
+ 800437a:	b083      	sub	sp, #12
+ 800437c:	af00      	add	r7, sp, #0
+ 800437e:	4603      	mov	r3, r0
+ 8004380:	71fb      	strb	r3, [r7, #7]
 	/*This function reverse a single BYTE, why do we need this function?
 	remember when we reversed the COMs in the HAL_LCD_Init() function, due this
 	the line address of the pages was flip, this means that the MSB line of each page was in the bottom
 	and the LSB was at the top. You need a function to reverse the data byte */
 	byte = (byte & 0xF0) >> 4 | (byte & 0x0F) << 4;
- 800433e:	79fb      	ldrb	r3, [r7, #7]
- 8004340:	091b      	lsrs	r3, r3, #4
- 8004342:	b2db      	uxtb	r3, r3
- 8004344:	b25a      	sxtb	r2, r3
- 8004346:	79fb      	ldrb	r3, [r7, #7]
- 8004348:	011b      	lsls	r3, r3, #4
- 800434a:	b25b      	sxtb	r3, r3
- 800434c:	4313      	orrs	r3, r2
- 800434e:	b25b      	sxtb	r3, r3
- 8004350:	71fb      	strb	r3, [r7, #7]
+ 8004382:	79fb      	ldrb	r3, [r7, #7]
+ 8004384:	091b      	lsrs	r3, r3, #4
+ 8004386:	b2db      	uxtb	r3, r3
+ 8004388:	b25a      	sxtb	r2, r3
+ 800438a:	79fb      	ldrb	r3, [r7, #7]
+ 800438c:	011b      	lsls	r3, r3, #4
+ 800438e:	b25b      	sxtb	r3, r3
+ 8004390:	4313      	orrs	r3, r2
+ 8004392:	b25b      	sxtb	r3, r3
+ 8004394:	71fb      	strb	r3, [r7, #7]
 	byte = (byte & 0xCC) >> 2 | (byte & 0x33) << 2;
- 8004352:	79fb      	ldrb	r3, [r7, #7]
- 8004354:	109b      	asrs	r3, r3, #2
- 8004356:	b25b      	sxtb	r3, r3
- 8004358:	f003 0333 	and.w	r3, r3, #51	; 0x33
- 800435c:	b25a      	sxtb	r2, r3
- 800435e:	79fb      	ldrb	r3, [r7, #7]
- 8004360:	009b      	lsls	r3, r3, #2
- 8004362:	b25b      	sxtb	r3, r3
- 8004364:	f023 0333 	bic.w	r3, r3, #51	; 0x33
- 8004368:	b25b      	sxtb	r3, r3
- 800436a:	4313      	orrs	r3, r2
- 800436c:	b25b      	sxtb	r3, r3
- 800436e:	71fb      	strb	r3, [r7, #7]
+ 8004396:	79fb      	ldrb	r3, [r7, #7]
+ 8004398:	109b      	asrs	r3, r3, #2
+ 800439a:	b25b      	sxtb	r3, r3
+ 800439c:	f003 0333 	and.w	r3, r3, #51	; 0x33
+ 80043a0:	b25a      	sxtb	r2, r3
+ 80043a2:	79fb      	ldrb	r3, [r7, #7]
+ 80043a4:	009b      	lsls	r3, r3, #2
+ 80043a6:	b25b      	sxtb	r3, r3
+ 80043a8:	f023 0333 	bic.w	r3, r3, #51	; 0x33
+ 80043ac:	b25b      	sxtb	r3, r3
+ 80043ae:	4313      	orrs	r3, r2
+ 80043b0:	b25b      	sxtb	r3, r3
+ 80043b2:	71fb      	strb	r3, [r7, #7]
 	byte = (byte & 0xAA) >> 1 | (byte & 0x55) << 1;
- 8004370:	79fb      	ldrb	r3, [r7, #7]
- 8004372:	105b      	asrs	r3, r3, #1
- 8004374:	b25b      	sxtb	r3, r3
- 8004376:	f003 0355 	and.w	r3, r3, #85	; 0x55
- 800437a:	b25a      	sxtb	r2, r3
- 800437c:	79fb      	ldrb	r3, [r7, #7]
- 800437e:	005b      	lsls	r3, r3, #1
- 8004380:	b25b      	sxtb	r3, r3
- 8004382:	f023 0355 	bic.w	r3, r3, #85	; 0x55
- 8004386:	b25b      	sxtb	r3, r3
- 8004388:	4313      	orrs	r3, r2
- 800438a:	b25b      	sxtb	r3, r3
- 800438c:	71fb      	strb	r3, [r7, #7]
+ 80043b4:	79fb      	ldrb	r3, [r7, #7]
+ 80043b6:	105b      	asrs	r3, r3, #1
+ 80043b8:	b25b      	sxtb	r3, r3
+ 80043ba:	f003 0355 	and.w	r3, r3, #85	; 0x55
+ 80043be:	b25a      	sxtb	r2, r3
+ 80043c0:	79fb      	ldrb	r3, [r7, #7]
+ 80043c2:	005b      	lsls	r3, r3, #1
+ 80043c4:	b25b      	sxtb	r3, r3
+ 80043c6:	f023 0355 	bic.w	r3, r3, #85	; 0x55
+ 80043ca:	b25b      	sxtb	r3, r3
+ 80043cc:	4313      	orrs	r3, r2
+ 80043ce:	b25b      	sxtb	r3, r3
+ 80043d0:	71fb      	strb	r3, [r7, #7]
 
 	return byte;
- 800438e:	79fb      	ldrb	r3, [r7, #7]
+ 80043d2:	79fb      	ldrb	r3, [r7, #7]
 }
- 8004390:	4618      	mov	r0, r3
- 8004392:	370c      	adds	r7, #12
- 8004394:	46bd      	mov	sp, r7
- 8004396:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800439a:	4770      	bx	lr
+ 80043d4:	4618      	mov	r0, r3
+ 80043d6:	370c      	adds	r7, #12
+ 80043d8:	46bd      	mov	sp, r7
+ 80043da:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80043de:	4770      	bx	lr
 
-0800439c <HAL_LCD_Write_AsciiString>:
+080043e0 <HAL_LCD_Write_AsciiString>:
 
 void HAL_LCD_Write_AsciiString(uint8_t word[21], uint8_t column, uint8_t page)
 {
- 800439c:	b580      	push	{r7, lr}
- 800439e:	b084      	sub	sp, #16
- 80043a0:	af00      	add	r7, sp, #0
- 80043a2:	6078      	str	r0, [r7, #4]
- 80043a4:	460b      	mov	r3, r1
- 80043a6:	70fb      	strb	r3, [r7, #3]
- 80043a8:	4613      	mov	r3, r2
- 80043aa:	70bb      	strb	r3, [r7, #2]
+ 80043e0:	b580      	push	{r7, lr}
+ 80043e2:	b084      	sub	sp, #16
+ 80043e4:	af00      	add	r7, sp, #0
+ 80043e6:	6078      	str	r0, [r7, #4]
+ 80043e8:	460b      	mov	r3, r1
+ 80043ea:	70fb      	strb	r3, [r7, #3]
+ 80043ec:	4613      	mov	r3, r2
+ 80043ee:	70bb      	strb	r3, [r7, #2]
 	/*This function writes a ascii string on the display, it could be a string like
 	"Hello", "123", "Hello123" or "Hello 123", this function considers also spaces*/
 	HAL_LCD_Set_Position(column,page);
- 80043ac:	78ba      	ldrb	r2, [r7, #2]
- 80043ae:	78fb      	ldrb	r3, [r7, #3]
- 80043b0:	4611      	mov	r1, r2
- 80043b2:	4618      	mov	r0, r3
- 80043b4:	f7ff ff5f 	bl	8004276 <HAL_LCD_Set_Position>
+ 80043f0:	78ba      	ldrb	r2, [r7, #2]
+ 80043f2:	78fb      	ldrb	r3, [r7, #3]
+ 80043f4:	4611      	mov	r1, r2
+ 80043f6:	4618      	mov	r0, r3
+ 80043f8:	f7ff ff60 	bl	80042bc <HAL_LCD_Set_Position>
 	for (uint8_t i=0;i<21;i++)
- 80043b8:	2300      	movs	r3, #0
- 80043ba:	73fb      	strb	r3, [r7, #15]
- 80043bc:	e014      	b.n	80043e8 <HAL_LCD_Write_AsciiString+0x4c>
+ 80043fc:	2300      	movs	r3, #0
+ 80043fe:	73fb      	strb	r3, [r7, #15]
+ 8004400:	e014      	b.n	800442c <HAL_LCD_Write_AsciiString+0x4c>
 	{
 		if (word[i]=='\0')
- 80043be:	7bfb      	ldrb	r3, [r7, #15]
- 80043c0:	687a      	ldr	r2, [r7, #4]
- 80043c2:	4413      	add	r3, r2
- 80043c4:	781b      	ldrb	r3, [r3, #0]
- 80043c6:	2b00      	cmp	r3, #0
- 80043c8:	d013      	beq.n	80043f2 <HAL_LCD_Write_AsciiString+0x56>
+ 8004402:	7bfb      	ldrb	r3, [r7, #15]
+ 8004404:	687a      	ldr	r2, [r7, #4]
+ 8004406:	4413      	add	r3, r2
+ 8004408:	781b      	ldrb	r3, [r3, #0]
+ 800440a:	2b00      	cmp	r3, #0
+ 800440c:	d013      	beq.n	8004436 <HAL_LCD_Write_AsciiString+0x56>
 		{
 			return;
 		}
 		HAL_LCD_Write_ascii(word[i],column,page);
- 80043ca:	7bfb      	ldrb	r3, [r7, #15]
- 80043cc:	687a      	ldr	r2, [r7, #4]
- 80043ce:	4413      	add	r3, r2
- 80043d0:	781b      	ldrb	r3, [r3, #0]
- 80043d2:	78ba      	ldrb	r2, [r7, #2]
- 80043d4:	78f9      	ldrb	r1, [r7, #3]
- 80043d6:	4618      	mov	r0, r3
- 80043d8:	f7ff ff78 	bl	80042cc <HAL_LCD_Write_ascii>
+ 800440e:	7bfb      	ldrb	r3, [r7, #15]
+ 8004410:	687a      	ldr	r2, [r7, #4]
+ 8004412:	4413      	add	r3, r2
+ 8004414:	781b      	ldrb	r3, [r3, #0]
+ 8004416:	78ba      	ldrb	r2, [r7, #2]
+ 8004418:	78f9      	ldrb	r1, [r7, #3]
+ 800441a:	4618      	mov	r0, r3
+ 800441c:	f7ff ff78 	bl	8004310 <HAL_LCD_Write_ascii>
 		column+=6;
- 80043dc:	78fb      	ldrb	r3, [r7, #3]
- 80043de:	3306      	adds	r3, #6
- 80043e0:	70fb      	strb	r3, [r7, #3]
+ 8004420:	78fb      	ldrb	r3, [r7, #3]
+ 8004422:	3306      	adds	r3, #6
+ 8004424:	70fb      	strb	r3, [r7, #3]
 	for (uint8_t i=0;i<21;i++)
- 80043e2:	7bfb      	ldrb	r3, [r7, #15]
- 80043e4:	3301      	adds	r3, #1
- 80043e6:	73fb      	strb	r3, [r7, #15]
- 80043e8:	7bfb      	ldrb	r3, [r7, #15]
- 80043ea:	2b14      	cmp	r3, #20
- 80043ec:	d9e7      	bls.n	80043be <HAL_LCD_Write_AsciiString+0x22>
+ 8004426:	7bfb      	ldrb	r3, [r7, #15]
+ 8004428:	3301      	adds	r3, #1
+ 800442a:	73fb      	strb	r3, [r7, #15]
+ 800442c:	7bfb      	ldrb	r3, [r7, #15]
+ 800442e:	2b14      	cmp	r3, #20
+ 8004430:	d9e7      	bls.n	8004402 <HAL_LCD_Write_AsciiString+0x22>
 
 	}
 
 	return;
- 80043ee:	bf00      	nop
- 80043f0:	e000      	b.n	80043f4 <HAL_LCD_Write_AsciiString+0x58>
+ 8004432:	bf00      	nop
+ 8004434:	e000      	b.n	8004438 <HAL_LCD_Write_AsciiString+0x58>
 			return;
- 80043f2:	bf00      	nop
+ 8004436:	bf00      	nop
 
 
 }
- 80043f4:	3710      	adds	r7, #16
- 80043f6:	46bd      	mov	sp, r7
- 80043f8:	bd80      	pop	{r7, pc}
+ 8004438:	3710      	adds	r7, #16
+ 800443a:	46bd      	mov	sp, r7
+ 800443c:	bd80      	pop	{r7, pc}
 	...
 
-080043fc <HAL_LCD_Write_Number>:
+08004440 <HAL_LCD_Write_Number>:
 
 void HAL_LCD_Write_Number(uint8_t *number, uint8_t column, uint8_t page)
 {
- 80043fc:	b580      	push	{r7, lr}
- 80043fe:	b084      	sub	sp, #16
- 8004400:	af00      	add	r7, sp, #0
- 8004402:	6078      	str	r0, [r7, #4]
- 8004404:	460b      	mov	r3, r1
- 8004406:	70fb      	strb	r3, [r7, #3]
- 8004408:	4613      	mov	r3, r2
- 800440a:	70bb      	strb	r3, [r7, #2]
+ 8004440:	b580      	push	{r7, lr}
+ 8004442:	b084      	sub	sp, #16
+ 8004444:	af00      	add	r7, sp, #0
+ 8004446:	6078      	str	r0, [r7, #4]
+ 8004448:	460b      	mov	r3, r1
+ 800444a:	70fb      	strb	r3, [r7, #3]
+ 800444c:	4613      	mov	r3, r2
+ 800444e:	70bb      	strb	r3, [r7, #2]
 	/*This function writes a number of 2 digits, it also needs the column and page where you want the
 	number, if the number is less than two digits, it will print 0#. Ex. If you want to print 9, the LCD
 	will print 09*/
 	uint8_t AsciiFirstDigit=*number/10+ADD_VALUE_TO_ASCII;
- 800440c:	687b      	ldr	r3, [r7, #4]
- 800440e:	781b      	ldrb	r3, [r3, #0]
- 8004410:	4a12      	ldr	r2, [pc, #72]	; (800445c <HAL_LCD_Write_Number+0x60>)
- 8004412:	fba2 2303 	umull	r2, r3, r2, r3
- 8004416:	08db      	lsrs	r3, r3, #3
- 8004418:	b2db      	uxtb	r3, r3
- 800441a:	3330      	adds	r3, #48	; 0x30
- 800441c:	73fb      	strb	r3, [r7, #15]
+ 8004450:	687b      	ldr	r3, [r7, #4]
+ 8004452:	781b      	ldrb	r3, [r3, #0]
+ 8004454:	4a12      	ldr	r2, [pc, #72]	; (80044a0 <HAL_LCD_Write_Number+0x60>)
+ 8004456:	fba2 2303 	umull	r2, r3, r2, r3
+ 800445a:	08db      	lsrs	r3, r3, #3
+ 800445c:	b2db      	uxtb	r3, r3
+ 800445e:	3330      	adds	r3, #48	; 0x30
+ 8004460:	73fb      	strb	r3, [r7, #15]
 	uint8_t AsciiSecondDigit = *number%10+ADD_VALUE_TO_ASCII;
- 800441e:	687b      	ldr	r3, [r7, #4]
- 8004420:	781a      	ldrb	r2, [r3, #0]
- 8004422:	4b0e      	ldr	r3, [pc, #56]	; (800445c <HAL_LCD_Write_Number+0x60>)
- 8004424:	fba3 1302 	umull	r1, r3, r3, r2
- 8004428:	08d9      	lsrs	r1, r3, #3
- 800442a:	460b      	mov	r3, r1
- 800442c:	009b      	lsls	r3, r3, #2
- 800442e:	440b      	add	r3, r1
- 8004430:	005b      	lsls	r3, r3, #1
- 8004432:	1ad3      	subs	r3, r2, r3
- 8004434:	b2db      	uxtb	r3, r3
- 8004436:	3330      	adds	r3, #48	; 0x30
- 8004438:	73bb      	strb	r3, [r7, #14]
+ 8004462:	687b      	ldr	r3, [r7, #4]
+ 8004464:	781a      	ldrb	r2, [r3, #0]
+ 8004466:	4b0e      	ldr	r3, [pc, #56]	; (80044a0 <HAL_LCD_Write_Number+0x60>)
+ 8004468:	fba3 1302 	umull	r1, r3, r3, r2
+ 800446c:	08d9      	lsrs	r1, r3, #3
+ 800446e:	460b      	mov	r3, r1
+ 8004470:	009b      	lsls	r3, r3, #2
+ 8004472:	440b      	add	r3, r1
+ 8004474:	005b      	lsls	r3, r3, #1
+ 8004476:	1ad3      	subs	r3, r2, r3
+ 8004478:	b2db      	uxtb	r3, r3
+ 800447a:	3330      	adds	r3, #48	; 0x30
+ 800447c:	73bb      	strb	r3, [r7, #14]
 	uint8_t numberAscii [3]= {AsciiFirstDigit, AsciiSecondDigit,'\0'};
- 800443a:	7bfb      	ldrb	r3, [r7, #15]
- 800443c:	723b      	strb	r3, [r7, #8]
- 800443e:	7bbb      	ldrb	r3, [r7, #14]
- 8004440:	727b      	strb	r3, [r7, #9]
- 8004442:	2300      	movs	r3, #0
- 8004444:	72bb      	strb	r3, [r7, #10]
+ 800447e:	7bfb      	ldrb	r3, [r7, #15]
+ 8004480:	723b      	strb	r3, [r7, #8]
+ 8004482:	7bbb      	ldrb	r3, [r7, #14]
+ 8004484:	727b      	strb	r3, [r7, #9]
+ 8004486:	2300      	movs	r3, #0
+ 8004488:	72bb      	strb	r3, [r7, #10]
 	HAL_LCD_Write_AsciiString(numberAscii,column,page);
- 8004446:	78ba      	ldrb	r2, [r7, #2]
- 8004448:	78f9      	ldrb	r1, [r7, #3]
- 800444a:	f107 0308 	add.w	r3, r7, #8
- 800444e:	4618      	mov	r0, r3
- 8004450:	f7ff ffa4 	bl	800439c <HAL_LCD_Write_AsciiString>
+ 800448a:	78ba      	ldrb	r2, [r7, #2]
+ 800448c:	78f9      	ldrb	r1, [r7, #3]
+ 800448e:	f107 0308 	add.w	r3, r7, #8
+ 8004492:	4618      	mov	r0, r3
+ 8004494:	f7ff ffa4 	bl	80043e0 <HAL_LCD_Write_AsciiString>
 
 	return;
- 8004454:	bf00      	nop
+ 8004498:	bf00      	nop
 }
- 8004456:	3710      	adds	r7, #16
- 8004458:	46bd      	mov	sp, r7
- 800445a:	bd80      	pop	{r7, pc}
- 800445c:	cccccccd 	.word	0xcccccccd
+ 800449a:	3710      	adds	r7, #16
+ 800449c:	46bd      	mov	sp, r7
+ 800449e:	bd80      	pop	{r7, pc}
+ 80044a0:	cccccccd 	.word	0xcccccccd
 
-08004460 <HAL_POT_Init>:
+080044a4 <HAL_POT_Init>:
  */
 #include "HAL_POT.h"
 
 /*This function initialize the ADC*/
 void HAL_POT_Init(void)
 {
- 8004460:	b580      	push	{r7, lr}
- 8004462:	af00      	add	r7, sp, #0
+ 80044a4:	b580      	push	{r7, lr}
+ 80044a6:	af00      	add	r7, sp, #0
 	MX_ADC1_Init();
- 8004464:	f7fc fc0a 	bl	8000c7c <MX_ADC1_Init>
+ 80044a8:	f7fc fbe8 	bl	8000c7c <MX_ADC1_Init>
 	MX_ADC1_Calibration();
- 8004468:	f7fc fcb4 	bl	8000dd4 <MX_ADC1_Calibration>
+ 80044ac:	f7fc fc92 	bl	8000dd4 <MX_ADC1_Calibration>
 	MX_ADC1_Enable();
- 800446c:	f7fc fca2 	bl	8000db4 <MX_ADC1_Enable>
+ 80044b0:	f7fc fc80 	bl	8000db4 <MX_ADC1_Enable>
 }
- 8004470:	bf00      	nop
- 8004472:	bd80      	pop	{r7, pc}
+ 80044b4:	bf00      	nop
+ 80044b6:	bd80      	pop	{r7, pc}
 
-08004474 <HAL_POT_GetBinaryValue>:
+080044b8 <HAL_POT_GetBinaryValue>:
 
 /*This function returns the ADC value i an 8 bits format*/
 uint16_t HAL_POT_GetBinaryValue (uint32_t Channel)
 {
- 8004474:	b580      	push	{r7, lr}
- 8004476:	b084      	sub	sp, #16
- 8004478:	af00      	add	r7, sp, #0
- 800447a:	6078      	str	r0, [r7, #4]
+ 80044b8:	b580      	push	{r7, lr}
+ 80044ba:	b084      	sub	sp, #16
+ 80044bc:	af00      	add	r7, sp, #0
+ 80044be:	6078      	str	r0, [r7, #4]
 	uint16_t POT_value = 0;
- 800447c:	2300      	movs	r3, #0
- 800447e:	81fb      	strh	r3, [r7, #14]
+ 80044c0:	2300      	movs	r3, #0
+ 80044c2:	81fb      	strh	r3, [r7, #14]
 	MX_ADC1_SetChannel(Channel);
- 8004480:	6878      	ldr	r0, [r7, #4]
- 8004482:	f7fc fcb9 	bl	8000df8 <MX_ADC1_SetChannel>
+ 80044c4:	6878      	ldr	r0, [r7, #4]
+ 80044c6:	f7fc fc97 	bl	8000df8 <MX_ADC1_SetChannel>
 	MX_ADC1_StartConversion();
- 8004486:	f7fc fcdb 	bl	8000e40 <MX_ADC1_StartConversion>
+ 80044ca:	f7fc fcb9 	bl	8000e40 <MX_ADC1_StartConversion>
 	POT_value = MX_ADC1_GetValue();
- 800448a:	f7fc fced 	bl	8000e68 <MX_ADC1_GetValue>
- 800448e:	4603      	mov	r3, r0
- 8004490:	81fb      	strh	r3, [r7, #14]
+ 80044ce:	f7fc fccb 	bl	8000e68 <MX_ADC1_GetValue>
+ 80044d2:	4603      	mov	r3, r0
+ 80044d4:	81fb      	strh	r3, [r7, #14]
 	LL_mDelay(10);
- 8004492:	200a      	movs	r0, #10
- 8004494:	f7ff fdfa 	bl	800408c <LL_mDelay>
+ 80044d6:	200a      	movs	r0, #10
+ 80044d8:	f7ff fdd8 	bl	800408c <LL_mDelay>
 
 	return POT_value;
- 8004498:	89fb      	ldrh	r3, [r7, #14]
+ 80044dc:	89fb      	ldrh	r3, [r7, #14]
 }
- 800449a:	4618      	mov	r0, r3
- 800449c:	3710      	adds	r7, #16
- 800449e:	46bd      	mov	sp, r7
- 80044a0:	bd80      	pop	{r7, pc}
+ 80044de:	4618      	mov	r0, r3
+ 80044e0:	3710      	adds	r7, #16
+ 80044e2:	46bd      	mov	sp, r7
+ 80044e4:	bd80      	pop	{r7, pc}
 	...
 
-080044a4 <HAL_POT_Percentage>:
+080044e8 <HAL_POT_Percentage>:
 	return POT_VoltageValue;
 }
 
 /*This function returns the value of the potentiometer as a percentage*/
 uint8_t HAL_POT_Percentage (uint32_t Channel)
 {
- 80044a4:	b580      	push	{r7, lr}
- 80044a6:	b084      	sub	sp, #16
- 80044a8:	af00      	add	r7, sp, #0
- 80044aa:	6078      	str	r0, [r7, #4]
+ 80044e8:	b580      	push	{r7, lr}
+ 80044ea:	b084      	sub	sp, #16
+ 80044ec:	af00      	add	r7, sp, #0
+ 80044ee:	6078      	str	r0, [r7, #4]
 	uint8_t POT_Percent = 0;
- 80044ac:	2300      	movs	r3, #0
- 80044ae:	73fb      	strb	r3, [r7, #15]
+ 80044f0:	2300      	movs	r3, #0
+ 80044f2:	73fb      	strb	r3, [r7, #15]
 	uint16_t measure = 0;
- 80044b0:	2300      	movs	r3, #0
- 80044b2:	81bb      	strh	r3, [r7, #12]
+ 80044f4:	2300      	movs	r3, #0
+ 80044f6:	81bb      	strh	r3, [r7, #12]
 
 	measure = HAL_POT_GetBinaryValue(Channel);
- 80044b4:	6878      	ldr	r0, [r7, #4]
- 80044b6:	f7ff ffdd 	bl	8004474 <HAL_POT_GetBinaryValue>
- 80044ba:	4603      	mov	r3, r0
- 80044bc:	81bb      	strh	r3, [r7, #12]
+ 80044f8:	6878      	ldr	r0, [r7, #4]
+ 80044fa:	f7ff ffdd 	bl	80044b8 <HAL_POT_GetBinaryValue>
+ 80044fe:	4603      	mov	r3, r0
+ 8004500:	81bb      	strh	r3, [r7, #12]
 	POT_Percent = (measure * 100)/POT_MAX_Count;
- 80044be:	89bb      	ldrh	r3, [r7, #12]
- 80044c0:	2264      	movs	r2, #100	; 0x64
- 80044c2:	fb02 f303 	mul.w	r3, r2, r3
- 80044c6:	4a06      	ldr	r2, [pc, #24]	; (80044e0 <HAL_POT_Percentage+0x3c>)
- 80044c8:	fb82 1203 	smull	r1, r2, r2, r3
- 80044cc:	441a      	add	r2, r3
- 80044ce:	11d2      	asrs	r2, r2, #7
- 80044d0:	17db      	asrs	r3, r3, #31
- 80044d2:	1ad3      	subs	r3, r2, r3
- 80044d4:	73fb      	strb	r3, [r7, #15]
+ 8004502:	89bb      	ldrh	r3, [r7, #12]
+ 8004504:	2264      	movs	r2, #100	; 0x64
+ 8004506:	fb02 f303 	mul.w	r3, r2, r3
+ 800450a:	4a06      	ldr	r2, [pc, #24]	; (8004524 <HAL_POT_Percentage+0x3c>)
+ 800450c:	fb82 1203 	smull	r1, r2, r2, r3
+ 8004510:	441a      	add	r2, r3
+ 8004512:	11d2      	asrs	r2, r2, #7
+ 8004514:	17db      	asrs	r3, r3, #31
+ 8004516:	1ad3      	subs	r3, r2, r3
+ 8004518:	73fb      	strb	r3, [r7, #15]
 
 	return POT_Percent;
- 80044d6:	7bfb      	ldrb	r3, [r7, #15]
+ 800451a:	7bfb      	ldrb	r3, [r7, #15]
 }
- 80044d8:	4618      	mov	r0, r3
- 80044da:	3710      	adds	r7, #16
- 80044dc:	46bd      	mov	sp, r7
- 80044de:	bd80      	pop	{r7, pc}
- 80044e0:	80808081 	.word	0x80808081
+ 800451c:	4618      	mov	r0, r3
+ 800451e:	3710      	adds	r7, #16
+ 8004520:	46bd      	mov	sp, r7
+ 8004522:	bd80      	pop	{r7, pc}
+ 8004524:	80808081 	.word	0x80808081
 
-080044e4 <HAL_RTC_Init>:
+08004528 <HAL_RTC_Init>:
  */
 #include "HAL_RTC.h"
 
 /*This function initialize the RTC module*/
 void HAL_RTC_Init(void)
 {
- 80044e4:	b580      	push	{r7, lr}
- 80044e6:	af00      	add	r7, sp, #0
+ 8004528:	b580      	push	{r7, lr}
+ 800452a:	af00      	add	r7, sp, #0
 	MX_RTC_Init();
- 80044e8:	f7fe fbe8 	bl	8002cbc <MX_RTC_Init>
+ 800452c:	f7fe fbc6 	bl	8002cbc <MX_RTC_Init>
 	return;
- 80044ec:	bf00      	nop
+ 8004530:	bf00      	nop
 }
- 80044ee:	bd80      	pop	{r7, pc}
+ 8004532:	bd80      	pop	{r7, pc}
 
-080044f0 <HAL_Get_ActualTime>:
+08004534 <HAL_Get_ActualTime>:
 
 /*This function returns the actual time, the pointers should be put in the argument as following: hour, minutes, seconds*/
 void HAL_Get_ActualTime(uint8_t *hh, uint8_t *mm, uint8_t *ss)
 {
- 80044f0:	b580      	push	{r7, lr}
- 80044f2:	b084      	sub	sp, #16
- 80044f4:	af00      	add	r7, sp, #0
- 80044f6:	60f8      	str	r0, [r7, #12]
- 80044f8:	60b9      	str	r1, [r7, #8]
- 80044fa:	607a      	str	r2, [r7, #4]
+ 8004534:	b580      	push	{r7, lr}
+ 8004536:	b084      	sub	sp, #16
+ 8004538:	af00      	add	r7, sp, #0
+ 800453a:	60f8      	str	r0, [r7, #12]
+ 800453c:	60b9      	str	r1, [r7, #8]
+ 800453e:	607a      	str	r2, [r7, #4]
 	MX_RTC_GetTime(hh, mm, ss);
- 80044fc:	687a      	ldr	r2, [r7, #4]
- 80044fe:	68b9      	ldr	r1, [r7, #8]
- 8004500:	68f8      	ldr	r0, [r7, #12]
- 8004502:	f7fe fc5b 	bl	8002dbc <MX_RTC_GetTime>
+ 8004540:	687a      	ldr	r2, [r7, #4]
+ 8004542:	68b9      	ldr	r1, [r7, #8]
+ 8004544:	68f8      	ldr	r0, [r7, #12]
+ 8004546:	f7fe fc39 	bl	8002dbc <MX_RTC_GetTime>
 	LL_mDelay(50);
- 8004506:	2032      	movs	r0, #50	; 0x32
- 8004508:	f7ff fdc0 	bl	800408c <LL_mDelay>
+ 800454a:	2032      	movs	r0, #50	; 0x32
+ 800454c:	f7ff fd9e 	bl	800408c <LL_mDelay>
 	return;
- 800450c:	bf00      	nop
+ 8004550:	bf00      	nop
 }
- 800450e:	3710      	adds	r7, #16
- 8004510:	46bd      	mov	sp, r7
- 8004512:	bd80      	pop	{r7, pc}
+ 8004552:	3710      	adds	r7, #16
+ 8004554:	46bd      	mov	sp, r7
+ 8004556:	bd80      	pop	{r7, pc}
 
-08004514 <HAL_Set_ActualTime>:
+08004558 <HAL_Set_ActualTime>:
 }
 
 /*This function allow to configure a new actual time, the value of the new time should be put in the argument as
  * following: hour, minutes, seconds*/
 void HAL_Set_ActualTime(uint8_t hh, uint8_t mm, uint8_t ss)
 {
- 8004514:	b580      	push	{r7, lr}
- 8004516:	b082      	sub	sp, #8
- 8004518:	af00      	add	r7, sp, #0
- 800451a:	4603      	mov	r3, r0
- 800451c:	71fb      	strb	r3, [r7, #7]
- 800451e:	460b      	mov	r3, r1
- 8004520:	71bb      	strb	r3, [r7, #6]
- 8004522:	4613      	mov	r3, r2
- 8004524:	717b      	strb	r3, [r7, #5]
+ 8004558:	b580      	push	{r7, lr}
+ 800455a:	b082      	sub	sp, #8
+ 800455c:	af00      	add	r7, sp, #0
+ 800455e:	4603      	mov	r3, r0
+ 8004560:	71fb      	strb	r3, [r7, #7]
+ 8004562:	460b      	mov	r3, r1
+ 8004564:	71bb      	strb	r3, [r7, #6]
+ 8004566:	4613      	mov	r3, r2
+ 8004568:	717b      	strb	r3, [r7, #5]
 	MX_RTC_SetTime(hh, mm, ss);
- 8004526:	797a      	ldrb	r2, [r7, #5]
- 8004528:	79b9      	ldrb	r1, [r7, #6]
- 800452a:	79fb      	ldrb	r3, [r7, #7]
- 800452c:	4618      	mov	r0, r3
- 800452e:	f7fe fca3 	bl	8002e78 <MX_RTC_SetTime>
+ 800456a:	797a      	ldrb	r2, [r7, #5]
+ 800456c:	79b9      	ldrb	r1, [r7, #6]
+ 800456e:	79fb      	ldrb	r3, [r7, #7]
+ 8004570:	4618      	mov	r0, r3
+ 8004572:	f7fe fc81 	bl	8002e78 <MX_RTC_SetTime>
 	LL_mDelay(50);
- 8004532:	2032      	movs	r0, #50	; 0x32
- 8004534:	f7ff fdaa 	bl	800408c <LL_mDelay>
+ 8004576:	2032      	movs	r0, #50	; 0x32
+ 8004578:	f7ff fd88 	bl	800408c <LL_mDelay>
 	return;
- 8004538:	bf00      	nop
+ 800457c:	bf00      	nop
 }
- 800453a:	3708      	adds	r7, #8
- 800453c:	46bd      	mov	sp, r7
- 800453e:	bd80      	pop	{r7, pc}
+ 800457e:	3708      	adds	r7, #8
+ 8004580:	46bd      	mov	sp, r7
+ 8004582:	bd80      	pop	{r7, pc}
 
-08004540 <HAL_TEMPSen_Init>:
+08004584 <HAL_TEMPSen_Init>:
  *      Author: carlo
  */
 #include "HAL_TEMPSen.h"
 
 void HAL_TEMPSen_Init()
 {
- 8004540:	b580      	push	{r7, lr}
- 8004542:	af00      	add	r7, sp, #0
+ 8004584:	b580      	push	{r7, lr}
+ 8004586:	af00      	add	r7, sp, #0
 	MX_I2C1_Init();
- 8004544:	f7fc ff26 	bl	8001394 <MX_I2C1_Init>
+ 8004588:	f7fc ff04 	bl	8001394 <MX_I2C1_Init>
 	return;
- 8004548:	bf00      	nop
+ 800458c:	bf00      	nop
 }
- 800454a:	bd80      	pop	{r7, pc}
+ 800458e:	bd80      	pop	{r7, pc}
 
-0800454c <HAL_TEMPSen_ReadTemperature>:
+08004590 <HAL_TEMPSen_ReadTemperature>:
 
 uint8_t HAL_TEMPSen_ReadTemperature(void)
 {
- 800454c:	b590      	push	{r4, r7, lr}
- 800454e:	b085      	sub	sp, #20
- 8004550:	af00      	add	r7, sp, #0
+ 8004590:	b590      	push	{r4, r7, lr}
+ 8004592:	b085      	sub	sp, #20
+ 8004594:	af00      	add	r7, sp, #0
 	  uint16_t measure = 0x00;
- 8004552:	2300      	movs	r3, #0
- 8004554:	81fb      	strh	r3, [r7, #14]
+ 8004596:	2300      	movs	r3, #0
+ 8004598:	81fb      	strh	r3, [r7, #14]
 	  uint8_t data[2];
 	  uint8_t temp = 0;
- 8004556:	2300      	movs	r3, #0
- 8004558:	71fb      	strb	r3, [r7, #7]
+ 800459a:	2300      	movs	r3, #0
+ 800459c:	71fb      	strb	r3, [r7, #7]
 	  data [0]= LM75B_CMD_Temp;
- 800455a:	2300      	movs	r3, #0
- 800455c:	713b      	strb	r3, [r7, #4]
+ 800459e:	2300      	movs	r3, #0
+ 80045a0:	713b      	strb	r3, [r7, #4]
 	  MX_I2C1_Write(1, data, TEMP_Sens_ADDR);
- 800455e:	1d3b      	adds	r3, r7, #4
- 8004560:	2290      	movs	r2, #144	; 0x90
- 8004562:	4619      	mov	r1, r3
- 8004564:	2001      	movs	r0, #1
- 8004566:	f7fc ffdb 	bl	8001520 <MX_I2C1_Write>
+ 80045a2:	1d3b      	adds	r3, r7, #4
+ 80045a4:	2290      	movs	r2, #144	; 0x90
+ 80045a6:	4619      	mov	r1, r3
+ 80045a8:	2001      	movs	r0, #1
+ 80045aa:	f7fc ffb9 	bl	8001520 <MX_I2C1_Write>
 	  MX_I2C_Read(2, data, TEMP_Sens_ADDR);
- 800456a:	1d3b      	adds	r3, r7, #4
- 800456c:	2290      	movs	r2, #144	; 0x90
- 800456e:	4619      	mov	r1, r3
- 8004570:	2002      	movs	r0, #2
- 8004572:	f7fc ffa1 	bl	80014b8 <MX_I2C_Read>
+ 80045ae:	1d3b      	adds	r3, r7, #4
+ 80045b0:	2290      	movs	r2, #144	; 0x90
+ 80045b2:	4619      	mov	r1, r3
+ 80045b4:	2002      	movs	r0, #2
+ 80045b6:	f7fc ff7f 	bl	80014b8 <MX_I2C_Read>
 
 	  for (int i=0; i<2; i++)
- 8004576:	2300      	movs	r3, #0
- 8004578:	60bb      	str	r3, [r7, #8]
- 800457a:	e010      	b.n	800459e <HAL_TEMPSen_ReadTemperature+0x52>
+ 80045ba:	2300      	movs	r3, #0
+ 80045bc:	60bb      	str	r3, [r7, #8]
+ 80045be:	e010      	b.n	80045e2 <HAL_TEMPSen_ReadTemperature+0x52>
 	  {
 		  if(i==0)
- 800457c:	68bb      	ldr	r3, [r7, #8]
- 800457e:	2b00      	cmp	r3, #0
- 8004580:	d105      	bne.n	800458e <HAL_TEMPSen_ReadTemperature+0x42>
+ 80045c0:	68bb      	ldr	r3, [r7, #8]
+ 80045c2:	2b00      	cmp	r3, #0
+ 80045c4:	d105      	bne.n	80045d2 <HAL_TEMPSen_ReadTemperature+0x42>
 		  {
 			  measure = data[0];
- 8004582:	793b      	ldrb	r3, [r7, #4]
- 8004584:	81fb      	strh	r3, [r7, #14]
+ 80045c6:	793b      	ldrb	r3, [r7, #4]
+ 80045c8:	81fb      	strh	r3, [r7, #14]
 			  measure = measure << 8;
- 8004586:	89fb      	ldrh	r3, [r7, #14]
- 8004588:	021b      	lsls	r3, r3, #8
- 800458a:	81fb      	strh	r3, [r7, #14]
- 800458c:	e004      	b.n	8004598 <HAL_TEMPSen_ReadTemperature+0x4c>
+ 80045ca:	89fb      	ldrh	r3, [r7, #14]
+ 80045cc:	021b      	lsls	r3, r3, #8
+ 80045ce:	81fb      	strh	r3, [r7, #14]
+ 80045d0:	e004      	b.n	80045dc <HAL_TEMPSen_ReadTemperature+0x4c>
 		  }else
 		  {
 			  measure = measure | (data[1]);
- 800458e:	797b      	ldrb	r3, [r7, #5]
- 8004590:	b29a      	uxth	r2, r3
- 8004592:	89fb      	ldrh	r3, [r7, #14]
- 8004594:	4313      	orrs	r3, r2
- 8004596:	81fb      	strh	r3, [r7, #14]
+ 80045d2:	797b      	ldrb	r3, [r7, #5]
+ 80045d4:	b29a      	uxth	r2, r3
+ 80045d6:	89fb      	ldrh	r3, [r7, #14]
+ 80045d8:	4313      	orrs	r3, r2
+ 80045da:	81fb      	strh	r3, [r7, #14]
 	  for (int i=0; i<2; i++)
- 8004598:	68bb      	ldr	r3, [r7, #8]
- 800459a:	3301      	adds	r3, #1
- 800459c:	60bb      	str	r3, [r7, #8]
- 800459e:	68bb      	ldr	r3, [r7, #8]
- 80045a0:	2b01      	cmp	r3, #1
- 80045a2:	ddeb      	ble.n	800457c <HAL_TEMPSen_ReadTemperature+0x30>
+ 80045dc:	68bb      	ldr	r3, [r7, #8]
+ 80045de:	3301      	adds	r3, #1
+ 80045e0:	60bb      	str	r3, [r7, #8]
+ 80045e2:	68bb      	ldr	r3, [r7, #8]
+ 80045e4:	2b01      	cmp	r3, #1
+ 80045e6:	ddeb      	ble.n	80045c0 <HAL_TEMPSen_ReadTemperature+0x30>
 		  }
 	  }
 	  measure = measure >> 5;
- 80045a4:	89fb      	ldrh	r3, [r7, #14]
- 80045a6:	095b      	lsrs	r3, r3, #5
- 80045a8:	81fb      	strh	r3, [r7, #14]
+ 80045e8:	89fb      	ldrh	r3, [r7, #14]
+ 80045ea:	095b      	lsrs	r3, r3, #5
+ 80045ec:	81fb      	strh	r3, [r7, #14]
 	  temp = (uint8_t)(measure * 0.125);
- 80045aa:	89fb      	ldrh	r3, [r7, #14]
- 80045ac:	4618      	mov	r0, r3
- 80045ae:	f7fb ff5d 	bl	800046c <__aeabi_i2d>
- 80045b2:	f04f 0200 	mov.w	r2, #0
- 80045b6:	f04f 537f 	mov.w	r3, #1069547520	; 0x3fc00000
- 80045ba:	f7fb ffbd 	bl	8000538 <__aeabi_dmul>
- 80045be:	4603      	mov	r3, r0
- 80045c0:	460c      	mov	r4, r1
- 80045c2:	4618      	mov	r0, r3
- 80045c4:	4621      	mov	r1, r4
- 80045c6:	f7fc f9c9 	bl	800095c <__aeabi_d2uiz>
- 80045ca:	4603      	mov	r3, r0
- 80045cc:	71fb      	strb	r3, [r7, #7]
+ 80045ee:	89fb      	ldrh	r3, [r7, #14]
+ 80045f0:	4618      	mov	r0, r3
+ 80045f2:	f7fb ff3b 	bl	800046c <__aeabi_i2d>
+ 80045f6:	f04f 0200 	mov.w	r2, #0
+ 80045fa:	f04f 537f 	mov.w	r3, #1069547520	; 0x3fc00000
+ 80045fe:	f7fb ff9b 	bl	8000538 <__aeabi_dmul>
+ 8004602:	4603      	mov	r3, r0
+ 8004604:	460c      	mov	r4, r1
+ 8004606:	4618      	mov	r0, r3
+ 8004608:	4621      	mov	r1, r4
+ 800460a:	f7fc f9a7 	bl	800095c <__aeabi_d2uiz>
+ 800460e:	4603      	mov	r3, r0
+ 8004610:	71fb      	strb	r3, [r7, #7]
 
 	  return temp;
- 80045ce:	79fb      	ldrb	r3, [r7, #7]
+ 8004612:	79fb      	ldrb	r3, [r7, #7]
 }
- 80045d0:	4618      	mov	r0, r3
- 80045d2:	3714      	adds	r7, #20
- 80045d4:	46bd      	mov	sp, r7
- 80045d6:	bd90      	pop	{r4, r7, pc}
+ 8004614:	4618      	mov	r0, r3
+ 8004616:	3714      	adds	r7, #20
+ 8004618:	46bd      	mov	sp, r7
+ 800461a:	bd90      	pop	{r4, r7, pc}
 
-080045d8 <Reset_Handler>:
+0800461c <Reset_Handler>:
 
     .section	.text.Reset_Handler
 	.weak	Reset_Handler
 	.type	Reset_Handler, %function
 Reset_Handler:
   ldr   sp, =_estack    /* Atollic update: set stack pointer */
- 80045d8:	f8df d034 	ldr.w	sp, [pc, #52]	; 8004610 <LoopForever+0x2>
+ 800461c:	f8df d034 	ldr.w	sp, [pc, #52]	; 8004654 <LoopForever+0x2>
 
 /* Copy the data segment initializers from flash to SRAM */
   ldr r0, =_sdata
- 80045dc:	480d      	ldr	r0, [pc, #52]	; (8004614 <LoopForever+0x6>)
+ 8004620:	480d      	ldr	r0, [pc, #52]	; (8004658 <LoopForever+0x6>)
   ldr r1, =_edata
- 80045de:	490e      	ldr	r1, [pc, #56]	; (8004618 <LoopForever+0xa>)
+ 8004622:	490e      	ldr	r1, [pc, #56]	; (800465c <LoopForever+0xa>)
   ldr r2, =_sidata
- 80045e0:	4a0e      	ldr	r2, [pc, #56]	; (800461c <LoopForever+0xe>)
+ 8004624:	4a0e      	ldr	r2, [pc, #56]	; (8004660 <LoopForever+0xe>)
   movs r3, #0
- 80045e2:	2300      	movs	r3, #0
+ 8004626:	2300      	movs	r3, #0
   b LoopCopyDataInit
- 80045e4:	e002      	b.n	80045ec <LoopCopyDataInit>
+ 8004628:	e002      	b.n	8004630 <LoopCopyDataInit>
 
-080045e6 <CopyDataInit>:
+0800462a <CopyDataInit>:
 
 CopyDataInit:
   ldr r4, [r2, r3]
- 80045e6:	58d4      	ldr	r4, [r2, r3]
+ 800462a:	58d4      	ldr	r4, [r2, r3]
   str r4, [r0, r3]
- 80045e8:	50c4      	str	r4, [r0, r3]
+ 800462c:	50c4      	str	r4, [r0, r3]
   adds r3, r3, #4
- 80045ea:	3304      	adds	r3, #4
+ 800462e:	3304      	adds	r3, #4
 
-080045ec <LoopCopyDataInit>:
+08004630 <LoopCopyDataInit>:
 
 LoopCopyDataInit:
   adds r4, r0, r3
- 80045ec:	18c4      	adds	r4, r0, r3
+ 8004630:	18c4      	adds	r4, r0, r3
   cmp r4, r1
- 80045ee:	428c      	cmp	r4, r1
+ 8004632:	428c      	cmp	r4, r1
   bcc CopyDataInit
- 80045f0:	d3f9      	bcc.n	80045e6 <CopyDataInit>
+ 8004634:	d3f9      	bcc.n	800462a <CopyDataInit>
   
 /* Zero fill the bss segment. */
   ldr r2, =_sbss
- 80045f2:	4a0b      	ldr	r2, [pc, #44]	; (8004620 <LoopForever+0x12>)
+ 8004636:	4a0b      	ldr	r2, [pc, #44]	; (8004664 <LoopForever+0x12>)
   ldr r4, =_ebss
- 80045f4:	4c0b      	ldr	r4, [pc, #44]	; (8004624 <LoopForever+0x16>)
+ 8004638:	4c0b      	ldr	r4, [pc, #44]	; (8004668 <LoopForever+0x16>)
   movs r3, #0
- 80045f6:	2300      	movs	r3, #0
+ 800463a:	2300      	movs	r3, #0
   b LoopFillZerobss
- 80045f8:	e001      	b.n	80045fe <LoopFillZerobss>
+ 800463c:	e001      	b.n	8004642 <LoopFillZerobss>
 
-080045fa <FillZerobss>:
+0800463e <FillZerobss>:
 
 FillZerobss:
   str  r3, [r2]
- 80045fa:	6013      	str	r3, [r2, #0]
+ 800463e:	6013      	str	r3, [r2, #0]
   adds r2, r2, #4
- 80045fc:	3204      	adds	r2, #4
+ 8004640:	3204      	adds	r2, #4
 
-080045fe <LoopFillZerobss>:
+08004642 <LoopFillZerobss>:
 
 LoopFillZerobss:
   cmp r2, r4
- 80045fe:	42a2      	cmp	r2, r4
+ 8004642:	42a2      	cmp	r2, r4
   bcc FillZerobss
- 8004600:	d3fb      	bcc.n	80045fa <FillZerobss>
+ 8004644:	d3fb      	bcc.n	800463e <FillZerobss>
 
 /* Call the clock system intitialization function.*/
     bl  SystemInit
- 8004602:	f7fe fe1f 	bl	8003244 <SystemInit>
+ 8004646:	f7fe fdfd 	bl	8003244 <SystemInit>
 /* Call static constructors */
     bl __libc_init_array
- 8004606:	f000 f811 	bl	800462c <__libc_init_array>
+ 800464a:	f000 f811 	bl	8004670 <__libc_init_array>
 /* Call the application's entry point.*/
 	bl	main
- 800460a:	f7fd fa2b 	bl	8001a64 <main>
+ 800464e:	f7fd fa09 	bl	8001a64 <main>
 
-0800460e <LoopForever>:
+08004652 <LoopForever>:
 
 LoopForever:
     b LoopForever
- 800460e:	e7fe      	b.n	800460e <LoopForever>
+ 8004652:	e7fe      	b.n	8004652 <LoopForever>
   ldr   sp, =_estack    /* Atollic update: set stack pointer */
- 8004610:	20003000 	.word	0x20003000
+ 8004654:	20003000 	.word	0x20003000
   ldr r0, =_sdata
- 8004614:	20000000 	.word	0x20000000
+ 8004658:	20000000 	.word	0x20000000
   ldr r1, =_edata
- 8004618:	200006bc 	.word	0x200006bc
+ 800465c:	200006bc 	.word	0x200006bc
   ldr r2, =_sidata
- 800461c:	080046cc 	.word	0x080046cc
+ 8004660:	08004710 	.word	0x08004710
   ldr r2, =_sbss
- 8004620:	200006bc 	.word	0x200006bc
+ 8004664:	200006bc 	.word	0x200006bc
   ldr r4, =_ebss
- 8004624:	20000704 	.word	0x20000704
+ 8004668:	20000704 	.word	0x20000704
 
-08004628 <ADC1_2_IRQHandler>:
+0800466c <ADC1_2_IRQHandler>:
  * @retval : None
 */
     .section	.text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
 	b	Infinite_Loop
- 8004628:	e7fe      	b.n	8004628 <ADC1_2_IRQHandler>
+ 800466c:	e7fe      	b.n	800466c <ADC1_2_IRQHandler>
 	...
 
-0800462c <__libc_init_array>:
- 800462c:	b570      	push	{r4, r5, r6, lr}
- 800462e:	4e0d      	ldr	r6, [pc, #52]	; (8004664 <__libc_init_array+0x38>)
- 8004630:	4c0d      	ldr	r4, [pc, #52]	; (8004668 <__libc_init_array+0x3c>)
- 8004632:	1ba4      	subs	r4, r4, r6
- 8004634:	10a4      	asrs	r4, r4, #2
- 8004636:	2500      	movs	r5, #0
- 8004638:	42a5      	cmp	r5, r4
- 800463a:	d109      	bne.n	8004650 <__libc_init_array+0x24>
- 800463c:	4e0b      	ldr	r6, [pc, #44]	; (800466c <__libc_init_array+0x40>)
- 800463e:	4c0c      	ldr	r4, [pc, #48]	; (8004670 <__libc_init_array+0x44>)
- 8004640:	f000 f820 	bl	8004684 <_init>
- 8004644:	1ba4      	subs	r4, r4, r6
- 8004646:	10a4      	asrs	r4, r4, #2
- 8004648:	2500      	movs	r5, #0
- 800464a:	42a5      	cmp	r5, r4
- 800464c:	d105      	bne.n	800465a <__libc_init_array+0x2e>
- 800464e:	bd70      	pop	{r4, r5, r6, pc}
- 8004650:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
- 8004654:	4798      	blx	r3
- 8004656:	3501      	adds	r5, #1
- 8004658:	e7ee      	b.n	8004638 <__libc_init_array+0xc>
- 800465a:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
- 800465e:	4798      	blx	r3
- 8004660:	3501      	adds	r5, #1
- 8004662:	e7f2      	b.n	800464a <__libc_init_array+0x1e>
- 8004664:	080046c4 	.word	0x080046c4
- 8004668:	080046c4 	.word	0x080046c4
- 800466c:	080046c4 	.word	0x080046c4
- 8004670:	080046c8 	.word	0x080046c8
+08004670 <__libc_init_array>:
+ 8004670:	b570      	push	{r4, r5, r6, lr}
+ 8004672:	4e0d      	ldr	r6, [pc, #52]	; (80046a8 <__libc_init_array+0x38>)
+ 8004674:	4c0d      	ldr	r4, [pc, #52]	; (80046ac <__libc_init_array+0x3c>)
+ 8004676:	1ba4      	subs	r4, r4, r6
+ 8004678:	10a4      	asrs	r4, r4, #2
+ 800467a:	2500      	movs	r5, #0
+ 800467c:	42a5      	cmp	r5, r4
+ 800467e:	d109      	bne.n	8004694 <__libc_init_array+0x24>
+ 8004680:	4e0b      	ldr	r6, [pc, #44]	; (80046b0 <__libc_init_array+0x40>)
+ 8004682:	4c0c      	ldr	r4, [pc, #48]	; (80046b4 <__libc_init_array+0x44>)
+ 8004684:	f000 f820 	bl	80046c8 <_init>
+ 8004688:	1ba4      	subs	r4, r4, r6
+ 800468a:	10a4      	asrs	r4, r4, #2
+ 800468c:	2500      	movs	r5, #0
+ 800468e:	42a5      	cmp	r5, r4
+ 8004690:	d105      	bne.n	800469e <__libc_init_array+0x2e>
+ 8004692:	bd70      	pop	{r4, r5, r6, pc}
+ 8004694:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
+ 8004698:	4798      	blx	r3
+ 800469a:	3501      	adds	r5, #1
+ 800469c:	e7ee      	b.n	800467c <__libc_init_array+0xc>
+ 800469e:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
+ 80046a2:	4798      	blx	r3
+ 80046a4:	3501      	adds	r5, #1
+ 80046a6:	e7f2      	b.n	800468e <__libc_init_array+0x1e>
+ 80046a8:	08004708 	.word	0x08004708
+ 80046ac:	08004708 	.word	0x08004708
+ 80046b0:	08004708 	.word	0x08004708
+ 80046b4:	0800470c 	.word	0x0800470c
 
-08004674 <memset>:
- 8004674:	4402      	add	r2, r0
- 8004676:	4603      	mov	r3, r0
- 8004678:	4293      	cmp	r3, r2
- 800467a:	d100      	bne.n	800467e <memset+0xa>
- 800467c:	4770      	bx	lr
- 800467e:	f803 1b01 	strb.w	r1, [r3], #1
- 8004682:	e7f9      	b.n	8004678 <memset+0x4>
+080046b8 <memset>:
+ 80046b8:	4402      	add	r2, r0
+ 80046ba:	4603      	mov	r3, r0
+ 80046bc:	4293      	cmp	r3, r2
+ 80046be:	d100      	bne.n	80046c2 <memset+0xa>
+ 80046c0:	4770      	bx	lr
+ 80046c2:	f803 1b01 	strb.w	r1, [r3], #1
+ 80046c6:	e7f9      	b.n	80046bc <memset+0x4>
 
-08004684 <_init>:
- 8004684:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 8004686:	bf00      	nop
- 8004688:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 800468a:	bc08      	pop	{r3}
- 800468c:	469e      	mov	lr, r3
- 800468e:	4770      	bx	lr
+080046c8 <_init>:
+ 80046c8:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80046ca:	bf00      	nop
+ 80046cc:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80046ce:	bc08      	pop	{r3}
+ 80046d0:	469e      	mov	lr, r3
+ 80046d2:	4770      	bx	lr
 
-08004690 <_fini>:
- 8004690:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 8004692:	bf00      	nop
- 8004694:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 8004696:	bc08      	pop	{r3}
- 8004698:	469e      	mov	lr, r3
- 800469a:	4770      	bx	lr
+080046d4 <_fini>:
+ 80046d4:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80046d6:	bf00      	nop
+ 80046d8:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80046da:	bc08      	pop	{r3}
+ 80046dc:	469e      	mov	lr, r3
+ 80046de:	4770      	bx	lr

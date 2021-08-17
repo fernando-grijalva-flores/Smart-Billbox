@@ -27,7 +27,7 @@
 #include "HAL_TEMPSen.h"
 #include "HAL_RTC.h"
 #include "HAL_LCD.h"
-#include <Menus.h>
+#include "HAL_JOYSTICK.h"
 
 /* USER CODE END Includes */
 
@@ -170,15 +170,15 @@ int main(void)
 				  	  first=0;
 		  }
 	  }
-	  short btnu = MX_Joystick_Up();
+	  short btnu = HAL_JOYSTICK_UpPressed();
 	 // LL_mDelay(2);
-	  short btnd = MX_Joystick_Down();
+	  short btnd = HAL_JOYSTICK_DownPressed();
 	  //LL_mDelay(2);
-	  short btnl = MX_Joystick_Left();
+	  short btnl = HAL_JOYSTICK_LeftPressed();
 	  //LL_mDelay(2);
-	  short btnr = MX_Joystick_Right();
+	  short btnr = HAL_JOYSTICK_RightPressed();
 	 // LL_mDelay(2);
-	  short btnc = MX_Joystick_Center();
+	  short btnc = HAL_JOYSTICK_CenterPressed();
 	  fsm(btnu, btnd, btnl, btnr, btnc);
 
 	/* USER CODE END WHILE */
