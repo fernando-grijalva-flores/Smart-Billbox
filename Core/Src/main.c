@@ -38,7 +38,7 @@
 uint8_t Horas, Minutos, IntervaloH1, IntervaloH2, IntervaloH3, IntervaloM1, IntervaloM2, IntervaloM3;
 uint8_t IntervaloAH1, IntervaloAH2, IntervaloAH3, IntervaloAM1, IntervaloAM2, IntervaloAM3;
 uint8_t Hora,Minuto,Segundo;
-uint8_t alarma1,alarma2,alarma3;
+uint8_t alarma1,alarma2,alarma3,tiempobuzer;
 
 typedef enum{
 	E0,
@@ -48,8 +48,7 @@ typedef enum{
 	E4,
 	E5,
 	E6,
-	E7,
-	E8
+	E7
 }Estados;
 
 typedef enum
@@ -148,10 +147,10 @@ int main(void)
 
 	  HAL_Get_ActualTime(&Hora,&Minuto,&Segundo);
 
-	  if (inicio==1)
-	  	  {
-		  if ((Hora-IntervaloAH1) >= IntervaloH1 && (Minuto-IntervaloAM1) >= IntervaloM1 && alarma1==inactive)
-		  {
+	  if (inicio==1){
+		  if ((Hora-IntervaloAH1) >= IntervaloH1 && (Minuto-IntervaloAM1) >= IntervaloM1 && alarma1==inactive){
+			  HAL_Buzzer_State(1);
+			  tiempobuzer = Minuto;
 			  IntervaloAH1 = Hora;
 			  IntervaloAM1 = Minuto;
 			  if (inicio2==0){
@@ -161,38 +160,39 @@ int main(void)
 		  	  EA=E5;
 		  	  alarma1=active;
 		  }
-		  if ((Hora-IntervaloAH2) >= IntervaloH2 && (Minuto-IntervaloAM2) >= IntervaloM2 && alarma2==inactive)
-		  {
-			IntervaloAH2 = Hora;
-			IntervaloAM2 = Minuto;
-			if (inicio2==0){
-				first=0;
-				inicio2=1;
-			}
-			EA=E5;
-		  	alarma2=active;
+		  if ((Hora-IntervaloAH2) >= IntervaloH2 && (Minuto-IntervaloAM2) >= IntervaloM2 && alarma2==inactive){
+			  HAL_Buzzer_State(1);
+			  tiempobuzer = Minuto;
+			  IntervaloAH2 = Hora;
+			  IntervaloAM2 = Minuto;
+			  if (inicio2==0){
+				  first=0;
+				  inicio2=1;
+			  }
+			  EA=E5;
+			  alarma2=active;
 		  }
-		  if ((Hora-IntervaloAH3) >= IntervaloH3 && (Minuto-IntervaloAM3) >= IntervaloM3 && alarma3==inactive)
-		  {
-
-			IntervaloAH3 = Hora;
-			IntervaloAM3 = Minuto;
-			if (inicio2==0){
-				first=0;
-				inicio2=1;
-			}
-			EA=E5;
-		  	alarma3=active;
+		  if ((Hora-IntervaloAH3) >= IntervaloH3 && (Minuto-IntervaloAM3) >= IntervaloM3 && alarma3==inactive){
+			  HAL_Buzzer_State(1);
+			  tiempobuzer = Minuto;
+			  IntervaloAH3 = Hora;
+			  IntervaloAM3 = Minuto;
+			  if (inicio2==0){
+				  first=0;
+				  inicio2=1;
+			  }
+			  EA=E5;
+			  alarma3=active;
 		  }
 	  }
 
-
-	  if(Temp >= Temp_limit)
-	  {
+	  if(Temp >= Temp_limit){
+		  HAL_Buzzer_State(1);
+		  tiempobuzer = Minuto;
 		  temp_alert = active;
-		  EA = E8;
-	  }else
-	  {
+		  EA = E4;
+	  }
+	  else{
 		  temp_alert = inactive;
 	  }
 
@@ -592,18 +592,33 @@ void EDO_3(short btnU, short btnD, short btnL, short btnR, short btnC){
 
 void EDO_4(short btnU, short btnD, short btnL, short btnR, short btnC){
 	// Alarma Temperatura
-	if(first == 0){
-		// Mostrado de valores fijos
-		HAL_LCD_Write_AsciiString("Temperatura",30,1);
-		HAL_LCD_Write_AsciiString("Sobrepasada",30,2);
-		first = 1;
-	}
-	if(HAL_TEMPSen_ReadTemperature() < 40){
-		// Cambio de estado
-		EA = E2;
-		first = 0;
-		HAL_LCD_Clear();
-	}
+	if(first == 0)
+		{
+			// Mostrado de valores fijos
+			HAL_LCD_Clear();
+			HAL_LCD_Write_AsciiString(word[alerta],30,0);
+			HAL_LCD_Write_AsciiString(word[de],72,0);
+			HAL_LCD_Write_AsciiString(word[temperatura],24,1);
+			HAL_LCD_Write_AsciiString(word[elevada],36,2);
+			HAL_LCD_Write_ascii(SYMBOL_ASCII_CELSIUS,60,3);
+			HAL_LCD_Write_ascii('C',66,3);
+			first = 1;
+		}
+		if((Minuto-tiempobuzer) >= 2)
+			HAL_Buzzer_State(0);
+		HAL_LCD_Write_Number(&Temp,48,3);
+		/*El estado actual se mantendrá en el Estado 8 (estado alerta de temperatura elevada) mientras  temp_alert este activa
+		 esto debido a que la temperatura no a decendido del valor limite
+		*/
+		if(!temp_alert)
+		{
+			//Si la temperatura deciende del valor limite, el estado regresa a mostrar la pantalla principal
+			EA = E2;
+			first = 0;
+			HAL_Buzzer_State(0);
+		}
+
+		estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
 void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
@@ -661,13 +676,18 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
 		HAL_LCD_Write_ascii('>',48,2);
 		HAL_LCD_Write_ascii('>',60,1);
 	}
+
+	if((Minuto-tiempobuzer) >= 2)
+		HAL_Buzzer_State(0);
+
 	if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
 		EA = E3;
 		first = 0;
-		inicio2=0;
-		HAL_LCD_Clear();
+		inicio2 = 0;
 		rgb_apagado();
+		HAL_LCD_Clear();
+		HAL_Buzzer_State(0);
 		HAL_Get_ActualTime(&Hora,&Minuto,&Segundo);
 		if(alarma1==active)
 			alarma1=inactive;
@@ -720,36 +740,6 @@ void EDO_7(short btnU, short btnD, short btnL, short btnR, short btnC){
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
 
-//Función usada para el estado de "Alarma de Temperatura Activa"
-void EDO_8(short btnU, short btnD, short btnL, short btnR, short btnC)
-{
-	if(first == 0)
-	{
-		// Mostrado de valores fijos
-		HAL_LCD_Clear();
-		HAL_LCD_Write_AsciiString(word[alerta],30,0);
-		HAL_LCD_Write_AsciiString(word[de],72,0);
-		HAL_LCD_Write_AsciiString(word[temperatura],24,1);
-		HAL_LCD_Write_AsciiString(word[elevada],36,2);
-		HAL_LCD_Write_ascii(SYMBOL_ASCII_CELSIUS,60,3);
-		HAL_LCD_Write_ascii('C',66,3);
-		first = 1;
-	}
-
-	HAL_LCD_Write_Number(&Temp,48,3);
-	/*El estado actual se mantendrá en el Estado 8 (estado alerta de temperatura elevada) mientras  temp_alert este activa
-	 esto debido a que la temperatura no a decendido del valor limite
-	*/
-	if(!temp_alert)
-	{
-		//Si la temperatura deciende del valor limite, el estado regresa a mostrar la pantalla principal
-		first = 0;
-		EA = E2;
-	}
-
-	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
-
-}
 // Estructura para asignar una funcion a cada estado
 typedef struct {
 	Estados Estado;
@@ -765,8 +755,7 @@ FSM MDE[] = {
 		{E4,EDO_4},
 		{E5,EDO_5},
 		{E6,EDO_6},
-		{E7,EDO_7},
-		{E8,EDO_8}
+		{E7,EDO_7}
 };
 
 void fsm(short btnU, short btnD,short btnL, short btnR, short btnC){
