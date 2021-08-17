@@ -183,6 +183,8 @@ int main(void)
 		  	alarma3=active;
 		  }
 	  }
+
+
 	  if(Temp >= Temp_limit)
 	  {
 		  temp_alert = active;
@@ -191,7 +193,9 @@ int main(void)
 	  {
 		  temp_alert = inactive;
 	  }
+
 	  short btnu = HAL_JOYSTICK_UpPressed();
+
 	 // LL_mDelay(2);
 	  short btnd = HAL_JOYSTICK_DownPressed();
 	  //LL_mDelay(2);
