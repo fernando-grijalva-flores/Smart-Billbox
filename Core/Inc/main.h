@@ -41,6 +41,7 @@ extern "C" {
 #include "stm32f3xx_ll_dma.h"
 #include "stm32f3xx_ll_rtc.h"
 #include "stm32f3xx_ll_spi.h"
+#include "stm32f3xx_ll_tim.h"
 #include "stm32f3xx_ll_gpio.h"
 
 #if defined(USE_FULL_ASSERT)
@@ -97,8 +98,6 @@ void Error_Handler(void);
 #define J_CENTER_GPIO_Port GPIOB
 #define LCD_CS_N_Pin LL_GPIO_PIN_6
 #define LCD_CS_N_GPIO_Port GPIOB
-
-#define Temp_limit		(40) // Temperatura limite
 #ifndef NVIC_PRIORITYGROUP_0
 #define NVIC_PRIORITYGROUP_0         ((uint32_t)0x00000007) /*!< 0 bit  for pre-emption priority,
                                                                  4 bits for subpriority */

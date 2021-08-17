@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "gpio.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "HAL_RGB.h"
@@ -133,6 +134,7 @@ int main(void)
   HAL_LCD_Init();
   HAL_POT_Init();
   /* USER CODE END 2 */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
@@ -206,7 +208,7 @@ int main(void)
 	  short btnc = HAL_JOYSTICK_CenterPressed();
 	  fsm(btnu, btnd, btnl, btnr, btnc);
 
-	/* USER CODE END WHILE */
+    /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 
