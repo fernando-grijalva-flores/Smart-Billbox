@@ -88,6 +88,7 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 uint8_t Temp = 0; //Variable para guardar la lectura de la temperatura actual
 uint8_t temp_alert = inactive;
+uint8_t inicio2=0;
 /* USER CODE END 0 */
 
 /**
@@ -138,7 +139,6 @@ int main(void)
   HAL_LCD_Write_AsciiString(word[iniciando],36,1);
   LL_mDelay(1000);
   HAL_LCD_Clear();
-  uint8_t inicio2=0;
   while (1)
   {
 	  //La temperatura se debe leer en todo momento, por lo que se llama a la funcion de ReadTemperature de la libreria HAL del sensor LM75B
@@ -628,18 +628,38 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
 		rgb_azul();
 	}
 	else if (alarma1==active && alarma2 == active && alarma3 ==inactive)
+	{
 		rgb_amarillo();
+		HAL_LCD_Write_ascii('>',60,1);
+		HAL_LCD_Write_ascii('>',30,1);
+		HAL_LCD_Write_ascii(' ',48,2);
+	}
 	else if (alarma1==inactive && alarma2 == active && alarma3 ==active)
+	{
 		rgb_celeste();
+		HAL_LCD_Write_ascii('>',48,2);
+		HAL_LCD_Write_ascii('>',60,1);
+		HAL_LCD_Write_ascii(' ',30,1);
+	}
 	else if (alarma1==active && alarma2 == inactive && alarma3 ==active)
+	{
 		rgb_morado();
+		HAL_LCD_Write_ascii('>',30,1);
+		HAL_LCD_Write_ascii('>',48,2);
+		HAL_LCD_Write_ascii(' ',60,1);
+	}
 	else
+	{
 		rgb_blanco();
-
+		HAL_LCD_Write_ascii('>',30,1);
+		HAL_LCD_Write_ascii('>',48,2);
+		HAL_LCD_Write_ascii('>',60,1);
+	}
 	if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
 		EA = E3;
 		first = 0;
+		inicio2=0;
 		HAL_LCD_Clear();
 		rgb_apagado();
 		HAL_Get_ActualTime(&Hora,&Minuto,&Segundo);
