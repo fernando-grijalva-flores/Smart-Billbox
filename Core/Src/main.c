@@ -137,7 +137,7 @@ int main(void)
 
   while (1)
   {
-
+	  HAL_Get_ActualTime(&Hora,&Minuto,&Segundo);
 	  if (inicio==1)
 	  	  {
 
@@ -151,16 +151,24 @@ int main(void)
 		  {
 			  EA=E5;
 		  	  alarma2=active;
+		  	  if (first==1)
+		  	  {
+		  		  first=1;
+		  	  }
+		  	  else
 		  	  first=0;
 		  }
 		  if (IntervaloH3 == Hora && IntervaloM3 == Minuto && alarma3==inactive)
 		  {
 			  EA=E5;
 		  	  alarma3=active;
-		  	  first=0;
+			  if (first==1)
+				  	  {
+				  		  first=1;
+				  	  }
+				  	  else
+				  	  first=0;
 		  }
-
-
 	  }
 	  short btnu = MX_Joystick_Up();
 	 // LL_mDelay(2);
@@ -406,7 +414,6 @@ void EDO_2(short btnU, short btnD, short btnL, short btnR, short btnC){
 		first = 1;
 	}
 	// Obtener tiempo
-	HAL_Get_ActualTime(&Hora,&Minuto,&Segundo);
 	// Mostrar tiempo
 	HAL_LCD_Write_Number(&Hora,48,1);
 	HAL_LCD_Write_Number(&Minuto,66,1);
@@ -574,6 +581,19 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
 		HAL_LCD_Write_AsciiString(word[azul],54,2);
 		HAL_LCD_Write_AsciiString(word[entendido],30,3);
 		first = 1;
+	}
+	if (alarma1==active)
+	{
+		HAL_LCD_Write_ascii('>',30,1);
+	}
+	if (alarma2==active)
+	{
+		HAL_LCD_Write_ascii('>',60,1);
+
+	}
+	if (alarma3==active)
+	{
+		HAL_LCD_Write_ascii('>',48,2);
 	}
 
 	if(btnC == 1 && btnC != btnCa){
