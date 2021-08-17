@@ -182,7 +182,7 @@ int main(void)
 
 		  }
 	  }
-<<<<<<< HEAD
+
 
 	  if(Temp >= Temp_limit)
 	  {
@@ -192,10 +192,9 @@ int main(void)
 	  {
 		  temp_alert = inactive;
 	  }
-	  short btnu = MX_Joystick_Up();
-=======
+
 	  short btnu = HAL_JOYSTICK_UpPressed();
->>>>>>> 6ef1c946f82640891de4e4204d9be56353cda309
+
 	 // LL_mDelay(2);
 	  short btnd = HAL_JOYSTICK_DownPressed();
 	  //LL_mDelay(2);

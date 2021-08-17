@@ -98,7 +98,7 @@ void Error_Handler(void);
 #define LCD_CS_N_Pin LL_GPIO_PIN_6
 #define LCD_CS_N_GPIO_Port GPIOB
 
-#define Temp_limit		(5) // Temperatura limite
+#define Temp_limit		(25) // Temperatura limite
 #ifndef NVIC_PRIORITYGROUP_0
 #define NVIC_PRIORITYGROUP_0         ((uint32_t)0x00000007) /*!< 0 bit  for pre-emption priority,
                                                                  4 bits for subpriority */

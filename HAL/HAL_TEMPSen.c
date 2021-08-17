@@ -15,6 +15,7 @@ void HAL_TEMPSen_Init()
 uint8_t HAL_TEMPSen_ReadTemperature(void)
 {
 	  uint16_t measure = 0x00;
+	  float tempConv = 0.0;
 	  uint8_t data[2];
 	  uint8_t temp = 0;
 	  data [0]= LM75B_CMD_Temp;
@@ -33,7 +34,8 @@ uint8_t HAL_TEMPSen_ReadTemperature(void)
 		  }
 	  }
 	  measure = measure >> 5;
-	  temp = (uint8_t)(measure*125)/100;
+	  tempConv = (float)(measure)*0.125;
+	  temp = (uint8_t)tempConv;
 
 	  return temp;
 }
