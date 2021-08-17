@@ -78,6 +78,20 @@ void MX_TIM2_Init(void)
 
 /* USER CODE BEGIN 1 */
 
+//ThisFunction enable the counter used to create the PWM signal
+void MX_PWM_TurnOn(void)
+{
+	LL_TIM_EnableCounter(TIM2);
+	return;
+}
+
+//ThisFunction disable the counter used to create the PWM signal
+void MX_PWM_TurnOff(void)
+{
+	LL_TIM_DisableCounter(TIM2);
+	return;
+}
+
 /* USER CODE END 1 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

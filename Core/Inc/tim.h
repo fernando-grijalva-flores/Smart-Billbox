@@ -38,7 +38,8 @@ extern "C" {
 void MX_TIM2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+void MX_PWM_TurnOn(void);
+void MX_PWM_TurnOff(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
