@@ -3399,7 +3399,7 @@ int main(void)
 	  if(Temp >= Temp_limit)
  80014da:	4b19      	ldr	r3, [pc, #100]	; (8001540 <main+0x204>)
  80014dc:	781b      	ldrb	r3, [r3, #0]
- 80014de:	2b18      	cmp	r3, #24
+ 80014de:	2b27      	cmp	r3, #39	; 0x27
  80014e0:	d906      	bls.n	80014f0 <main+0x1b4>
 	  {
 		  temp_alert = active;
