@@ -35,6 +35,7 @@
 /* USER CODE BEGIN PTD */
 // Estado inicial
 uint8_t Horas, Minutos, IntervaloH1, IntervaloH2, IntervaloH3, IntervaloM1, IntervaloM2, IntervaloM3;
+uint8_t IntervaloAH1, IntervaloAH2, IntervaloAH3, IntervaloAM1, IntervaloAM2, IntervaloAM3;
 uint8_t Hora,Minuto,Segundo;
 uint8_t alarma1,alarma2,alarma3;
 
@@ -147,39 +148,39 @@ int main(void)
 
 	  if (inicio==1)
 	  	  {
-
-		  if (IntervaloH1==Hora && IntervaloM1==Minuto && alarma1==inactive)
+		  if ((Hora-IntervaloAH1) >= IntervaloH1 && (Minuto-IntervaloAM1) >= IntervaloM1 && alarma1==inactive)
 		  {
-			  if (inicio2==0)
-			  {
+			  IntervaloAH1 = Hora;
+			  IntervaloAM1 = Minuto;
+			  if (inicio2==0){
 				  first=0;
 				  inicio2=1;
 			  }
 		  	  EA=E5;
 		  	  alarma1=active;
-
 		  }
-		  if (IntervaloH2==Hora && IntervaloM2==Minuto && alarma2==inactive)
+		  if ((Hora-IntervaloAH2) >= IntervaloH2 && (Minuto-IntervaloAM2) >= IntervaloM2 && alarma2==inactive)
 		  {
-			  if (inicio2==0)
-			  {
-			  first=0;
-			  inicio2=1;
-			  }
-			  EA=E5;
-		  	  alarma2=active;
-
+			IntervaloAH2 = Hora;
+			IntervaloAM2 = Minuto;
+			if (inicio2==0){
+				first=0;
+				inicio2=1;
+			}
+			EA=E5;
+		  	alarma2=active;
 		  }
-		  if (IntervaloH3 == Hora && IntervaloM3 == Minuto && alarma3==inactive)
+		  if ((Hora-IntervaloAH3) >= IntervaloH3 && (Minuto-IntervaloAM3) >= IntervaloM3 && alarma3==inactive)
 		  {
-			  if (inicio2==0)
-			  {
-			  first=0;
-			  inicio2=1;
-			  }
-			  EA=E5;
-		  	  alarma3=active;
 
+			IntervaloAH3 = Hora;
+			IntervaloAM3 = Minuto;
+			if (inicio2==0){
+				first=0;
+				inicio2=1;
+			}
+			EA=E5;
+		  	alarma3=active;
 		  }
 	  }
 
@@ -315,6 +316,12 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
 		first = 0;
 		HAL_LCD_Clear();
 		HAL_Set_ActualTime(Horas,Minutos,0);
+		IntervaloAH1 = Horas;
+		IntervaloAH2 = Horas;
+		IntervaloAH3 = Horas;
+		IntervaloAM1 = Minutos;
+		IntervaloAM2 = Minutos;
+		IntervaloAM3 = Minutos;
 	}
 	else if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
@@ -322,6 +329,12 @@ void EDO_0(short btnU, short btnD, short btnL, short btnR, short btnC){
 		first = 0;
 		HAL_LCD_Clear();
 		HAL_Set_ActualTime(Horas,Minutos,0);
+		IntervaloAH1 = Horas;
+		IntervaloAH2 = Horas;
+		IntervaloAH3 = Horas;
+		IntervaloAM1 = Minutos;
+		IntervaloAM2 = Minutos;
+		IntervaloAM3 = Minutos;
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
@@ -627,19 +640,19 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
 	else
 		rgb_blanco();
 
-
-
-
-
 	if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
 		EA = E3;
 		first = 0;
 		HAL_LCD_Clear();
 		rgb_apagado();
-		alarma1=inactive;
-		alarma2=inactive;
-		alarma3=inactive;
+		HAL_Get_ActualTime(&Hora,&Minuto,&Segundo);
+		if(alarma1==active)
+			alarma1=inactive;
+		if(alarma2==active)
+			alarma2=inactive;
+		if(alarma3==active)
+			alarma3=inactive;
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
