@@ -131,10 +131,10 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  HAL_LCD_Write_AsciiString(word[w_starting],36,1);
+  HAL_LCD_Write_AsciiString(word[iniciando],36,1);
   LL_mDelay(1000);
   HAL_LCD_Clear();
-
+  uint8_t inicio2=0;
   while (1)
   {
 	  HAL_Get_ActualTime(&Hora,&Minuto,&Segundo);
@@ -143,31 +143,36 @@ int main(void)
 
 		  if (IntervaloH1==Hora && IntervaloM1==Minuto && alarma1==inactive)
 		  {
+			  if (inicio2==0)
+			  {
+				  first=0;
+				  inicio2=1;
+			  }
 		  	  EA=E5;
 		  	  alarma1=active;
-		  	  first=0;
+
 		  }
 		  if (IntervaloH2==Hora && IntervaloM2==Minuto && alarma2==inactive)
 		  {
+			  if (inicio2==0)
+			  {
+			  first=0;
+			  inicio2=1;
+			  }
 			  EA=E5;
 		  	  alarma2=active;
-		  	  if (first==1)
-		  	  {
-		  		  first=1;
-		  	  }
-		  	  else
-		  	  first=0;
+
 		  }
 		  if (IntervaloH3 == Hora && IntervaloM3 == Minuto && alarma3==inactive)
 		  {
+			  if (inicio2==0)
+			  {
+			  first=0;
+			  inicio2=1;
+			  }
 			  EA=E5;
 		  	  alarma3=active;
-			  if (first==1)
-				  	  {
-				  		  first=1;
-				  	  }
-				  	  else
-				  	  first=0;
+
 		  }
 	  }
 	  short btnu = HAL_JOYSTICK_UpPressed();
@@ -582,25 +587,43 @@ void EDO_5(short btnU, short btnD, short btnL, short btnR, short btnC){
 		HAL_LCD_Write_AsciiString(word[entendido],30,3);
 		first = 1;
 	}
-	if (alarma1==active)
+	if (alarma1==active && alarma2 ==inactive && alarma3 == inactive)
 	{
 		HAL_LCD_Write_ascii('>',30,1);
+		rgb_rojo();
 	}
-	if (alarma2==active)
+	else if (alarma2==active && alarma1 == inactive && alarma3 == inactive)
 	{
 		HAL_LCD_Write_ascii('>',60,1);
-
+		rgb_verde();
 	}
-	if (alarma3==active)
+	else  if (alarma3==active && alarma1 ==inactive && alarma2 ==inactive)
 	{
 		HAL_LCD_Write_ascii('>',48,2);
+		rgb_azul();
 	}
+	else if (alarma1==active && alarma2 == active && alarma3 ==inactive)
+		rgb_amarillo();
+	else if (alarma1==inactive && alarma2 == active && alarma3 ==active)
+		rgb_celeste();
+	else if (alarma1==active && alarma2 == inactive && alarma3 ==active)
+		rgb_morado();
+	else
+		rgb_blanco();
+
+
+
+
 
 	if(btnC == 1 && btnC != btnCa){
 		// Cambio de estado
 		EA = E3;
 		first = 0;
 		HAL_LCD_Clear();
+		rgb_apagado();
+		alarma1=inactive;
+		alarma2=inactive;
+		alarma3=inactive;
 	}
 	estado_Anterior(btnU, btnD, btnL, btnR, btnC);
 }
